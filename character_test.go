@@ -143,35 +143,6 @@ func TestCharacterUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestCharacterListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := believe.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Characters.List(context.TODO(), believe.CharacterListParams{
-		Limit:       believe.Int(10),
-		MinOptimism: believe.Int(0),
-		Role:        believe.CharacterRoleCoach,
-		Skip:        believe.Int(0),
-		TeamID:      believe.String("team_id"),
-	})
-	if err != nil {
-		var apierr *believe.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
 func TestCharacterDelete(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
@@ -186,6 +157,35 @@ func TestCharacterDelete(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	err := client.Characters.Delete(context.TODO(), "character_id")
+	if err != nil {
+		var apierr *believe.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestCharacterGetAllCharactersWithOptionalParams(t *testing.T) {
+	t.Skip("Prism tests are disabled")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := believe.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Characters.GetAllCharacters(context.TODO(), believe.CharacterGetAllCharactersParams{
+		Limit:       believe.Int(10),
+		MinOptimism: believe.Int(0),
+		Role:        believe.CharacterRoleCoach,
+		Skip:        believe.Int(0),
+		TeamID:      believe.String("team_id"),
+	})
 	if err != nil {
 		var apierr *believe.Error
 		if errors.As(err, &apierr) {

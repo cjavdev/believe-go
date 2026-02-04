@@ -71,14 +71,6 @@ func (r *CharacterService) Update(ctx context.Context, characterID string, body 
 	return
 }
 
-// Get a paginated list of all Ted Lasso characters with optional filtering.
-func (r *CharacterService) List(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) (res *CharacterListResponse, err error) {
-	opts = slices.Concat(r.Options, opts)
-	path := "characters"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
-}
-
 // Remove a character from the database.
 func (r *CharacterService) Delete(ctx context.Context, characterID string, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
@@ -89,6 +81,14 @@ func (r *CharacterService) Delete(ctx context.Context, characterID string, opts 
 	}
 	path := fmt.Sprintf("characters/%s", url.PathEscape(characterID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
+// Get a paginated list of all Ted Lasso characters with optional filtering.
+func (r *CharacterService) GetAllCharacters(ctx context.Context, query CharacterGetAllCharactersParams, opts ...option.RequestOption) (res *CharacterGetAllCharactersResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "characters"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
@@ -310,7 +310,7 @@ func (r *GrowthArcParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type CharacterListResponse struct {
+type CharacterGetAllCharactersResponse struct {
 	Data []Character `json:"data,required"`
 	// Whether there are more items after this page.
 	HasMore bool  `json:"has_more,required"`
@@ -336,8 +336,8 @@ type CharacterListResponse struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r CharacterListResponse) RawJSON() string { return r.JSON.raw }
-func (r *CharacterListResponse) UnmarshalJSON(data []byte) error {
+func (r CharacterGetAllCharactersResponse) RawJSON() string { return r.JSON.raw }
+func (r *CharacterGetAllCharactersResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -444,7 +444,7 @@ func (u *CharacterUpdateParamsSalaryGbpUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, u)
 }
 
-type CharacterListParams struct {
+type CharacterGetAllCharactersParams struct {
 	// Minimum optimism score
 	MinOptimism param.Opt[int64] `query:"min_optimism,omitzero" json:"-"`
 	// Filter by team ID
@@ -461,8 +461,9 @@ type CharacterListParams struct {
 	paramObj
 }
 
-// URLQuery serializes [CharacterListParams]'s query parameters as `url.Values`.
-func (r CharacterListParams) URLQuery() (v url.Values, err error) {
+// URLQuery serializes [CharacterGetAllCharactersParams]'s query parameters as
+// `url.Values`.
+func (r CharacterGetAllCharactersParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,

@@ -25,9 +25,9 @@ func TestUsage(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	t.Skip("Prism tests are disabled")
-	characters, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
+	response, err := client.Characters.GetAllCharacters(context.TODO(), believe.CharacterGetAllCharactersParams{})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
-	t.Logf("%+v\n", characters.Data)
+	t.Logf("%+v\n", response.Data)
 }
