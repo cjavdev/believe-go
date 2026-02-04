@@ -72,7 +72,7 @@ func (r *CharacterService) Update(ctx context.Context, characterID string, body 
 	return
 }
 
-// Get a paginated list of all Ted Lasso characters with optional filtering.
+// Get a paginated list of Ted Lasso characters with optional filtering.
 func (r *CharacterService) List(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Character], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -90,7 +90,7 @@ func (r *CharacterService) List(ctx context.Context, query CharacterListParams, 
 	return res, nil
 }
 
-// Get a paginated list of all Ted Lasso characters with optional filtering.
+// Get a paginated list of Ted Lasso characters with optional filtering.
 func (r *CharacterService) ListAutoPaging(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Character] {
 	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }

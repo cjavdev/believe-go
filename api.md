@@ -98,6 +98,7 @@ Methods:
 - <code title="delete /matches/{match_id}">client.Matches.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#MatchService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, matchID <a href="https://pkg.go.dev/builtin#string">string</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
 - <code title="get /matches/{match_id}/lesson">client.Matches.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#MatchService.GetLesson">GetLesson</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, matchID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#MatchGetLessonResponse">MatchGetLessonResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /matches/{match_id}/turning-points">client.Matches.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#MatchService.GetTurningPoints">GetTurningPoints</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, matchID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*[]<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#MatchGetTurningPointsResponse">MatchGetTurningPointsResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /matches/live">client.Matches.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#MatchService.StreamLive">StreamLive</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#MatchStreamLiveParams">MatchStreamLiveParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
 
 ## Commentary
 
@@ -308,3 +309,11 @@ Response Types:
 Methods:
 
 - <code title="get /version">client.Version.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#VersionService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (\*<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#VersionGetResponse">VersionGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# Client
+
+## Ws
+
+Methods:
+
+- <code title="get /ws/test">client.Client.Ws.<a href="https://pkg.go.dev/github.com/stainless-sdks/believe-go#ClientWService.Test">Test</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
