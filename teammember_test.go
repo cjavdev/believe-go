@@ -27,7 +27,7 @@ func TestTeamMemberNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.TeamMembers.New(context.TODO(), believe.TeamMemberNewParams{
-		OfPlayer: &believe.TeamMemberNewParamsBodyPlayer{
+		OfPlayer: &believe.TeamMemberNewParamsMemberPlayer{
 			CharacterID:   "jamie-tartt",
 			JerseyNumber:  9,
 			Position:      believe.PositionForward,
@@ -88,7 +88,7 @@ func TestTeamMemberUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"member_id",
 		believe.TeamMemberUpdateParams{
-			OfPlayerUpdate: &believe.TeamMemberUpdateParamsBodyPlayerUpdate{
+			OfPlayerUpdate: &believe.TeamMemberUpdateParamsUpdatesPlayerUpdate{
 				Assists:       believe.Int(0),
 				GoalsScored:   believe.Int(0),
 				IsCaptain:     believe.Bool(true),

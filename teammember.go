@@ -1069,16 +1069,16 @@ type TeamMemberNewParams struct {
 
 	// This field is a request body variant, only one variant field can be set. A
 	// football player on the team.
-	OfPlayer *TeamMemberNewParamsBodyPlayer `json:",inline"`
+	OfPlayer *TeamMemberNewParamsMemberPlayer `json:",inline"`
 	// This field is a request body variant, only one variant field can be set. A coach
 	// or coaching staff member.
-	OfCoach *TeamMemberNewParamsBodyCoach `json:",inline"`
+	OfCoach *TeamMemberNewParamsMemberCoach `json:",inline"`
 	// This field is a request body variant, only one variant field can be set. Medical
 	// and wellness staff member.
-	OfMedicalStaff *TeamMemberNewParamsBodyMedicalStaff `json:",inline"`
+	OfMedicalStaff *TeamMemberNewParamsMemberMedicalStaff `json:",inline"`
 	// This field is a request body variant, only one variant field can be set.
 	// Equipment and kit management staff.
-	OfEquipmentManager *TeamMemberNewParamsBodyEquipmentManager `json:",inline"`
+	OfEquipmentManager *TeamMemberNewParamsMemberEquipmentManager `json:",inline"`
 
 	paramObj
 }
@@ -1094,7 +1094,7 @@ func (r *TeamMemberNewParams) UnmarshalJSON(data []byte) error {
 //
 // The properties CharacterID, JerseyNumber, Position, TeamID, YearsWithTeam are
 // required.
-type TeamMemberNewParamsBodyPlayer struct {
+type TeamMemberNewParamsMemberPlayer struct {
 	// ID of the character (references /characters/{id})
 	CharacterID string `json:"character_id,required"`
 	// Jersey/shirt number
@@ -1120,16 +1120,16 @@ type TeamMemberNewParamsBodyPlayer struct {
 	paramObj
 }
 
-func (r TeamMemberNewParamsBodyPlayer) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberNewParamsBodyPlayer
+func (r TeamMemberNewParamsMemberPlayer) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberNewParamsMemberPlayer
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberNewParamsBodyPlayer) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberNewParamsMemberPlayer) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[TeamMemberNewParamsBodyPlayer](
+	apijson.RegisterFieldValidator[TeamMemberNewParamsMemberPlayer](
 		"member_type", "player",
 	)
 }
@@ -1137,7 +1137,7 @@ func init() {
 // A coach or coaching staff member.
 //
 // The properties CharacterID, Specialty, TeamID, YearsWithTeam are required.
-type TeamMemberNewParamsBodyCoach struct {
+type TeamMemberNewParamsMemberCoach struct {
 	// ID of the character (references /characters/{id})
 	CharacterID string `json:"character_id,required"`
 	// Coaching specialty/role
@@ -1160,16 +1160,16 @@ type TeamMemberNewParamsBodyCoach struct {
 	paramObj
 }
 
-func (r TeamMemberNewParamsBodyCoach) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberNewParamsBodyCoach
+func (r TeamMemberNewParamsMemberCoach) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberNewParamsMemberCoach
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberNewParamsBodyCoach) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberNewParamsMemberCoach) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[TeamMemberNewParamsBodyCoach](
+	apijson.RegisterFieldValidator[TeamMemberNewParamsMemberCoach](
 		"member_type", "coach",
 	)
 }
@@ -1177,7 +1177,7 @@ func init() {
 // Medical and wellness staff member.
 //
 // The properties CharacterID, Specialty, TeamID, YearsWithTeam are required.
-type TeamMemberNewParamsBodyMedicalStaff struct {
+type TeamMemberNewParamsMemberMedicalStaff struct {
 	// ID of the character (references /characters/{id})
 	CharacterID string `json:"character_id,required"`
 	// Medical specialty
@@ -1200,16 +1200,16 @@ type TeamMemberNewParamsBodyMedicalStaff struct {
 	paramObj
 }
 
-func (r TeamMemberNewParamsBodyMedicalStaff) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberNewParamsBodyMedicalStaff
+func (r TeamMemberNewParamsMemberMedicalStaff) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberNewParamsMemberMedicalStaff
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberNewParamsBodyMedicalStaff) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberNewParamsMemberMedicalStaff) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[TeamMemberNewParamsBodyMedicalStaff](
+	apijson.RegisterFieldValidator[TeamMemberNewParamsMemberMedicalStaff](
 		"member_type", "medical_staff",
 	)
 }
@@ -1217,7 +1217,7 @@ func init() {
 // Equipment and kit management staff.
 //
 // The properties CharacterID, TeamID, YearsWithTeam are required.
-type TeamMemberNewParamsBodyEquipmentManager struct {
+type TeamMemberNewParamsMemberEquipmentManager struct {
 	// ID of the character (references /characters/{id})
 	CharacterID string `json:"character_id,required"`
 	// ID of the team they belong to
@@ -1235,16 +1235,16 @@ type TeamMemberNewParamsBodyEquipmentManager struct {
 	paramObj
 }
 
-func (r TeamMemberNewParamsBodyEquipmentManager) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberNewParamsBodyEquipmentManager
+func (r TeamMemberNewParamsMemberEquipmentManager) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberNewParamsMemberEquipmentManager
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberNewParamsBodyEquipmentManager) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberNewParamsMemberEquipmentManager) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 func init() {
-	apijson.RegisterFieldValidator[TeamMemberNewParamsBodyEquipmentManager](
+	apijson.RegisterFieldValidator[TeamMemberNewParamsMemberEquipmentManager](
 		"member_type", "equipment_manager",
 	)
 }
@@ -1257,16 +1257,16 @@ type TeamMemberUpdateParams struct {
 
 	// This field is a request body variant, only one variant field can be set. Update
 	// model for players.
-	OfPlayerUpdate *TeamMemberUpdateParamsBodyPlayerUpdate `json:",inline"`
+	OfPlayerUpdate *TeamMemberUpdateParamsUpdatesPlayerUpdate `json:",inline"`
 	// This field is a request body variant, only one variant field can be set. Update
 	// model for coaches.
-	OfCoachUpdate *TeamMemberUpdateParamsBodyCoachUpdate `json:",inline"`
+	OfCoachUpdate *TeamMemberUpdateParamsUpdatesCoachUpdate `json:",inline"`
 	// This field is a request body variant, only one variant field can be set. Update
 	// model for medical staff.
-	OfMedicalStaffUpdate *TeamMemberUpdateParamsBodyMedicalStaffUpdate `json:",inline"`
+	OfMedicalStaffUpdate *TeamMemberUpdateParamsUpdatesMedicalStaffUpdate `json:",inline"`
 	// This field is a request body variant, only one variant field can be set. Update
 	// model for equipment managers.
-	OfEquipmentManagerUpdate *TeamMemberUpdateParamsBodyEquipmentManagerUpdate `json:",inline"`
+	OfEquipmentManagerUpdate *TeamMemberUpdateParamsUpdatesEquipmentManagerUpdate `json:",inline"`
 
 	paramObj
 }
@@ -1279,7 +1279,7 @@ func (r *TeamMemberUpdateParams) UnmarshalJSON(data []byte) error {
 }
 
 // Update model for players.
-type TeamMemberUpdateParamsBodyPlayerUpdate struct {
+type TeamMemberUpdateParamsUpdatesPlayerUpdate struct {
 	Assists       param.Opt[int64]  `json:"assists,omitzero"`
 	GoalsScored   param.Opt[int64]  `json:"goals_scored,omitzero"`
 	IsCaptain     param.Opt[bool]   `json:"is_captain,omitzero"`
@@ -1293,16 +1293,16 @@ type TeamMemberUpdateParamsBodyPlayerUpdate struct {
 	paramObj
 }
 
-func (r TeamMemberUpdateParamsBodyPlayerUpdate) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberUpdateParamsBodyPlayerUpdate
+func (r TeamMemberUpdateParamsUpdatesPlayerUpdate) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberUpdateParamsUpdatesPlayerUpdate
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberUpdateParamsBodyPlayerUpdate) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberUpdateParamsUpdatesPlayerUpdate) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Update model for coaches.
-type TeamMemberUpdateParamsBodyCoachUpdate struct {
+type TeamMemberUpdateParamsUpdatesCoachUpdate struct {
 	TeamID         param.Opt[string]  `json:"team_id,omitzero"`
 	WinRate        param.Opt[float64] `json:"win_rate,omitzero"`
 	YearsWithTeam  param.Opt[int64]   `json:"years_with_team,omitzero"`
@@ -1315,16 +1315,16 @@ type TeamMemberUpdateParamsBodyCoachUpdate struct {
 	paramObj
 }
 
-func (r TeamMemberUpdateParamsBodyCoachUpdate) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberUpdateParamsBodyCoachUpdate
+func (r TeamMemberUpdateParamsUpdatesCoachUpdate) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberUpdateParamsUpdatesCoachUpdate
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberUpdateParamsBodyCoachUpdate) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberUpdateParamsUpdatesCoachUpdate) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Update model for medical staff.
-type TeamMemberUpdateParamsBodyMedicalStaffUpdate struct {
+type TeamMemberUpdateParamsUpdatesMedicalStaffUpdate struct {
 	LicenseNumber  param.Opt[string] `json:"license_number,omitzero"`
 	TeamID         param.Opt[string] `json:"team_id,omitzero"`
 	YearsWithTeam  param.Opt[int64]  `json:"years_with_team,omitzero"`
@@ -1337,16 +1337,16 @@ type TeamMemberUpdateParamsBodyMedicalStaffUpdate struct {
 	paramObj
 }
 
-func (r TeamMemberUpdateParamsBodyMedicalStaffUpdate) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberUpdateParamsBodyMedicalStaffUpdate
+func (r TeamMemberUpdateParamsUpdatesMedicalStaffUpdate) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberUpdateParamsUpdatesMedicalStaffUpdate
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberUpdateParamsBodyMedicalStaffUpdate) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberUpdateParamsUpdatesMedicalStaffUpdate) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Update model for equipment managers.
-type TeamMemberUpdateParamsBodyEquipmentManagerUpdate struct {
+type TeamMemberUpdateParamsUpdatesEquipmentManagerUpdate struct {
 	IsHeadKitman     param.Opt[bool]   `json:"is_head_kitman,omitzero"`
 	TeamID           param.Opt[string] `json:"team_id,omitzero"`
 	YearsWithTeam    param.Opt[int64]  `json:"years_with_team,omitzero"`
@@ -1354,11 +1354,11 @@ type TeamMemberUpdateParamsBodyEquipmentManagerUpdate struct {
 	paramObj
 }
 
-func (r TeamMemberUpdateParamsBodyEquipmentManagerUpdate) MarshalJSON() (data []byte, err error) {
-	type shadow TeamMemberUpdateParamsBodyEquipmentManagerUpdate
+func (r TeamMemberUpdateParamsUpdatesEquipmentManagerUpdate) MarshalJSON() (data []byte, err error) {
+	type shadow TeamMemberUpdateParamsUpdatesEquipmentManagerUpdate
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *TeamMemberUpdateParamsBodyEquipmentManagerUpdate) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberUpdateParamsUpdatesEquipmentManagerUpdate) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

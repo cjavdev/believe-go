@@ -48,11 +48,11 @@ func main() {
 	client := believe.NewClient(
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("BELIEVE_API_KEY")
 	)
-	response, err := client.Characters.GetAllCharacters(context.TODO(), believe.CharacterGetAllCharactersParams{})
+	characters, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", response.Data)
+	fmt.Printf("%+v\n", characters.Data)
 }
 
 ```
@@ -258,7 +258,7 @@ client := believe.NewClient(
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
 
-client.Characters.GetAllCharacters(context.TODO(), ...,
+client.Characters.List(context.TODO(), ...,
 	// Override the header
 	option.WithHeader("X-Some-Header", "some_other_custom_header_info"),
 	// Add an undocumented field to the request body, using sjson syntax
@@ -289,7 +289,7 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Characters.GetAllCharacters(context.TODO(), believe.CharacterGetAllCharactersParams{})
+_, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
 if err != nil {
 	var apierr *believe.Error
 	if errors.As(err, &apierr) {
@@ -314,9 +314,9 @@ To set a per-retry timeout, use `option.WithRequestTimeout()`.
 // This sets the timeout for the request, including all the retries.
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
-client.Characters.GetAllCharacters(
+client.Characters.List(
 	ctx,
-	believe.CharacterGetAllCharactersParams{},
+	believe.CharacterListParams{},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
 )
@@ -368,9 +368,9 @@ client := believe.NewClient(
 )
 
 // Override per-request:
-client.Characters.GetAllCharacters(
+client.Characters.List(
 	context.TODO(),
-	believe.CharacterGetAllCharactersParams{},
+	believe.CharacterListParams{},
 	option.WithMaxRetries(5),
 )
 ```
@@ -383,15 +383,15 @@ you need to examine response headers, status codes, or other details.
 ```go
 // Create a variable to store the HTTP response
 var response *http.Response
-response, err := client.Characters.GetAllCharacters(
+characters, err := client.Characters.List(
 	context.TODO(),
-	believe.CharacterGetAllCharactersParams{},
+	believe.CharacterListParams{},
 	option.WithResponseInto(&response),
 )
 if err != nil {
 	// handle error
 }
-fmt.Printf("%+v\n", response)
+fmt.Printf("%+v\n", characters)
 
 fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)
