@@ -66,22 +66,23 @@ func (r *PepTalkGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// A chunk of a streaming pep talk.
+// A chunk of a streaming pep talk from Ted.
 type PepTalkGetResponseChunk struct {
 	// Chunk sequence number
 	ChunkID int64 `json:"chunk_id,required"`
+	// Is this the final chunk
+	IsFinal bool `json:"is_final,required"`
 	// The text of this chunk
 	Text string `json:"text,required"`
-	// The emotional purpose of this chunk
+	// The emotional purpose of this chunk (e.g., greeting, acknowledgment, wisdom,
+	// affirmation, encouragement)
 	EmotionalBeat string `json:"emotional_beat,nullable"`
-	// Is this the final chunk
-	IsFinal bool `json:"is_final"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ChunkID       respjson.Field
+		IsFinal       respjson.Field
 		Text          respjson.Field
 		EmotionalBeat respjson.Field
-		IsFinal       respjson.Field
 		ExtraFields   map[string]respjson.Field
 		raw           string
 	} `json:"-"`

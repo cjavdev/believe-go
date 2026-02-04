@@ -134,6 +134,49 @@ func (r *MatchService) GetTurningPoints(ctx context.Context, matchID string, opt
 	return
 }
 
+// WebSocket endpoint for real-time live match simulation.
+//
+// Connect to receive a stream of match events as they happen in a simulated
+// football match.
+//
+// ## Connection
+//
+// Connect via WebSocket with optional query parameters to customize the
+// simulation.
+//
+// ## Example WebSocket URL
+//
+// ```
+// ws://localhost:8000/matches/live?home_team=AFC%20Richmond&away_team=Manchester%20City&speed=2.0&excitement_level=7
+// ```
+//
+// ## Server Messages
+//
+// The server sends JSON messages with these types:
+//
+// - `match_start` - When the match begins
+// - `match_event` - For each match event (goals, fouls, cards, etc.)
+// - `match_end` - When the match concludes
+// - `error` - If an error occurs
+// - `pong` - Response to client ping
+//
+// ## Client Messages
+//
+// Send JSON to control the simulation:
+//
+// - `{"action": "ping"}` - Keep-alive, server responds with `{"type": "pong"}`
+// - `{"action": "pause"}` - Pause the simulation
+// - `{"action": "resume"}` - Resume a paused simulation
+// - `{"action": "set_speed", "speed": 2.0}` - Change playback speed (0.1-10.0)
+// - `{"action": "get_status"}` - Request current match status
+func (r *MatchService) StreamLive(ctx context.Context, query MatchStreamLiveParams, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := "matches/live"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, nil, opts...)
+	return
+}
+
 // Full match model with ID.
 type Match struct {
 	// Unique identifier
@@ -416,6 +459,26 @@ type MatchListParams struct {
 
 // URLQuery serializes [MatchListParams]'s query parameters as `url.Values`.
 func (r MatchListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type MatchStreamLiveParams struct {
+	// Away team name
+	AwayTeam param.Opt[string] `query:"away_team,omitzero" json:"-"`
+	// How eventful the match should be (1=boring, 10=chaos)
+	ExcitementLevel param.Opt[int64] `query:"excitement_level,omitzero" json:"-"`
+	// Home team name
+	HomeTeam param.Opt[string] `query:"home_team,omitzero" json:"-"`
+	// Simulation speed multiplier (1.0 = real-time)
+	Speed param.Opt[float64] `query:"speed,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [MatchStreamLiveParams]'s query parameters as `url.Values`.
+func (r MatchStreamLiveParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,

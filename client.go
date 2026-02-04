@@ -34,6 +34,7 @@ type Client struct {
 	Webhooks    WebhookService
 	Health      HealthService
 	Version     VersionService
+	Client      ClientService
 }
 
 // DefaultClientOptions read from the environment (BELIEVE_API_KEY,
@@ -75,6 +76,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Webhooks = NewWebhookService(opts...)
 	r.Health = NewHealthService(opts...)
 	r.Version = NewVersionService(opts...)
+	r.Client = NewClientService(opts...)
 
 	return
 }

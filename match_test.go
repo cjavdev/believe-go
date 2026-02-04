@@ -230,3 +230,31 @@ func TestMatchGetTurningPoints(t *testing.T) {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
 }
+
+func TestMatchStreamLiveWithOptionalParams(t *testing.T) {
+	t.Skip("Prism doesn't support callbacks yet")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := believe.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	err := client.Matches.StreamLive(context.TODO(), believe.MatchStreamLiveParams{
+		AwayTeam:        believe.String("away_team"),
+		ExcitementLevel: believe.Int(1),
+		HomeTeam:        believe.String("home_team"),
+		Speed:           believe.Float(0.1),
+	})
+	if err != nil {
+		var apierr *believe.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
