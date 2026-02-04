@@ -16,6 +16,7 @@ import (
 	"github.com/stainless-sdks/believe-go/internal/apiquery"
 	"github.com/stainless-sdks/believe-go/internal/requestconfig"
 	"github.com/stainless-sdks/believe-go/option"
+	"github.com/stainless-sdks/believe-go/packages/pagination"
 	"github.com/stainless-sdks/believe-go/packages/param"
 	"github.com/stainless-sdks/believe-go/packages/respjson"
 )
@@ -72,11 +73,26 @@ func (r *CharacterService) Update(ctx context.Context, characterID string, body 
 }
 
 // Get a paginated list of all Ted Lasso characters with optional filtering.
-func (r *CharacterService) List(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) (res *CharacterListResponse, err error) {
+func (r *CharacterService) List(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Character], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "characters"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of all Ted Lasso characters with optional filtering.
+func (r *CharacterService) ListAutoPaging(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Character] {
+	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
 
 // Remove a character from the database.
@@ -307,37 +323,6 @@ func (r GrowthArcParam) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *GrowthArcParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type CharacterListResponse struct {
-	Data []Character `json:"data,required"`
-	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
-	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
-	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		Limit       respjson.Field
-		Page        respjson.Field
-		Pages       respjson.Field
-		Skip        respjson.Field
-		Total       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r CharacterListResponse) RawJSON() string { return r.JSON.raw }
-func (r *CharacterListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

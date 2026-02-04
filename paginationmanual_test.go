@@ -12,7 +12,7 @@ import (
 	"github.com/stainless-sdks/believe-go/option"
 )
 
-func TestUsage(t *testing.T) {
+func TestManualPagination(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -24,10 +24,21 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	t.Skip("Prism tests are disabled")
 	page, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
-	t.Logf("%+v\n", page)
+	for _, character := range page.Data {
+		t.Logf("%+v\n", character.ID)
+	}
+	// Prism mock isn't going to give us real pagination
+	page, err = page.GetNextPage()
+	if err != nil {
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+	if page != nil {
+		for _, character := range page.Data {
+			t.Logf("%+v\n", character.ID)
+		}
+	}
 }

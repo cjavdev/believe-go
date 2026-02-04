@@ -14,6 +14,7 @@ import (
 	"github.com/stainless-sdks/believe-go/internal/apiquery"
 	"github.com/stainless-sdks/believe-go/internal/requestconfig"
 	"github.com/stainless-sdks/believe-go/option"
+	"github.com/stainless-sdks/believe-go/packages/pagination"
 	"github.com/stainless-sdks/believe-go/packages/param"
 	"github.com/stainless-sdks/believe-go/packages/respjson"
 )
@@ -70,11 +71,26 @@ func (r *QuoteService) Update(ctx context.Context, quoteID string, body QuoteUpd
 }
 
 // Get a paginated list of all memorable Ted Lasso quotes with optional filtering.
-func (r *QuoteService) List(ctx context.Context, query QuoteListParams, opts ...option.RequestOption) (res *PaginatedResponseQuote, err error) {
+func (r *QuoteService) List(ctx context.Context, query QuoteListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Quote], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "quotes"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of all memorable Ted Lasso quotes with optional filtering.
+func (r *QuoteService) ListAutoPaging(ctx context.Context, query QuoteListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Quote] {
+	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
 
 // Remove a quote from the collection.
@@ -99,23 +115,53 @@ func (r *QuoteService) GetRandom(ctx context.Context, query QuoteGetRandomParams
 }
 
 // Get a paginated list of quotes from a specific character.
-func (r *QuoteService) ListByCharacter(ctx context.Context, characterID string, query QuoteListByCharacterParams, opts ...option.RequestOption) (res *PaginatedResponseQuote, err error) {
+func (r *QuoteService) ListByCharacter(ctx context.Context, characterID string, query QuoteListByCharacterParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Quote], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
 		return
 	}
 	path := fmt.Sprintf("quotes/characters/%s", url.PathEscape(characterID))
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of quotes from a specific character.
+func (r *QuoteService) ListByCharacterAutoPaging(ctx context.Context, characterID string, query QuoteListByCharacterParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Quote] {
+	return pagination.NewSkipLimitPageAutoPager(r.ListByCharacter(ctx, characterID, query, opts...))
 }
 
 // Get a paginated list of quotes related to a specific theme.
-func (r *QuoteService) ListByTheme(ctx context.Context, theme QuoteTheme, query QuoteListByThemeParams, opts ...option.RequestOption) (res *PaginatedResponseQuote, err error) {
+func (r *QuoteService) ListByTheme(ctx context.Context, theme QuoteTheme, query QuoteListByThemeParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Quote], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := fmt.Sprintf("quotes/themes/%v", theme)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of quotes related to a specific theme.
+func (r *QuoteService) ListByThemeAutoPaging(ctx context.Context, theme QuoteTheme, query QuoteListByThemeParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Quote] {
+	return pagination.NewSkipLimitPageAutoPager(r.ListByTheme(ctx, theme, query, opts...))
 }
 
 type PaginatedResponseQuote struct {

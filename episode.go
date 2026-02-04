@@ -15,6 +15,7 @@ import (
 	"github.com/stainless-sdks/believe-go/internal/apiquery"
 	"github.com/stainless-sdks/believe-go/internal/requestconfig"
 	"github.com/stainless-sdks/believe-go/option"
+	"github.com/stainless-sdks/believe-go/packages/pagination"
 	"github.com/stainless-sdks/believe-go/packages/param"
 	"github.com/stainless-sdks/believe-go/packages/respjson"
 )
@@ -72,11 +73,27 @@ func (r *EpisodeService) Update(ctx context.Context, episodeID string, body Epis
 
 // Get a paginated list of all Ted Lasso episodes with optional filtering by
 // season.
-func (r *EpisodeService) List(ctx context.Context, query EpisodeListParams, opts ...option.RequestOption) (res *PaginatedResponse, err error) {
+func (r *EpisodeService) List(ctx context.Context, query EpisodeListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Episode], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "episodes"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of all Ted Lasso episodes with optional filtering by
+// season.
+func (r *EpisodeService) ListAutoPaging(ctx context.Context, query EpisodeListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Episode] {
+	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
 
 // Remove an episode from the database.
@@ -105,11 +122,26 @@ func (r *EpisodeService) GetWisdom(ctx context.Context, episodeID string, opts .
 }
 
 // Get a paginated list of episodes from a specific season.
-func (r *EpisodeService) ListBySeason(ctx context.Context, seasonNumber int64, query EpisodeListBySeasonParams, opts ...option.RequestOption) (res *PaginatedResponse, err error) {
+func (r *EpisodeService) ListBySeason(ctx context.Context, seasonNumber int64, query EpisodeListBySeasonParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Episode], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := fmt.Sprintf("episodes/seasons/%v", seasonNumber)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of episodes from a specific season.
+func (r *EpisodeService) ListBySeasonAutoPaging(ctx context.Context, seasonNumber int64, query EpisodeListBySeasonParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Episode] {
+	return pagination.NewSkipLimitPageAutoPager(r.ListBySeason(ctx, seasonNumber, query, opts...))
 }
 
 // Full episode model with ID.

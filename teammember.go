@@ -15,6 +15,7 @@ import (
 	"github.com/stainless-sdks/believe-go/internal/apiquery"
 	"github.com/stainless-sdks/believe-go/internal/requestconfig"
 	"github.com/stainless-sdks/believe-go/option"
+	"github.com/stainless-sdks/believe-go/packages/pagination"
 	"github.com/stainless-sdks/believe-go/packages/param"
 	"github.com/stainless-sdks/believe-go/packages/respjson"
 )
@@ -119,11 +120,31 @@ func (r *TeamMemberService) Update(ctx context.Context, memberID string, body Te
 // member can be one of: Player, Coach, MedicalStaff, or EquipmentManager. The
 // `member_type` field acts as a discriminator to determine the shape of each
 // object.
-func (r *TeamMemberService) List(ctx context.Context, query TeamMemberListParams, opts ...option.RequestOption) (res *TeamMemberListResponse, err error) {
+func (r *TeamMemberService) List(ctx context.Context, query TeamMemberListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[TeamMemberListResponseUnion], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "team-members"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of all team members.
+//
+// This endpoint demonstrates **union types (oneOf)** in the response. Each team
+// member can be one of: Player, Coach, MedicalStaff, or EquipmentManager. The
+// `member_type` field acts as a discriminator to determine the shape of each
+// object.
+func (r *TeamMemberService) ListAutoPaging(ctx context.Context, query TeamMemberListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[TeamMemberListResponseUnion] {
+	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
 
 // Remove a team member from the roster.
@@ -140,30 +161,78 @@ func (r *TeamMemberService) Delete(ctx context.Context, memberID string, opts ..
 }
 
 // Get only coaches (filtered subset of team members).
-func (r *TeamMemberService) ListCoaches(ctx context.Context, query TeamMemberListCoachesParams, opts ...option.RequestOption) (res *TeamMemberListCoachesResponse, err error) {
+func (r *TeamMemberService) ListCoaches(ctx context.Context, query TeamMemberListCoachesParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Coach], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "team-members/coaches/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get only coaches (filtered subset of team members).
+func (r *TeamMemberService) ListCoachesAutoPaging(ctx context.Context, query TeamMemberListCoachesParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Coach] {
+	return pagination.NewSkipLimitPageAutoPager(r.ListCoaches(ctx, query, opts...))
 }
 
 // Get only players (filtered subset of team members).
-func (r *TeamMemberService) ListPlayers(ctx context.Context, query TeamMemberListPlayersParams, opts ...option.RequestOption) (res *TeamMemberListPlayersResponse, err error) {
+func (r *TeamMemberService) ListPlayers(ctx context.Context, query TeamMemberListPlayersParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Player], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "team-members/players/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get only players (filtered subset of team members).
+func (r *TeamMemberService) ListPlayersAutoPaging(ctx context.Context, query TeamMemberListPlayersParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Player] {
+	return pagination.NewSkipLimitPageAutoPager(r.ListPlayers(ctx, query, opts...))
 }
 
 // Get all staff members (medical staff and equipment managers).
 //
 // This demonstrates a **narrower union type** - the response is oneOf MedicalStaff
 // or EquipmentManager.
-func (r *TeamMemberService) ListStaff(ctx context.Context, query TeamMemberListStaffParams, opts ...option.RequestOption) (res *TeamMemberListStaffResponse, err error) {
+func (r *TeamMemberService) ListStaff(ctx context.Context, query TeamMemberListStaffParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[TeamMemberListStaffResponseUnion], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "team-members/staff/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get all staff members (medical staff and equipment managers).
+//
+// This demonstrates a **narrower union type** - the response is oneOf MedicalStaff
+// or EquipmentManager.
+func (r *TeamMemberService) ListStaffAutoPaging(ctx context.Context, query TeamMemberListStaffParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[TeamMemberListStaffResponseUnion] {
+	return pagination.NewSkipLimitPageAutoPager(r.ListStaff(ctx, query, opts...))
 }
 
 // Full coach model with ID.
@@ -764,44 +833,13 @@ func (r *TeamMemberUpdateResponseUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type TeamMemberListResponse struct {
-	Data []TeamMemberListResponseDataUnion `json:"data,required"`
-	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
-	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
-	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		Limit       respjson.Field
-		Page        respjson.Field
-		Pages       respjson.Field
-		Skip        respjson.Field
-		Total       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r TeamMemberListResponse) RawJSON() string { return r.JSON.raw }
-func (r *TeamMemberListResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// TeamMemberListResponseDataUnion contains all possible properties and values from
+// TeamMemberListResponseUnion contains all possible properties and values from
 // [Player], [Coach], [MedicalStaff], [EquipmentManager].
 //
-// Use the [TeamMemberListResponseDataUnion.AsAny] method to switch on the variant.
+// Use the [TeamMemberListResponseUnion.AsAny] method to switch on the variant.
 //
 // Use the methods beginning with 'As' to cast the union to one of its variants.
-type TeamMemberListResponseDataUnion struct {
+type TeamMemberListResponseUnion struct {
 	ID          string `json:"id"`
 	CharacterID string `json:"character_id"`
 	// This field is from variant [Player].
@@ -853,21 +891,21 @@ type TeamMemberListResponseDataUnion struct {
 	} `json:"-"`
 }
 
-// anyTeamMemberListResponseData is implemented by each variant of
-// [TeamMemberListResponseDataUnion] to add type safety for the return type of
-// [TeamMemberListResponseDataUnion.AsAny]
-type anyTeamMemberListResponseData interface {
-	implTeamMemberListResponseDataUnion()
+// anyTeamMemberListResponse is implemented by each variant of
+// [TeamMemberListResponseUnion] to add type safety for the return type of
+// [TeamMemberListResponseUnion.AsAny]
+type anyTeamMemberListResponse interface {
+	implTeamMemberListResponseUnion()
 }
 
-func (Player) implTeamMemberListResponseDataUnion()           {}
-func (Coach) implTeamMemberListResponseDataUnion()            {}
-func (MedicalStaff) implTeamMemberListResponseDataUnion()     {}
-func (EquipmentManager) implTeamMemberListResponseDataUnion() {}
+func (Player) implTeamMemberListResponseUnion()           {}
+func (Coach) implTeamMemberListResponseUnion()            {}
+func (MedicalStaff) implTeamMemberListResponseUnion()     {}
+func (EquipmentManager) implTeamMemberListResponseUnion() {}
 
 // Use the following switch statement to find the correct variant
 //
-//	switch variant := TeamMemberListResponseDataUnion.AsAny().(type) {
+//	switch variant := TeamMemberListResponseUnion.AsAny().(type) {
 //	case believe.Player:
 //	case believe.Coach:
 //	case believe.MedicalStaff:
@@ -875,7 +913,7 @@ func (EquipmentManager) implTeamMemberListResponseDataUnion() {}
 //	default:
 //	  fmt.Errorf("no variant present")
 //	}
-func (u TeamMemberListResponseDataUnion) AsAny() anyTeamMemberListResponseData {
+func (u TeamMemberListResponseUnion) AsAny() anyTeamMemberListResponse {
 	switch u.MemberType {
 	case "player":
 		return u.AsPlayer()
@@ -889,131 +927,38 @@ func (u TeamMemberListResponseDataUnion) AsAny() anyTeamMemberListResponseData {
 	return nil
 }
 
-func (u TeamMemberListResponseDataUnion) AsPlayer() (v Player) {
+func (u TeamMemberListResponseUnion) AsPlayer() (v Player) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
-func (u TeamMemberListResponseDataUnion) AsCoach() (v Coach) {
+func (u TeamMemberListResponseUnion) AsCoach() (v Coach) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
-func (u TeamMemberListResponseDataUnion) AsMedicalStaff() (v MedicalStaff) {
+func (u TeamMemberListResponseUnion) AsMedicalStaff() (v MedicalStaff) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
-func (u TeamMemberListResponseDataUnion) AsEquipmentManager() (v EquipmentManager) {
+func (u TeamMemberListResponseUnion) AsEquipmentManager() (v EquipmentManager) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
 // Returns the unmodified JSON received from the API
-func (u TeamMemberListResponseDataUnion) RawJSON() string { return u.JSON.raw }
+func (u TeamMemberListResponseUnion) RawJSON() string { return u.JSON.raw }
 
-func (r *TeamMemberListResponseDataUnion) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberListResponseUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type TeamMemberListCoachesResponse struct {
-	Data []Coach `json:"data,required"`
-	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
-	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
-	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		Limit       respjson.Field
-		Page        respjson.Field
-		Pages       respjson.Field
-		Skip        respjson.Field
-		Total       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r TeamMemberListCoachesResponse) RawJSON() string { return r.JSON.raw }
-func (r *TeamMemberListCoachesResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type TeamMemberListPlayersResponse struct {
-	Data []Player `json:"data,required"`
-	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
-	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
-	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		Limit       respjson.Field
-		Page        respjson.Field
-		Pages       respjson.Field
-		Skip        respjson.Field
-		Total       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r TeamMemberListPlayersResponse) RawJSON() string { return r.JSON.raw }
-func (r *TeamMemberListPlayersResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type TeamMemberListStaffResponse struct {
-	Data []TeamMemberListStaffResponseDataUnion `json:"data,required"`
-	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
-	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
-	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		Limit       respjson.Field
-		Page        respjson.Field
-		Pages       respjson.Field
-		Skip        respjson.Field
-		Total       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r TeamMemberListStaffResponse) RawJSON() string { return r.JSON.raw }
-func (r *TeamMemberListStaffResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// TeamMemberListStaffResponseDataUnion contains all possible properties and values
+// TeamMemberListStaffResponseUnion contains all possible properties and values
 // from [MedicalStaff], [EquipmentManager].
 //
 // Use the methods beginning with 'As' to cast the union to one of its variants.
-type TeamMemberListStaffResponseDataUnion struct {
+type TeamMemberListStaffResponseUnion struct {
 	ID          string `json:"id"`
 	CharacterID string `json:"character_id"`
 	// This field is from variant [MedicalStaff].
@@ -1044,20 +989,20 @@ type TeamMemberListStaffResponseDataUnion struct {
 	} `json:"-"`
 }
 
-func (u TeamMemberListStaffResponseDataUnion) AsMedicalStaff() (v MedicalStaff) {
+func (u TeamMemberListStaffResponseUnion) AsMedicalStaff() (v MedicalStaff) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
-func (u TeamMemberListStaffResponseDataUnion) AsEquipmentManager() (v EquipmentManager) {
+func (u TeamMemberListStaffResponseUnion) AsEquipmentManager() (v EquipmentManager) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
 // Returns the unmodified JSON received from the API
-func (u TeamMemberListStaffResponseDataUnion) RawJSON() string { return u.JSON.raw }
+func (u TeamMemberListStaffResponseUnion) RawJSON() string { return u.JSON.raw }
 
-func (r *TeamMemberListStaffResponseDataUnion) UnmarshalJSON(data []byte) error {
+func (r *TeamMemberListStaffResponseUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
