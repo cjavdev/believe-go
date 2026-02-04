@@ -1,0 +1,147 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package believe
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"net/http"
+	"net/url"
+	"slices"
+
+	"github.com/stainless-sdks/believe-go/internal/apijson"
+	"github.com/stainless-sdks/believe-go/internal/apiquery"
+	"github.com/stainless-sdks/believe-go/internal/requestconfig"
+	"github.com/stainless-sdks/believe-go/option"
+	"github.com/stainless-sdks/believe-go/packages/param"
+	"github.com/stainless-sdks/believe-go/packages/respjson"
+)
+
+// CoachingPrincipleService contains methods and other services that help with
+// interacting with the believe API.
+//
+// Note, unlike clients, this service does not read variables from the environment
+// automatically. You should not instantiate this service directly, and instead use
+// the [NewCoachingPrincipleService] method instead.
+type CoachingPrincipleService struct {
+	Options []option.RequestOption
+}
+
+// NewCoachingPrincipleService generates a new service that applies the given
+// options to each request. These options are applied after the parent client's
+// options (if there is one), and before any request-specific options.
+func NewCoachingPrincipleService(opts ...option.RequestOption) (r CoachingPrincipleService) {
+	r = CoachingPrincipleService{}
+	r.Options = opts
+	return
+}
+
+// Get details about a specific coaching principle.
+func (r *CoachingPrincipleService) Get(ctx context.Context, principleID string, opts ...option.RequestOption) (res *CoachingPrinciple, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if principleID == "" {
+		err = errors.New("missing required principle_id parameter")
+		return
+	}
+	path := fmt.Sprintf("coaching/principles/%s", url.PathEscape(principleID))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+// Get a paginated list of Ted Lasso's core coaching principles and philosophy.
+func (r *CoachingPrincipleService) List(ctx context.Context, query CoachingPrincipleListParams, opts ...option.RequestOption) (res *CoachingPrincipleListResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "coaching/principles"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return
+}
+
+// Get a random coaching principle to inspire your day.
+func (r *CoachingPrincipleService) GetRandom(ctx context.Context, opts ...option.RequestOption) (res *CoachingPrinciple, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "coaching/principles/random"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+// A Ted Lasso coaching principle.
+type CoachingPrinciple struct {
+	// Principle identifier
+	ID string `json:"id,required"`
+	// How to apply this principle
+	Application string `json:"application,required"`
+	// Example from the show
+	ExampleFromShow string `json:"example_from_show,required"`
+	// What this principle means
+	Explanation string `json:"explanation,required"`
+	// The coaching principle
+	Principle string `json:"principle,required"`
+	// Related Ted quote
+	TedQuote string `json:"ted_quote,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID              respjson.Field
+		Application     respjson.Field
+		ExampleFromShow respjson.Field
+		Explanation     respjson.Field
+		Principle       respjson.Field
+		TedQuote        respjson.Field
+		ExtraFields     map[string]respjson.Field
+		raw             string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r CoachingPrinciple) RawJSON() string { return r.JSON.raw }
+func (r *CoachingPrinciple) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type CoachingPrincipleListResponse struct {
+	Data []CoachingPrinciple `json:"data,required"`
+	// Whether there are more items after this page.
+	HasMore bool  `json:"has_more,required"`
+	Limit   int64 `json:"limit,required"`
+	// Current page number (1-indexed, for display purposes).
+	Page int64 `json:"page,required"`
+	// Total number of pages.
+	Pages int64 `json:"pages,required"`
+	Skip  int64 `json:"skip,required"`
+	Total int64 `json:"total,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Data        respjson.Field
+		HasMore     respjson.Field
+		Limit       respjson.Field
+		Page        respjson.Field
+		Pages       respjson.Field
+		Skip        respjson.Field
+		Total       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r CoachingPrincipleListResponse) RawJSON() string { return r.JSON.raw }
+func (r *CoachingPrincipleListResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type CoachingPrincipleListParams struct {
+	// Maximum number of items to return (max: 100)
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Number of items to skip (offset)
+	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [CoachingPrincipleListParams]'s query parameters as
+// `url.Values`.
+func (r CoachingPrincipleListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
