@@ -48,11 +48,11 @@ func main() {
 	client := believe.NewClient(
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("BELIEVE_API_KEY")
 	)
-	characters, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
+	page, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", characters.Data)
+	fmt.Printf("%+v\n", page)
 }
 
 ```
@@ -276,8 +276,33 @@ This library provides some conveniences for working with paginated list endpoint
 
 You can use `.ListAutoPaging()` methods to iterate through items across all pages:
 
+```go
+iter := client.Characters.ListAutoPaging(context.TODO(), believe.CharacterListParams{})
+// Automatically fetches more pages as needed.
+for iter.Next() {
+	character := iter.Current()
+	fmt.Printf("%+v\n", character)
+}
+if err := iter.Err(); err != nil {
+	panic(err.Error())
+}
+```
+
 Or you can use simple `.List()` methods to fetch a single page and receive a standard response object
 with additional helper methods like `.GetNextPage()`, e.g.:
+
+```go
+page, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
+for page != nil {
+	for _, character := range page.Data {
+		fmt.Printf("%+v\n", character)
+	}
+	page, err = page.GetNextPage()
+}
+if err != nil {
+	panic(err.Error())
+}
+```
 
 ### Errors
 
@@ -383,7 +408,7 @@ you need to examine response headers, status codes, or other details.
 ```go
 // Create a variable to store the HTTP response
 var response *http.Response
-characters, err := client.Characters.List(
+page, err := client.Characters.List(
 	context.TODO(),
 	believe.CharacterListParams{},
 	option.WithResponseInto(&response),
@@ -391,7 +416,7 @@ characters, err := client.Characters.List(
 if err != nil {
 	// handle error
 }
-fmt.Printf("%+v\n", characters)
+fmt.Printf("%+v\n", page)
 
 fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)

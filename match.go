@@ -16,6 +16,7 @@ import (
 	"github.com/stainless-sdks/believe-go/internal/apiquery"
 	"github.com/stainless-sdks/believe-go/internal/requestconfig"
 	"github.com/stainless-sdks/believe-go/option"
+	"github.com/stainless-sdks/believe-go/packages/pagination"
 	"github.com/stainless-sdks/believe-go/packages/param"
 	"github.com/stainless-sdks/believe-go/packages/respjson"
 )
@@ -74,11 +75,26 @@ func (r *MatchService) Update(ctx context.Context, matchID string, body MatchUpd
 }
 
 // Get a paginated list of all matches with optional filtering.
-func (r *MatchService) List(ctx context.Context, query MatchListParams, opts ...option.RequestOption) (res *MatchListResponse, err error) {
+func (r *MatchService) List(ctx context.Context, query MatchListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Match], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "matches"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// Get a paginated list of all matches with optional filtering.
+func (r *MatchService) ListAutoPaging(ctx context.Context, query MatchListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Match] {
+	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
 
 // Remove a match from the database.
@@ -262,37 +278,6 @@ func (r TurningPointParam) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *TurningPointParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type MatchListResponse struct {
-	Data []Match `json:"data,required"`
-	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
-	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
-	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		Limit       respjson.Field
-		Page        respjson.Field
-		Pages       respjson.Field
-		Skip        respjson.Field
-		Total       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r MatchListResponse) RawJSON() string { return r.JSON.raw }
-func (r *MatchListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
