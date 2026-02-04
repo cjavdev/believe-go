@@ -20,7 +20,7 @@ or products provided by Believe, please follow the respective company's security
 
 ### Believe Terms and Policies
 
-Please contact believe@afcrichmond.com for any questions or concerns regarding the security of our services.
+Please contact wave@cjav.dev for any questions or concerns regarding the security of our services.
 
 ---
 
