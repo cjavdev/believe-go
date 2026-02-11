@@ -446,11 +446,11 @@ type MatchListParams struct {
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	// Number of items to skip (offset)
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	// Types of matches.
+	// Filter by match type
 	//
 	// Any of "league", "cup", "friendly", "playoff", "final".
 	MatchType MatchType `query:"match_type,omitzero" json:"-"`
-	// Match result types.
+	// Filter by result
 	//
 	// Any of "win", "loss", "draw", "pending".
 	Result MatchResult `query:"result,omitzero" json:"-"`
