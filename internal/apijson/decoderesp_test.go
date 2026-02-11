@@ -2,8 +2,8 @@ package apijson_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/believe-go/internal/apijson"
-	"github.com/stainless-sdks/believe-go/packages/respjson"
+	"github.com/cjavdev/believe-go/internal/apijson"
+	"github.com/cjavdev/believe-go/packages/respjson"
 	"testing"
 )
 

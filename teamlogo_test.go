@@ -10,9 +10,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/believe-go"
-	"github.com/stainless-sdks/believe-go/internal/testutil"
-	"github.com/stainless-sdks/believe-go/option"
+	"github.com/cjavdev/believe-go"
+	"github.com/cjavdev/believe-go/internal/testutil"
+	"github.com/cjavdev/believe-go/option"
 )
 
 func TestTeamLogoDelete(t *testing.T) {

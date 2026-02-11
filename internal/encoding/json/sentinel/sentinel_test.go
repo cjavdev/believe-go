@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/believe-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/believe-go/packages/param"
+	"github.com/cjavdev/believe-go/internal/encoding/json/sentinel"
+	"github.com/cjavdev/believe-go/packages/param"
 	"reflect"
 	"slices"
 	"testing"

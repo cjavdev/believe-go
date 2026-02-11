@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/believe-go/internal/encoding/json/sentinel"
+	"github.com/cjavdev/believe-go/internal/encoding/json/sentinel"
 	"reflect"
 )
 

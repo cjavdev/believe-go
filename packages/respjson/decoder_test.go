@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/believe-go/internal/apijson"
-	rj "github.com/stainless-sdks/believe-go/packages/respjson"
+	"github.com/cjavdev/believe-go/internal/apijson"
+	rj "github.com/cjavdev/believe-go/packages/respjson"
 	"reflect"
 	"testing"
 )

@@ -1,8 +1,8 @@
 package paramutil
 
 import (
-	"github.com/stainless-sdks/believe-go/packages/param"
-	"github.com/stainless-sdks/believe-go/packages/respjson"
+	"github.com/cjavdev/believe-go/packages/param"
+	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
 func AddrIfPresent[T comparable](v param.Opt[T]) *T {

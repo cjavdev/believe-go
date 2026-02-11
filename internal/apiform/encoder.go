@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stainless-sdks/believe-go/packages/param"
+	"github.com/cjavdev/believe-go/packages/param"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

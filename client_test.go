@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/believe-go"
-	"github.com/stainless-sdks/believe-go/internal"
-	"github.com/stainless-sdks/believe-go/option"
+	"github.com/cjavdev/believe-go"
+	"github.com/cjavdev/believe-go/internal"
+	"github.com/cjavdev/believe-go/option"
 )
 
 type closureTransport struct {

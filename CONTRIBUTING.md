@@ -41,7 +41,7 @@ To use a local version of this library from source in another project, edit the 
 directive. This can be done through the CLI with the following:
 
 ```sh
-$ go mod edit -replace github.com/stainless-sdks/believe-go=/path/to/believe-go
+$ go mod edit -replace github.com/cjavdev/believe-go=/path/to/believe-go
 ```
 
 ## Running tests
