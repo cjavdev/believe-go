@@ -461,7 +461,7 @@ type TeamListParams struct {
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	// Number of items to skip (offset)
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	// Football leagues.
+	// Filter by league
 	//
 	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga",
 	// "Serie A", "Bundesliga", "Ligue 1".

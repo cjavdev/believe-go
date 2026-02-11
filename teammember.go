@@ -1314,7 +1314,7 @@ type TeamMemberListParams struct {
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	// Number of items to skip (offset)
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	// Types of team members - used as discriminator.
+	// Filter by member type
 	//
 	// Any of "player", "coach", "medical_staff", "equipment_manager".
 	MemberType TeamMemberListParamsMemberType `query:"member_type,omitzero" json:"-"`
@@ -1329,7 +1329,7 @@ func (r TeamMemberListParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// Types of team members - used as discriminator.
+// Filter by member type
 type TeamMemberListParamsMemberType string
 
 const (
@@ -1346,7 +1346,7 @@ type TeamMemberListCoachesParams struct {
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	// Number of items to skip (offset)
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	// Coaching specialties.
+	// Filter by specialty
 	//
 	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach",
 	// "tactical_analyst".
@@ -1370,7 +1370,7 @@ type TeamMemberListPlayersParams struct {
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	// Number of items to skip (offset)
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	// Football positions for players.
+	// Filter by position
 	//
 	// Any of "goalkeeper", "defender", "midfielder", "forward".
 	Position Position `query:"position,omitzero" json:"-"`

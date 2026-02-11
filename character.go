@@ -438,7 +438,7 @@ type CharacterListParams struct {
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	// Number of items to skip (offset)
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	// Roles characters can have.
+	// Filter by role
 	//
 	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family",
 	// "friend", "fan", "other".

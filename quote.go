@@ -399,13 +399,13 @@ type QuoteListParams struct {
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	// Number of items to skip (offset)
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	// Types of moments when quotes occur.
+	// Filter by moment type
 	//
 	// Any of "halftime_speech", "press_conference", "locker_room", "training",
 	// "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual",
 	// "confrontation".
 	MomentType QuoteMoment `query:"moment_type,omitzero" json:"-"`
-	// Themes that quotes can be categorized under.
+	// Filter by theme
 	//
 	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
 	// "vulnerability", "growth", "humor", "wisdom", "leadership", "love",
@@ -430,7 +430,7 @@ type QuoteGetRandomParams struct {
 	CharacterID param.Opt[string] `query:"character_id,omitzero" json:"-"`
 	// Filter inspirational quotes
 	Inspirational param.Opt[bool] `query:"inspirational,omitzero" json:"-"`
-	// Themes that quotes can be categorized under.
+	// Filter by theme
 	//
 	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
 	// "vulnerability", "growth", "humor", "wisdom", "leadership", "love",
