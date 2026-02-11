@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/believe-go/internal"
-	"github.com/stainless-sdks/believe-go/internal/apierror"
-	"github.com/stainless-sdks/believe-go/internal/apiform"
-	"github.com/stainless-sdks/believe-go/internal/apiquery"
+	"github.com/cjavdev/believe-go/internal"
+	"github.com/cjavdev/believe-go/internal/apierror"
+	"github.com/cjavdev/believe-go/internal/apiform"
+	"github.com/cjavdev/believe-go/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

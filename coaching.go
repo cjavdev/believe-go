@@ -3,7 +3,7 @@
 package believe
 
 import (
-	"github.com/stainless-sdks/believe-go/option"
+	"github.com/cjavdev/believe-go/option"
 )
 
 // CoachingService contains methods and other services that help with interacting

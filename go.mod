@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/believe-go
+module github.com/cjavdev/believe-go
 
 go 1.22
 

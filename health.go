@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/stainless-sdks/believe-go/internal/requestconfig"
-	"github.com/stainless-sdks/believe-go/option"
+	"github.com/cjavdev/believe-go/internal/requestconfig"
+	"github.com/cjavdev/believe-go/option"
 )
 
 // HealthService contains methods and other services that help with interacting

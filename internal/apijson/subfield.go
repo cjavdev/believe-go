@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/believe-go/packages/respjson"
+	"github.com/cjavdev/believe-go/packages/respjson"
 	"reflect"
 )
 

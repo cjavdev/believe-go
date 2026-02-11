@@ -2,7 +2,7 @@ package param_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/believe-go/packages/param"
+	"github.com/cjavdev/believe-go/packages/param"
 	"testing"
 )
 
