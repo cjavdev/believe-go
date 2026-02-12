@@ -4,6 +4,7 @@ package believe
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -133,6 +134,15 @@ func (r *WebhookService) TriggerEvent(ctx context.Context, body WebhookTriggerEv
 	path := "webhooks/trigger"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
+}
+
+func (r *WebhookService) Unwrap(payload []byte, opts ...option.RequestOption) (*UnwrapWebhookEventUnion, error) {
+	res := &UnwrapWebhookEventUnion{}
+	err := res.UnmarshalJSON(payload)
+	if err != nil {
+		return res, err
+	}
+	return res, nil
 }
 
 // A registered webhook endpoint.
@@ -268,6 +278,339 @@ const (
 	WebhookTriggerEventResponseEventTypeMatchCompleted        WebhookTriggerEventResponseEventType = "match.completed"
 	WebhookTriggerEventResponseEventTypeTeamMemberTransferred WebhookTriggerEventResponseEventType = "team_member.transferred"
 )
+
+// Webhook event sent when a match completes.
+type MatchCompletedWebhookEvent struct {
+	// When the event was created
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// Data payload for a match completed event.
+	Data MatchCompletedWebhookEventData `json:"data,required"`
+	// Unique identifier for this event
+	EventID string `json:"event_id,required" format:"uuid"`
+	// The type of webhook event
+	//
+	// Any of "match.completed".
+	EventType MatchCompletedWebhookEventEventType `json:"event_type,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		CreatedAt   respjson.Field
+		Data        respjson.Field
+		EventID     respjson.Field
+		EventType   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r MatchCompletedWebhookEvent) RawJSON() string { return r.JSON.raw }
+func (r *MatchCompletedWebhookEvent) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Data payload for a match completed event.
+type MatchCompletedWebhookEventData struct {
+	// Final away team score
+	AwayScore int64 `json:"away_score,required"`
+	// Away team ID
+	AwayTeamID string `json:"away_team_id,required"`
+	// When the match completed
+	CompletedAt time.Time `json:"completed_at,required" format:"date-time"`
+	// Final home team score
+	HomeScore int64 `json:"home_score,required"`
+	// Home team ID
+	HomeTeamID string `json:"home_team_id,required"`
+	// Unique match identifier
+	MatchID string `json:"match_id,required"`
+	// Type of match
+	//
+	// Any of "league", "cup", "friendly", "playoff", "final".
+	MatchType string `json:"match_type,required"`
+	// Match result from home team perspective
+	//
+	// Any of "home_win", "away_win", "draw".
+	Result string `json:"result,required"`
+	// Ted's post-match wisdom
+	TedPostMatchQuote string `json:"ted_post_match_quote,required"`
+	// Ted's lesson from the match
+	LessonLearned string `json:"lesson_learned,nullable"`
+	// Player of the match (if awarded)
+	ManOfTheMatch string `json:"man_of_the_match,nullable"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		AwayScore         respjson.Field
+		AwayTeamID        respjson.Field
+		CompletedAt       respjson.Field
+		HomeScore         respjson.Field
+		HomeTeamID        respjson.Field
+		MatchID           respjson.Field
+		MatchType         respjson.Field
+		Result            respjson.Field
+		TedPostMatchQuote respjson.Field
+		LessonLearned     respjson.Field
+		ManOfTheMatch     respjson.Field
+		ExtraFields       map[string]respjson.Field
+		raw               string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r MatchCompletedWebhookEventData) RawJSON() string { return r.JSON.raw }
+func (r *MatchCompletedWebhookEventData) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The type of webhook event
+type MatchCompletedWebhookEventEventType string
+
+const (
+	MatchCompletedWebhookEventEventTypeMatchCompleted MatchCompletedWebhookEventEventType = "match.completed"
+)
+
+// Webhook event sent when a team member (player, coach, staff) transfers between
+// teams.
+type TeamMemberTransferredWebhookEvent struct {
+	// When the event was created
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// Data payload for a team member transfer event.
+	Data TeamMemberTransferredWebhookEventData `json:"data,required"`
+	// Unique identifier for this event
+	EventID string `json:"event_id,required" format:"uuid"`
+	// The type of webhook event
+	//
+	// Any of "team_member.transferred".
+	EventType TeamMemberTransferredWebhookEventEventType `json:"event_type,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		CreatedAt   respjson.Field
+		Data        respjson.Field
+		EventID     respjson.Field
+		EventType   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r TeamMemberTransferredWebhookEvent) RawJSON() string { return r.JSON.raw }
+func (r *TeamMemberTransferredWebhookEvent) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Data payload for a team member transfer event.
+type TeamMemberTransferredWebhookEventData struct {
+	// ID of the character (links to /characters)
+	CharacterID string `json:"character_id,required"`
+	// Name of the character
+	CharacterName string `json:"character_name,required"`
+	// Type of team member
+	//
+	// Any of "player", "coach", "medical_staff", "equipment_manager".
+	MemberType string `json:"member_type,required"`
+	// ID of the team involved
+	TeamID string `json:"team_id,required"`
+	// ID of the team member
+	TeamMemberID string `json:"team_member_id,required"`
+	// Name of the team involved
+	TeamName string `json:"team_name,required"`
+	// Ted's reaction to the transfer
+	TedReaction string `json:"ted_reaction,required"`
+	// Whether the member joined or departed
+	//
+	// Any of "joined", "departed".
+	TransferType string `json:"transfer_type,required"`
+	// Previous team ID (for joins from another team)
+	PreviousTeamID string `json:"previous_team_id,nullable"`
+	// Previous team name (for joins from another team)
+	PreviousTeamName string `json:"previous_team_name,nullable"`
+	// Transfer fee in GBP (for players)
+	TransferFeeGbp string `json:"transfer_fee_gbp,nullable"`
+	// Years spent with previous team
+	YearsWithPreviousTeam int64 `json:"years_with_previous_team,nullable"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		CharacterID           respjson.Field
+		CharacterName         respjson.Field
+		MemberType            respjson.Field
+		TeamID                respjson.Field
+		TeamMemberID          respjson.Field
+		TeamName              respjson.Field
+		TedReaction           respjson.Field
+		TransferType          respjson.Field
+		PreviousTeamID        respjson.Field
+		PreviousTeamName      respjson.Field
+		TransferFeeGbp        respjson.Field
+		YearsWithPreviousTeam respjson.Field
+		ExtraFields           map[string]respjson.Field
+		raw                   string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r TeamMemberTransferredWebhookEventData) RawJSON() string { return r.JSON.raw }
+func (r *TeamMemberTransferredWebhookEventData) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The type of webhook event
+type TeamMemberTransferredWebhookEventEventType string
+
+const (
+	TeamMemberTransferredWebhookEventEventTypeTeamMemberTransferred TeamMemberTransferredWebhookEventEventType = "team_member.transferred"
+)
+
+// UnwrapWebhookEventUnion contains all possible properties and values from
+// [MatchCompletedWebhookEvent], [TeamMemberTransferredWebhookEvent].
+//
+// Use the [UnwrapWebhookEventUnion.AsAny] method to switch on the variant.
+//
+// Use the methods beginning with 'As' to cast the union to one of its variants.
+type UnwrapWebhookEventUnion struct {
+	CreatedAt time.Time `json:"created_at"`
+	// This field is a union of [MatchCompletedWebhookEventData],
+	// [TeamMemberTransferredWebhookEventData]
+	Data    UnwrapWebhookEventUnionData `json:"data"`
+	EventID string                      `json:"event_id"`
+	// Any of "match.completed", "team_member.transferred".
+	EventType string `json:"event_type"`
+	JSON      struct {
+		CreatedAt respjson.Field
+		Data      respjson.Field
+		EventID   respjson.Field
+		EventType respjson.Field
+		raw       string
+	} `json:"-"`
+}
+
+// anyUnwrapWebhookEvent is implemented by each variant of
+// [UnwrapWebhookEventUnion] to add type safety for the return type of
+// [UnwrapWebhookEventUnion.AsAny]
+type anyUnwrapWebhookEvent interface {
+	implUnwrapWebhookEventUnion()
+}
+
+func (MatchCompletedWebhookEvent) implUnwrapWebhookEventUnion()        {}
+func (TeamMemberTransferredWebhookEvent) implUnwrapWebhookEventUnion() {}
+
+// Use the following switch statement to find the correct variant
+//
+//	switch variant := UnwrapWebhookEventUnion.AsAny().(type) {
+//	case believe.MatchCompletedWebhookEvent:
+//	case believe.TeamMemberTransferredWebhookEvent:
+//	default:
+//	  fmt.Errorf("no variant present")
+//	}
+func (u UnwrapWebhookEventUnion) AsAny() anyUnwrapWebhookEvent {
+	switch u.EventType {
+	case "match.completed":
+		return u.AsMatchCompleted()
+	case "team_member.transferred":
+		return u.AsTeamMemberTransferred()
+	}
+	return nil
+}
+
+func (u UnwrapWebhookEventUnion) AsMatchCompleted() (v MatchCompletedWebhookEvent) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u UnwrapWebhookEventUnion) AsTeamMemberTransferred() (v TeamMemberTransferredWebhookEvent) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+// Returns the unmodified JSON received from the API
+func (u UnwrapWebhookEventUnion) RawJSON() string { return u.JSON.raw }
+
+func (r *UnwrapWebhookEventUnion) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// UnwrapWebhookEventUnionData is an implicit subunion of
+// [UnwrapWebhookEventUnion]. UnwrapWebhookEventUnionData provides convenient
+// access to the sub-properties of the union.
+//
+// For type safety it is recommended to directly use a variant of the
+// [UnwrapWebhookEventUnion].
+type UnwrapWebhookEventUnionData struct {
+	// This field is from variant [MatchCompletedWebhookEventData].
+	AwayScore int64 `json:"away_score"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	AwayTeamID string `json:"away_team_id"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	CompletedAt time.Time `json:"completed_at"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	HomeScore int64 `json:"home_score"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	HomeTeamID string `json:"home_team_id"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	MatchID string `json:"match_id"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	MatchType string `json:"match_type"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	Result string `json:"result"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	TedPostMatchQuote string `json:"ted_post_match_quote"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	LessonLearned string `json:"lesson_learned"`
+	// This field is from variant [MatchCompletedWebhookEventData].
+	ManOfTheMatch string `json:"man_of_the_match"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	CharacterID string `json:"character_id"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	CharacterName string `json:"character_name"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	MemberType string `json:"member_type"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	TeamID string `json:"team_id"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	TeamMemberID string `json:"team_member_id"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	TeamName string `json:"team_name"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	TedReaction string `json:"ted_reaction"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	TransferType string `json:"transfer_type"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	PreviousTeamID string `json:"previous_team_id"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	PreviousTeamName string `json:"previous_team_name"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	TransferFeeGbp string `json:"transfer_fee_gbp"`
+	// This field is from variant [TeamMemberTransferredWebhookEventData].
+	YearsWithPreviousTeam int64 `json:"years_with_previous_team"`
+	JSON                  struct {
+		AwayScore             respjson.Field
+		AwayTeamID            respjson.Field
+		CompletedAt           respjson.Field
+		HomeScore             respjson.Field
+		HomeTeamID            respjson.Field
+		MatchID               respjson.Field
+		MatchType             respjson.Field
+		Result                respjson.Field
+		TedPostMatchQuote     respjson.Field
+		LessonLearned         respjson.Field
+		ManOfTheMatch         respjson.Field
+		CharacterID           respjson.Field
+		CharacterName         respjson.Field
+		MemberType            respjson.Field
+		TeamID                respjson.Field
+		TeamMemberID          respjson.Field
+		TeamName              respjson.Field
+		TedReaction           respjson.Field
+		TransferType          respjson.Field
+		PreviousTeamID        respjson.Field
+		PreviousTeamName      respjson.Field
+		TransferFeeGbp        respjson.Field
+		YearsWithPreviousTeam respjson.Field
+		raw                   string
+	} `json:"-"`
+}
+
+func (r *UnwrapWebhookEventUnionData) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
 
 type WebhookNewParams struct {
 	// The URL to send webhook events to

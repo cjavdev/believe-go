@@ -281,6 +281,9 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookNewResponse">WebhookNewResponse</a>
 - <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookDeleteResponse">WebhookDeleteResponse</a>
 - <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookTriggerEventResponse">WebhookTriggerEventResponse</a>
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#MatchCompletedWebhookEvent">MatchCompletedWebhookEvent</a>
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TeamMemberTransferredWebhookEvent">TeamMemberTransferredWebhookEvent</a>
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#UnwrapWebhookEventUnion">UnwrapWebhookEventUnion</a>
 
 Methods:
 
