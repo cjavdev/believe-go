@@ -3,11 +3,6 @@
 package believe
 
 import (
-	"context"
-	"net/http"
-	"slices"
-
-	"github.com/cjavdev/believe-go/internal/requestconfig"
 	"github.com/cjavdev/believe-go/option"
 )
 
@@ -27,27 +22,5 @@ type ClientWService struct {
 func NewClientWService(opts ...option.RequestOption) (r ClientWService) {
 	r = ClientWService{}
 	r.Options = opts
-	return
-}
-
-// Simple WebSocket test endpoint for connectivity testing.
-//
-// Connect to test WebSocket functionality. The server will:
-//
-// 1. Send a welcome message on connection
-// 2. Echo back any message you send
-//
-// ## Example
-//
-// ```javascript
-// const ws = new WebSocket("ws://localhost:8000/ws/test");
-// ws.onmessage = (event) => console.log(event.data);
-// ws.send("Hello!"); // Server responds with echo
-// ```
-func (r *ClientWService) Test(ctx context.Context, opts ...option.RequestOption) (err error) {
-	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
-	path := "ws/test"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, nil, opts...)
 	return
 }

@@ -316,7 +316,3 @@ Methods:
 # Client
 
 ## Ws
-
-Methods:
-
-- <code title="get /ws/test">client.Client.Ws.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#ClientWService.Test">Test</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
