@@ -15,7 +15,7 @@ import (
 )
 
 func TestCharacterNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -66,7 +66,7 @@ func TestCharacterNewWithOptionalParams(t *testing.T) {
 }
 
 func TestCharacterGet(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -89,7 +89,7 @@ func TestCharacterGet(t *testing.T) {
 }
 
 func TestCharacterUpdateWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -144,7 +144,7 @@ func TestCharacterUpdateWithOptionalParams(t *testing.T) {
 }
 
 func TestCharacterListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -173,7 +173,7 @@ func TestCharacterListWithOptionalParams(t *testing.T) {
 }
 
 func TestCharacterDelete(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -196,7 +196,7 @@ func TestCharacterDelete(t *testing.T) {
 }
 
 func TestCharacterGetQuotes(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
