@@ -8,13 +8,13 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/believe-go"
-	"github.com/stainless-sdks/believe-go/internal/testutil"
-	"github.com/stainless-sdks/believe-go/option"
+	"github.com/cjavdev/believe-go"
+	"github.com/cjavdev/believe-go/internal/testutil"
+	"github.com/cjavdev/believe-go/option"
 )
 
 func TestReframeTransformNegativeThoughtsWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

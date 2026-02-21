@@ -14,11 +14,11 @@ import (
 	"slices"
 	"time"
 
-	"github.com/stainless-sdks/believe-go/internal/apiform"
-	"github.com/stainless-sdks/believe-go/internal/apijson"
-	"github.com/stainless-sdks/believe-go/internal/requestconfig"
-	"github.com/stainless-sdks/believe-go/option"
-	"github.com/stainless-sdks/believe-go/packages/respjson"
+	"github.com/cjavdev/believe-go/internal/apiform"
+	"github.com/cjavdev/believe-go/internal/apijson"
+	"github.com/cjavdev/believe-go/internal/requestconfig"
+	"github.com/cjavdev/believe-go/option"
+	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
 // TeamLogoService contains methods and other services that help with interacting

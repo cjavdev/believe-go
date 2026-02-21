@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/believe-go"
-	"github.com/stainless-sdks/believe-go/internal/testutil"
-	"github.com/stainless-sdks/believe-go/option"
+	"github.com/cjavdev/believe-go"
+	"github.com/cjavdev/believe-go/internal/testutil"
+	"github.com/cjavdev/believe-go/option"
 )
 
 func TestManualPagination(t *testing.T) {
@@ -31,7 +31,7 @@ func TestManualPagination(t *testing.T) {
 	for _, character := range page.Data {
 		t.Logf("%+v\n", character.ID)
 	}
-	// Prism mock isn't going to give us real pagination
+	// The mock server isn't going to give us real pagination
 	page, err = page.GetNextPage()
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())

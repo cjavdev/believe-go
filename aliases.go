@@ -3,8 +3,8 @@
 package believe
 
 import (
-	"github.com/stainless-sdks/believe-go/internal/apierror"
-	"github.com/stainless-sdks/believe-go/packages/param"
+	"github.com/cjavdev/believe-go/internal/apierror"
+	"github.com/cjavdev/believe-go/packages/param"
 )
 
 // aliased to make [param.APIUnion] private when embedding

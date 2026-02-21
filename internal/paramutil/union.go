@@ -2,7 +2,7 @@ package paramutil
 
 import (
 	"fmt"
-	"github.com/stainless-sdks/believe-go/packages/param"
+	"github.com/cjavdev/believe-go/packages/param"
 	"reflect"
 )
 

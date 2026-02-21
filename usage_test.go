@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/believe-go"
-	"github.com/stainless-sdks/believe-go/internal/testutil"
-	"github.com/stainless-sdks/believe-go/option"
+	"github.com/cjavdev/believe-go"
+	"github.com/cjavdev/believe-go/internal/testutil"
+	"github.com/cjavdev/believe-go/option"
 )
 
 func TestUsage(t *testing.T) {
@@ -24,7 +24,7 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	page, err := client.Characters.List(context.TODO(), believe.CharacterListParams{})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())

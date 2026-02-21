@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/stainless-sdks/believe-go/internal/apijson"
-	"github.com/stainless-sdks/believe-go/packages/respjson"
+	"github.com/cjavdev/believe-go/internal/apijson"
+	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
 // Error represents an error that originates from the API, i.e. when a request is
