@@ -121,29 +121,6 @@ func (r *EpisodeService) GetWisdom(ctx context.Context, episodeID string, opts .
 	return
 }
 
-// Get a paginated list of episodes from a specific season.
-func (r *EpisodeService) ListBySeason(ctx context.Context, seasonNumber int64, query EpisodeListBySeasonParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Episode], err error) {
-	var raw *http.Response
-	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
-	path := fmt.Sprintf("episodes/seasons/%v", seasonNumber)
-	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
-	if err != nil {
-		return nil, err
-	}
-	err = cfg.Execute()
-	if err != nil {
-		return nil, err
-	}
-	res.SetPageConfig(cfg, raw)
-	return res, nil
-}
-
-// Get a paginated list of episodes from a specific season.
-func (r *EpisodeService) ListBySeasonAutoPaging(ctx context.Context, seasonNumber int64, query EpisodeListBySeasonParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Episode] {
-	return pagination.NewSkipLimitPageAutoPager(r.ListBySeason(ctx, seasonNumber, query, opts...))
-}
-
 // Full episode model with ID.
 type Episode struct {
 	// Unique identifier (format: s##e##)
@@ -323,23 +300,6 @@ type EpisodeListParams struct {
 
 // URLQuery serializes [EpisodeListParams]'s query parameters as `url.Values`.
 func (r EpisodeListParams) URLQuery() (v url.Values, err error) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
-}
-
-type EpisodeListBySeasonParams struct {
-	// Maximum number of items to return (max: 100)
-	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
-	// Number of items to skip (offset)
-	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
-	paramObj
-}
-
-// URLQuery serializes [EpisodeListBySeasonParams]'s query parameters as
-// `url.Values`.
-func (r EpisodeListBySeasonParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
