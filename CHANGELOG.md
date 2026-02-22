@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0 (2026-02-22)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/cjavdev/believe-go/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([4e85ab8](https://github.com/cjavdev/believe-go/commit/4e85ab86f9be9ee0ad667560a855754d38159811))
+* **api:** manual updates ([533aea0](https://github.com/cjavdev/believe-go/commit/533aea0cdafd1666deac9ed6131ea49185857db5))
+
+
+### Bug Fixes
+
+* **internal:** skip tests that depend on mock server ([0b38dd4](https://github.com/cjavdev/believe-go/commit/0b38dd4d847c868689d1a0efee1cc359a783832b))
+
 ## 0.1.0 (2026-02-20)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/cjavdev/believe-go/compare/v0.0.1...v0.1.0)
