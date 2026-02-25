@@ -165,16 +165,16 @@ func (r *QuoteService) ListByThemeAutoPaging(ctx context.Context, theme QuoteThe
 }
 
 type PaginatedResponseQuote struct {
-	Data []Quote `json:"data,required"`
+	Data []Quote `json:"data" api:"required"`
 	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
+	HasMore bool  `json:"has_more" api:"required"`
+	Limit   int64 `json:"limit" api:"required"`
 	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
+	Page int64 `json:"page" api:"required"`
 	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
+	Pages int64 `json:"pages" api:"required"`
+	Skip  int64 `json:"skip" api:"required"`
+	Total int64 `json:"total" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Data        respjson.Field
@@ -198,19 +198,19 @@ func (r *PaginatedResponseQuote) UnmarshalJSON(data []byte) error {
 // Full quote model with ID.
 type Quote struct {
 	// Unique identifier
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the character who said it
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Context in which the quote was said
-	Context string `json:"context,required"`
+	Context string `json:"context" api:"required"`
 	// Type of moment when the quote was said
 	//
 	// Any of "halftime_speech", "press_conference", "locker_room", "training",
 	// "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual",
 	// "confrontation".
-	MomentType QuoteMoment `json:"moment_type,required"`
+	MomentType QuoteMoment `json:"moment_type" api:"required"`
 	// The quote text
-	Text string `json:"text,required"`
+	Text string `json:"text" api:"required"`
 	// Primary theme of the quote
 	//
 	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
@@ -219,19 +219,19 @@ type Quote struct {
 	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
 	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
 	// "integrity".
-	Theme QuoteTheme `json:"theme,required"`
+	Theme QuoteTheme `json:"theme" api:"required"`
 	// Episode where the quote appears
-	EpisodeID string `json:"episode_id,nullable"`
+	EpisodeID string `json:"episode_id" api:"nullable"`
 	// Whether this quote is humorous
 	IsFunny bool `json:"is_funny"`
 	// Whether this quote is inspirational
 	IsInspirational bool `json:"is_inspirational"`
 	// Popularity/virality score (0-100)
-	PopularityScore float64 `json:"popularity_score,nullable"`
+	PopularityScore float64 `json:"popularity_score" api:"nullable"`
 	// Additional themes
 	SecondaryThemes []QuoteTheme `json:"secondary_themes"`
 	// Number of times shared on social media
-	TimesShared int64 `json:"times_shared,nullable"`
+	TimesShared int64 `json:"times_shared" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID              respjson.Field
@@ -309,17 +309,17 @@ const (
 
 type QuoteNewParams struct {
 	// ID of the character who said it
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Context in which the quote was said
-	Context string `json:"context,required"`
+	Context string `json:"context" api:"required"`
 	// Type of moment when the quote was said
 	//
 	// Any of "halftime_speech", "press_conference", "locker_room", "training",
 	// "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual",
 	// "confrontation".
-	MomentType QuoteMoment `json:"moment_type,omitzero,required"`
+	MomentType QuoteMoment `json:"moment_type,omitzero" api:"required"`
 	// The quote text
-	Text string `json:"text,required"`
+	Text string `json:"text" api:"required"`
 	// Primary theme of the quote
 	//
 	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
@@ -328,7 +328,7 @@ type QuoteNewParams struct {
 	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
 	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
 	// "integrity".
-	Theme QuoteTheme `json:"theme,omitzero,required"`
+	Theme QuoteTheme `json:"theme,omitzero" api:"required"`
 	// Episode where the quote appears
 	EpisodeID param.Opt[string] `json:"episode_id,omitzero"`
 	// Popularity/virality score (0-100)

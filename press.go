@@ -44,15 +44,15 @@ func (r *PressService) Simulate(ctx context.Context, body PressSimulateParams, o
 // Ted's press conference response.
 type PressSimulateResponse struct {
 	// The actual wisdom beneath the humor
-	ActualWisdom string `json:"actual_wisdom,required"`
+	ActualWisdom string `json:"actual_wisdom" api:"required"`
 	// How Ted would dodge a follow-up
-	FollowUpDodge string `json:"follow_up_dodge,required"`
+	FollowUpDodge string `json:"follow_up_dodge" api:"required"`
 	// How reporters would react
-	ReporterReaction string `json:"reporter_reaction,required"`
+	ReporterReaction string `json:"reporter_reaction" api:"required"`
 	// Ted's press conference answer
-	Response string `json:"response,required"`
+	Response string `json:"response" api:"required"`
 	// Humorous deflection if appropriate
-	DeflectionHumor string `json:"deflection_humor,nullable"`
+	DeflectionHumor string `json:"deflection_humor" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ActualWisdom     respjson.Field
@@ -73,7 +73,7 @@ func (r *PressSimulateResponse) UnmarshalJSON(data []byte) error {
 
 type PressSimulateParams struct {
 	// The press question to answer
-	Question string `json:"question,required"`
+	Question string `json:"question" api:"required"`
 	// Topic category
 	Topic param.Opt[string] `json:"topic,omitzero"`
 	// Is this a hostile question from Trent Crimm?
