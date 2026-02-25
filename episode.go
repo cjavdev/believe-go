@@ -124,37 +124,37 @@ func (r *EpisodeService) GetWisdom(ctx context.Context, episodeID string, opts .
 // Full episode model with ID.
 type Episode struct {
 	// Unique identifier (format: s##e##)
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Original air date
-	AirDate time.Time `json:"air_date,required" format:"date"`
+	AirDate time.Time `json:"air_date" api:"required" format:"date"`
 	// Characters with significant development
-	CharacterFocus []string `json:"character_focus,required"`
+	CharacterFocus []string `json:"character_focus" api:"required"`
 	// Episode director
-	Director string `json:"director,required"`
+	Director string `json:"director" api:"required"`
 	// Episode number within season
-	EpisodeNumber int64 `json:"episode_number,required"`
+	EpisodeNumber int64 `json:"episode_number" api:"required"`
 	// Central theme of the episode
-	MainTheme string `json:"main_theme,required"`
+	MainTheme string `json:"main_theme" api:"required"`
 	// Episode runtime in minutes
-	RuntimeMinutes int64 `json:"runtime_minutes,required"`
+	RuntimeMinutes int64 `json:"runtime_minutes" api:"required"`
 	// Season number
-	Season int64 `json:"season,required"`
+	Season int64 `json:"season" api:"required"`
 	// Brief plot synopsis
-	Synopsis string `json:"synopsis,required"`
+	Synopsis string `json:"synopsis" api:"required"`
 	// Key piece of Ted wisdom from the episode
-	TedWisdom string `json:"ted_wisdom,required"`
+	TedWisdom string `json:"ted_wisdom" api:"required"`
 	// Episode title
-	Title string `json:"title,required"`
+	Title string `json:"title" api:"required"`
 	// Episode writer(s)
-	Writer string `json:"writer,required"`
+	Writer string `json:"writer" api:"required"`
 	// Notable biscuits with the boss scene
-	BiscuitsWithBossMoment string `json:"biscuits_with_boss_moment,nullable"`
+	BiscuitsWithBossMoment string `json:"biscuits_with_boss_moment" api:"nullable"`
 	// Standout moments from the episode
 	MemorableMoments []string `json:"memorable_moments"`
 	// US viewership in millions
-	UsViewersMillions float64 `json:"us_viewers_millions,nullable"`
+	UsViewersMillions float64 `json:"us_viewers_millions" api:"nullable"`
 	// Viewer rating out of 10
-	ViewerRating float64 `json:"viewer_rating,nullable"`
+	ViewerRating float64 `json:"viewer_rating" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID                     respjson.Field
@@ -185,16 +185,16 @@ func (r *Episode) UnmarshalJSON(data []byte) error {
 }
 
 type PaginatedResponse struct {
-	Data []Episode `json:"data,required"`
+	Data []Episode `json:"data" api:"required"`
 	// Whether there are more items after this page.
-	HasMore bool  `json:"has_more,required"`
-	Limit   int64 `json:"limit,required"`
+	HasMore bool  `json:"has_more" api:"required"`
+	Limit   int64 `json:"limit" api:"required"`
 	// Current page number (1-indexed, for display purposes).
-	Page int64 `json:"page,required"`
+	Page int64 `json:"page" api:"required"`
 	// Total number of pages.
-	Pages int64 `json:"pages,required"`
-	Skip  int64 `json:"skip,required"`
-	Total int64 `json:"total,required"`
+	Pages int64 `json:"pages" api:"required"`
+	Skip  int64 `json:"skip" api:"required"`
+	Total int64 `json:"total" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Data        respjson.Field
@@ -219,27 +219,27 @@ type EpisodeGetWisdomResponse map[string]any
 
 type EpisodeNewParams struct {
 	// Original air date
-	AirDate time.Time `json:"air_date,required" format:"date"`
+	AirDate time.Time `json:"air_date" api:"required" format:"date"`
 	// Characters with significant development
-	CharacterFocus []string `json:"character_focus,omitzero,required"`
+	CharacterFocus []string `json:"character_focus,omitzero" api:"required"`
 	// Episode director
-	Director string `json:"director,required"`
+	Director string `json:"director" api:"required"`
 	// Episode number within season
-	EpisodeNumber int64 `json:"episode_number,required"`
+	EpisodeNumber int64 `json:"episode_number" api:"required"`
 	// Central theme of the episode
-	MainTheme string `json:"main_theme,required"`
+	MainTheme string `json:"main_theme" api:"required"`
 	// Episode runtime in minutes
-	RuntimeMinutes int64 `json:"runtime_minutes,required"`
+	RuntimeMinutes int64 `json:"runtime_minutes" api:"required"`
 	// Season number
-	Season int64 `json:"season,required"`
+	Season int64 `json:"season" api:"required"`
 	// Brief plot synopsis
-	Synopsis string `json:"synopsis,required"`
+	Synopsis string `json:"synopsis" api:"required"`
 	// Key piece of Ted wisdom from the episode
-	TedWisdom string `json:"ted_wisdom,required"`
+	TedWisdom string `json:"ted_wisdom" api:"required"`
 	// Episode title
-	Title string `json:"title,required"`
+	Title string `json:"title" api:"required"`
 	// Episode writer(s)
-	Writer string `json:"writer,required"`
+	Writer string `json:"writer" api:"required"`
 	// Notable biscuits with the boss scene
 	BiscuitsWithBossMoment param.Opt[string] `json:"biscuits_with_boss_moment,omitzero"`
 	// US viewership in millions

@@ -44,17 +44,17 @@ func (r *ConflictService) Resolve(ctx context.Context, body ConflictResolveParam
 // Conflict resolution response.
 type ConflictResolveResponse struct {
 	// A folksy metaphor to remember
-	BarbecueSauceWisdom string `json:"barbecue_sauce_wisdom,required"`
+	BarbecueSauceWisdom string `json:"barbecue_sauce_wisdom" api:"required"`
 	// Understanding the root cause
-	Diagnosis string `json:"diagnosis,required"`
+	Diagnosis string `json:"diagnosis" api:"required"`
 	// Advice from the Diamond Dogs support group
-	DiamondDogsAdvice string `json:"diamond_dogs_advice,required"`
+	DiamondDogsAdvice string `json:"diamond_dogs_advice" api:"required"`
 	// What resolution could look like
-	PotentialOutcome string `json:"potential_outcome,required"`
+	PotentialOutcome string `json:"potential_outcome" api:"required"`
 	// Concrete steps to resolve the conflict
-	StepsToResolution []string `json:"steps_to_resolution,required"`
+	StepsToResolution []string `json:"steps_to_resolution" api:"required"`
 	// How Ted would handle this
-	TedApproach string `json:"ted_approach,required"`
+	TedApproach string `json:"ted_approach" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		BarbecueSauceWisdom respjson.Field
@@ -79,11 +79,11 @@ type ConflictResolveParams struct {
 	//
 	// Any of "interpersonal", "team_dynamics", "leadership", "ego",
 	// "miscommunication", "competition".
-	ConflictType ConflictResolveParamsConflictType `json:"conflict_type,omitzero,required"`
+	ConflictType ConflictResolveParamsConflictType `json:"conflict_type,omitzero" api:"required"`
 	// Describe the conflict
-	Description string `json:"description,required"`
+	Description string `json:"description" api:"required"`
 	// Who is involved in the conflict
-	PartiesInvolved []string `json:"parties_involved,omitzero,required"`
+	PartiesInvolved []string `json:"parties_involved,omitzero" api:"required"`
 	// What you've already tried
 	AttemptsMade []string `json:"attempts_made,omitzero"`
 	paramObj

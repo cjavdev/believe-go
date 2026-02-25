@@ -180,41 +180,41 @@ func (r *MatchService) StreamLive(ctx context.Context, query MatchStreamLivePara
 // Full match model with ID.
 type Match struct {
 	// Unique identifier
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Away team ID
-	AwayTeamID string `json:"away_team_id,required"`
+	AwayTeamID string `json:"away_team_id" api:"required"`
 	// Match date and time
-	Date time.Time `json:"date,required" format:"date-time"`
+	Date time.Time `json:"date" api:"required" format:"date-time"`
 	// Home team ID
-	HomeTeamID string `json:"home_team_id,required"`
+	HomeTeamID string `json:"home_team_id" api:"required"`
 	// Type of match
 	//
 	// Any of "league", "cup", "friendly", "playoff", "final".
-	MatchType MatchType `json:"match_type,required"`
+	MatchType MatchType `json:"match_type" api:"required"`
 	// Match attendance
-	Attendance int64 `json:"attendance,nullable"`
+	Attendance int64 `json:"attendance" api:"nullable"`
 	// Away team score
 	AwayScore int64 `json:"away_score"`
 	// Episode ID where this match is featured
-	EpisodeID string `json:"episode_id,nullable"`
+	EpisodeID string `json:"episode_id" api:"nullable"`
 	// Home team score
 	HomeScore int64 `json:"home_score"`
 	// The life lesson learned from this match
-	LessonLearned string `json:"lesson_learned,nullable"`
+	LessonLearned string `json:"lesson_learned" api:"nullable"`
 	// Home team possession percentage
-	PossessionPercentage float64 `json:"possession_percentage,nullable"`
+	PossessionPercentage float64 `json:"possession_percentage" api:"nullable"`
 	// Match result from home team perspective
 	//
 	// Any of "win", "loss", "draw", "pending".
 	Result MatchResult `json:"result"`
 	// Ted's inspirational halftime speech
-	TedHalftimeSpeech string `json:"ted_halftime_speech,nullable"`
+	TedHalftimeSpeech string `json:"ted_halftime_speech" api:"nullable"`
 	// Total ticket revenue in GBP
-	TicketRevenueGbp string `json:"ticket_revenue_gbp,nullable"`
+	TicketRevenueGbp string `json:"ticket_revenue_gbp" api:"nullable"`
 	// Key moments that changed the match
 	TurningPoints []TurningPoint `json:"turning_points"`
 	// Temperature at kickoff in Celsius
-	WeatherTempCelsius float64 `json:"weather_temp_celsius,nullable"`
+	WeatherTempCelsius float64 `json:"weather_temp_celsius" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID                   respjson.Field
@@ -268,13 +268,13 @@ const (
 // A pivotal moment in a match.
 type TurningPoint struct {
 	// What happened
-	Description string `json:"description,required"`
+	Description string `json:"description" api:"required"`
 	// How this affected the team emotionally
-	EmotionalImpact string `json:"emotional_impact,required"`
+	EmotionalImpact string `json:"emotional_impact" api:"required"`
 	// Minute of the match
-	Minute int64 `json:"minute,required"`
+	Minute int64 `json:"minute" api:"required"`
 	// Character ID who was central to this moment
-	CharacterInvolved string `json:"character_involved,nullable"`
+	CharacterInvolved string `json:"character_involved" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Description       respjson.Field
@@ -306,11 +306,11 @@ func (r TurningPoint) ToParam() TurningPointParam {
 // The properties Description, EmotionalImpact, Minute are required.
 type TurningPointParam struct {
 	// What happened
-	Description string `json:"description,required"`
+	Description string `json:"description" api:"required"`
 	// How this affected the team emotionally
-	EmotionalImpact string `json:"emotional_impact,required"`
+	EmotionalImpact string `json:"emotional_impact" api:"required"`
 	// Minute of the match
-	Minute int64 `json:"minute,required"`
+	Minute int64 `json:"minute" api:"required"`
 	// Character ID who was central to this moment
 	CharacterInvolved param.Opt[string] `json:"character_involved,omitzero"`
 	paramObj
@@ -330,15 +330,15 @@ type MatchGetTurningPointsResponse map[string]any
 
 type MatchNewParams struct {
 	// Away team ID
-	AwayTeamID string `json:"away_team_id,required"`
+	AwayTeamID string `json:"away_team_id" api:"required"`
 	// Match date and time
-	Date time.Time `json:"date,required" format:"date-time"`
+	Date time.Time `json:"date" api:"required" format:"date-time"`
 	// Home team ID
-	HomeTeamID string `json:"home_team_id,required"`
+	HomeTeamID string `json:"home_team_id" api:"required"`
 	// Type of match
 	//
 	// Any of "league", "cup", "friendly", "playoff", "final".
-	MatchType MatchType `json:"match_type,omitzero,required"`
+	MatchType MatchType `json:"match_type,omitzero" api:"required"`
 	// Match attendance
 	Attendance param.Opt[int64] `json:"attendance,omitzero"`
 	// Episode ID where this match is featured

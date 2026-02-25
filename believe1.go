@@ -44,15 +44,15 @@ func (r *BelieveService) Submit(ctx context.Context, body BelieveSubmitParams, o
 // Response from the Believe Engine.
 type BelieveSubmitResponse struct {
 	// Suggested action to take
-	ActionSuggestion string `json:"action_suggestion,required"`
+	ActionSuggestion string `json:"action_suggestion" api:"required"`
 	// Your current believe-o-meter score
-	BelieveScore int64 `json:"believe_score,required"`
+	BelieveScore int64 `json:"believe_score" api:"required"`
 	// A reminder to have a goldfish memory when needed
-	GoldfishWisdom string `json:"goldfish_wisdom,required"`
+	GoldfishWisdom string `json:"goldfish_wisdom" api:"required"`
 	// A relevant Ted Lasso quote
-	RelevantQuote string `json:"relevant_quote,required"`
+	RelevantQuote string `json:"relevant_quote" api:"required"`
 	// Ted's motivational response
-	TedResponse string `json:"ted_response,required"`
+	TedResponse string `json:"ted_response" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ActionSuggestion respjson.Field
@@ -73,12 +73,12 @@ func (r *BelieveSubmitResponse) UnmarshalJSON(data []byte) error {
 
 type BelieveSubmitParams struct {
 	// Describe your situation
-	Situation string `json:"situation,required"`
+	Situation string `json:"situation" api:"required"`
 	// Type of situation
 	//
 	// Any of "work_challenge", "personal_setback", "team_conflict", "self_doubt",
 	// "big_decision", "failure", "new_beginning", "relationship".
-	SituationType BelieveSubmitParamsSituationType `json:"situation_type,omitzero,required"`
+	SituationType BelieveSubmitParamsSituationType `json:"situation_type,omitzero" api:"required"`
 	// Additional context
 	Context param.Opt[string] `json:"context,omitzero"`
 	// How intense is the response needed (1=gentle, 10=full Ted)

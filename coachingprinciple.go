@@ -84,17 +84,17 @@ func (r *CoachingPrincipleService) GetRandom(ctx context.Context, opts ...option
 // A Ted Lasso coaching principle.
 type CoachingPrinciple struct {
 	// Principle identifier
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// How to apply this principle
-	Application string `json:"application,required"`
+	Application string `json:"application" api:"required"`
 	// Example from the show
-	ExampleFromShow string `json:"example_from_show,required"`
+	ExampleFromShow string `json:"example_from_show" api:"required"`
 	// What this principle means
-	Explanation string `json:"explanation,required"`
+	Explanation string `json:"explanation" api:"required"`
 	// The coaching principle
-	Principle string `json:"principle,required"`
+	Principle string `json:"principle" api:"required"`
 	// Related Ted quote
-	TedQuote string `json:"ted_quote,required"`
+	TedQuote string `json:"ted_quote" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID              respjson.Field
