@@ -16,6 +16,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Server-Sent Events (SSE) streaming endpoints
+//
 // PepTalkService contains methods and other services that help with interacting
 // with the believe API.
 //

@@ -19,6 +19,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Register webhook endpoints and trigger events for testing
+//
 // WebhookService contains methods and other services that help with interacting
 // with the believe API.
 //

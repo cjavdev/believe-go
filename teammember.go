@@ -20,6 +20,9 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Team members with union types (oneOf) - Players, Coaches, Medical Staff,
+// Equipment Managers
+//
 // TeamMemberService contains methods and other services that help with interacting
 // with the believe API.
 //

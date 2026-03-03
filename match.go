@@ -28,7 +28,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewMatchService] method instead.
 type MatchService struct {
-	Options    []option.RequestOption
+	Options []option.RequestOption
+	// Server-Sent Events (SSE) streaming endpoints
 	Commentary MatchCommentaryService
 }
 

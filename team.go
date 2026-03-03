@@ -20,6 +20,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Operations related to football teams
+//
 // TeamService contains methods and other services that help with interacting with
 // the believe API.
 //
@@ -28,7 +30,8 @@ import (
 // the [NewTeamService] method instead.
 type TeamService struct {
 	Options []option.RequestOption
-	Logo    TeamLogoService
+	// Operations related to football teams
+	Logo TeamLogoService
 }
 
 // NewTeamService generates a new service that applies the given options to each

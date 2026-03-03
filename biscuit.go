@@ -19,6 +19,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Interactive endpoints for motivation and guidance
+//
 // BiscuitService contains methods and other services that help with interacting
 // with the believe API.
 //

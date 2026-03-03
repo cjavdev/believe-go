@@ -14,6 +14,8 @@ import (
 	"github.com/cjavdev/believe-go/option"
 )
 
+// Server-Sent Events (SSE) streaming endpoints
+//
 // MatchCommentaryService contains methods and other services that help with
 // interacting with the believe API.
 //
