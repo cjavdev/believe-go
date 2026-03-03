@@ -11,6 +11,9 @@ import (
 	"github.com/cjavdev/believe-go/option"
 )
 
+// WebSocket endpoints for real-time bidirectional communication - Live match
+// simulation
+//
 // ClientWService contains methods and other services that help with interacting
 // with the believe API.
 //

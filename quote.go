@@ -19,6 +19,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Memorable quotes from the show
+//
 // QuoteService contains methods and other services that help with interacting with
 // the believe API.
 //

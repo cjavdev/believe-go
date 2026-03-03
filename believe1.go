@@ -14,6 +14,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Interactive endpoints for motivation and guidance
+//
 // BelieveService contains methods and other services that help with interacting
 // with the believe API.
 //

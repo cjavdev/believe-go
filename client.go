@@ -16,25 +16,39 @@ import (
 // interacting with the believe API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options     []option.RequestOption
-	Characters  CharacterService
-	Teams       TeamService
-	Matches     MatchService
-	Episodes    EpisodeService
-	Quotes      QuoteService
-	Believe     BelieveService
-	Conflicts   ConflictService
-	Reframe     ReframeService
-	Press       PressService
-	Coaching    CoachingService
-	Biscuits    BiscuitService
-	PepTalk     PepTalkService
-	Stream      StreamService
+	Options []option.RequestOption
+	// Operations related to Ted Lasso characters
+	Characters CharacterService
+	// Operations related to football teams
+	Teams   TeamService
+	Matches MatchService
+	// Operations related to TV episodes
+	Episodes EpisodeService
+	// Memorable quotes from the show
+	Quotes QuoteService
+	// Interactive endpoints for motivation and guidance
+	Believe BelieveService
+	// Interactive endpoints for motivation and guidance
+	Conflicts ConflictService
+	// Interactive endpoints for motivation and guidance
+	Reframe ReframeService
+	// Interactive endpoints for motivation and guidance
+	Press    PressService
+	Coaching CoachingService
+	// Interactive endpoints for motivation and guidance
+	Biscuits BiscuitService
+	// Server-Sent Events (SSE) streaming endpoints
+	PepTalk PepTalkService
+	// Server-Sent Events (SSE) streaming endpoints
+	Stream StreamService
+	// Team members with union types (oneOf) - Players, Coaches, Medical Staff,
+	// Equipment Managers
 	TeamMembers TeamMemberService
-	Webhooks    WebhookService
-	Health      HealthService
-	Version     VersionService
-	Client      ClientService
+	// Register webhook endpoints and trigger events for testing
+	Webhooks WebhookService
+	Health   HealthService
+	Version  VersionService
+	Client   ClientService
 }
 
 // DefaultClientOptions read from the environment (BELIEVE_API_KEY,

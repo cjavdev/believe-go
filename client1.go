@@ -14,7 +14,9 @@ import (
 // the [NewClientService] method instead.
 type ClientService struct {
 	Options []option.RequestOption
-	Ws      ClientWService
+	// WebSocket endpoints for real-time bidirectional communication - Live match
+	// simulation
+	Ws ClientWService
 }
 
 // NewClientService generates a new service that applies the given options to each
