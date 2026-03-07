@@ -90,7 +90,7 @@ func TestTeamLogoUpload(t *testing.T) {
 		context.TODO(),
 		"team_id",
 		believe.TeamLogoUploadParams{
-			File: io.Reader(bytes.NewBuffer([]byte("some file contents"))),
+			File: io.Reader(bytes.NewBuffer([]byte("Example data"))),
 		},
 	)
 	if err != nil {
