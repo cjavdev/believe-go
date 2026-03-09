@@ -97,7 +97,8 @@ type Biscuit struct {
 	TedNote string `json:"ted_note" api:"required"`
 	// Type of biscuit
 	//
-	// Any of "classic", "shortbread", "chocolate_chip", "oatmeal_raisin".
+	// Any of "classic", "shortbread", "chocolate_chip", "oatmeal_raisin",
+	// "snickerdoodle", "lemon_drizzle".
 	Type BiscuitType `json:"type" api:"required"`
 	// How warm and fresh (1-10)
 	WarmthLevel int64 `json:"warmth_level" api:"required"`
@@ -128,6 +129,8 @@ const (
 	BiscuitTypeShortbread    BiscuitType = "shortbread"
 	BiscuitTypeChocolateChip BiscuitType = "chocolate_chip"
 	BiscuitTypeOatmealRaisin BiscuitType = "oatmeal_raisin"
+	BiscuitTypeSnickerdoodle BiscuitType = "snickerdoodle"
+	BiscuitTypeLemonDrizzle  BiscuitType = "lemon_drizzle"
 )
 
 type BiscuitListParams struct {
