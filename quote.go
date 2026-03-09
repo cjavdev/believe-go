@@ -220,7 +220,7 @@ type Quote struct {
 	// "forgiveness", "philosophy", "romance", "cultural-pride",
 	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
 	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity".
+	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `json:"theme" api:"required"`
 	// Episode where the quote appears
 	EpisodeID string `json:"episode_id" api:"nullable"`
@@ -307,6 +307,10 @@ const (
 	QuoteThemeConflict            QuoteTheme = "conflict"
 	QuoteThemeHonesty             QuoteTheme = "honesty"
 	QuoteThemeIntegrity           QuoteTheme = "integrity"
+	QuoteThemeIntimidation        QuoteTheme = "intimidation"
+	QuoteThemeAmbition            QuoteTheme = "ambition"
+	QuoteThemeNarcissism          QuoteTheme = "narcissism"
+	QuoteThemeMaturity            QuoteTheme = "maturity"
 )
 
 type QuoteNewParams struct {
@@ -329,7 +333,7 @@ type QuoteNewParams struct {
 	// "forgiveness", "philosophy", "romance", "cultural-pride",
 	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
 	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity".
+	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `json:"theme,omitzero" api:"required"`
 	// Episode where the quote appears
 	EpisodeID param.Opt[string] `json:"episode_id,omitzero"`
@@ -377,7 +381,7 @@ type QuoteUpdateParams struct {
 	// "forgiveness", "philosophy", "romance", "cultural-pride",
 	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
 	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity".
+	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `json:"theme,omitzero"`
 	paramObj
 }
@@ -414,7 +418,7 @@ type QuoteListParams struct {
 	// "forgiveness", "philosophy", "romance", "cultural-pride",
 	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
 	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity".
+	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `query:"theme,omitzero" json:"-"`
 	paramObj
 }
@@ -439,7 +443,7 @@ type QuoteGetRandomParams struct {
 	// "forgiveness", "philosophy", "romance", "cultural-pride",
 	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
 	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity".
+	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `query:"theme,omitzero" json:"-"`
 	paramObj
 }
