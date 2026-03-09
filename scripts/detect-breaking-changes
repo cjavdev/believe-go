@@ -26,10 +26,10 @@ TEST_PATHS=(
 	stream_test.go
 	teammember_test.go
 	webhook_test.go
+	ticketsale_test.go
 	health_test.go
 	version_test.go
 	clientw_test.go
-	clientticketsale_test.go
 	usage_test.go
 	paginationauto_test.go
 	paginationmanual_test.go
