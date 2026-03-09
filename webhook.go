@@ -19,6 +19,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Register webhook endpoints and trigger events for testing
+//
 // WebhookService contains methods and other services that help with interacting
 // with the believe API.
 //
@@ -148,19 +150,19 @@ func (r *WebhookService) Unwrap(payload []byte, opts ...option.RequestOption) (*
 // A registered webhook endpoint.
 type RegisteredWebhook struct {
 	// Unique webhook identifier
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the webhook was registered
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// List of event types this webhook is subscribed to
 	//
 	// Any of "match.completed", "team_member.transferred".
-	EventTypes []string `json:"event_types,required"`
+	EventTypes []string `json:"event_types" api:"required"`
 	// The secret key for verifying webhook signatures (base64 encoded)
-	Secret string `json:"secret,required"`
+	Secret string `json:"secret" api:"required"`
 	// The URL to send webhook events to
-	URL string `json:"url,required" format:"uri"`
+	URL string `json:"url" api:"required" format:"uri"`
 	// Optional description for this webhook
-	Description string `json:"description,nullable"`
+	Description string `json:"description" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -183,7 +185,7 @@ func (r *RegisteredWebhook) UnmarshalJSON(data []byte) error {
 // Response after registering a webhook.
 type WebhookNewResponse struct {
 	// The registered webhook details
-	Webhook RegisteredWebhook `json:"webhook,required"`
+	Webhook RegisteredWebhook `json:"webhook" api:"required"`
 	// Status message
 	Message string `json:"message"`
 	// Ted's reaction
@@ -209,19 +211,19 @@ type WebhookDeleteResponse map[string]any
 // Response after triggering webhook events.
 type WebhookTriggerEventResponse struct {
 	// Results of webhook deliveries
-	Deliveries []WebhookTriggerEventResponseDelivery `json:"deliveries,required"`
+	Deliveries []WebhookTriggerEventResponseDelivery `json:"deliveries" api:"required"`
 	// Unique event identifier
-	EventID string `json:"event_id,required"`
+	EventID string `json:"event_id" api:"required"`
 	// The type of event triggered
 	//
 	// Any of "match.completed", "team_member.transferred".
-	EventType WebhookTriggerEventResponseEventType `json:"event_type,required"`
+	EventType WebhookTriggerEventResponseEventType `json:"event_type" api:"required"`
 	// Number of successful deliveries
-	SuccessfulDeliveries int64 `json:"successful_deliveries,required"`
+	SuccessfulDeliveries int64 `json:"successful_deliveries" api:"required"`
 	// Ted's reaction
-	TedSays string `json:"ted_says,required"`
+	TedSays string `json:"ted_says" api:"required"`
 	// Total number of webhooks that received this event
-	TotalWebhooks int64 `json:"total_webhooks,required"`
+	TotalWebhooks int64 `json:"total_webhooks" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Deliveries           respjson.Field
@@ -244,15 +246,15 @@ func (r *WebhookTriggerEventResponse) UnmarshalJSON(data []byte) error {
 // Result of delivering a webhook to a single endpoint.
 type WebhookTriggerEventResponseDelivery struct {
 	// Whether delivery was successful
-	Success bool `json:"success,required"`
+	Success bool `json:"success" api:"required"`
 	// URL the webhook was sent to
-	URL string `json:"url,required"`
+	URL string `json:"url" api:"required"`
 	// ID of the webhook
-	WebhookID string `json:"webhook_id,required"`
+	WebhookID string `json:"webhook_id" api:"required"`
 	// Error message if delivery failed
-	Error string `json:"error,nullable"`
+	Error string `json:"error" api:"nullable"`
 	// HTTP status code from the endpoint
-	StatusCode int64 `json:"status_code,nullable"`
+	StatusCode int64 `json:"status_code" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Success     respjson.Field
@@ -282,15 +284,15 @@ const (
 // Webhook event sent when a match completes.
 type MatchCompletedWebhookEvent struct {
 	// When the event was created
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Data payload for a match completed event.
-	Data MatchCompletedWebhookEventData `json:"data,required"`
+	Data MatchCompletedWebhookEventData `json:"data" api:"required"`
 	// Unique identifier for this event
-	EventID string `json:"event_id,required" format:"uuid"`
+	EventID string `json:"event_id" api:"required" format:"uuid"`
 	// The type of webhook event
 	//
 	// Any of "match.completed".
-	EventType MatchCompletedWebhookEventEventType `json:"event_type,required"`
+	EventType MatchCompletedWebhookEventEventType `json:"event_type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		CreatedAt   respjson.Field
@@ -311,31 +313,31 @@ func (r *MatchCompletedWebhookEvent) UnmarshalJSON(data []byte) error {
 // Data payload for a match completed event.
 type MatchCompletedWebhookEventData struct {
 	// Final away team score
-	AwayScore int64 `json:"away_score,required"`
+	AwayScore int64 `json:"away_score" api:"required"`
 	// Away team ID
-	AwayTeamID string `json:"away_team_id,required"`
+	AwayTeamID string `json:"away_team_id" api:"required"`
 	// When the match completed
-	CompletedAt time.Time `json:"completed_at,required" format:"date-time"`
+	CompletedAt time.Time `json:"completed_at" api:"required" format:"date-time"`
 	// Final home team score
-	HomeScore int64 `json:"home_score,required"`
+	HomeScore int64 `json:"home_score" api:"required"`
 	// Home team ID
-	HomeTeamID string `json:"home_team_id,required"`
+	HomeTeamID string `json:"home_team_id" api:"required"`
 	// Unique match identifier
-	MatchID string `json:"match_id,required"`
+	MatchID string `json:"match_id" api:"required"`
 	// Type of match
 	//
 	// Any of "league", "cup", "friendly", "playoff", "final".
-	MatchType string `json:"match_type,required"`
+	MatchType string `json:"match_type" api:"required"`
 	// Match result from home team perspective
 	//
 	// Any of "home_win", "away_win", "draw".
-	Result string `json:"result,required"`
+	Result string `json:"result" api:"required"`
 	// Ted's post-match wisdom
-	TedPostMatchQuote string `json:"ted_post_match_quote,required"`
+	TedPostMatchQuote string `json:"ted_post_match_quote" api:"required"`
 	// Ted's lesson from the match
-	LessonLearned string `json:"lesson_learned,nullable"`
+	LessonLearned string `json:"lesson_learned" api:"nullable"`
 	// Player of the match (if awarded)
-	ManOfTheMatch string `json:"man_of_the_match,nullable"`
+	ManOfTheMatch string `json:"man_of_the_match" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		AwayScore         respjson.Field
@@ -371,15 +373,15 @@ const (
 // teams.
 type TeamMemberTransferredWebhookEvent struct {
 	// When the event was created
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Data payload for a team member transfer event.
-	Data TeamMemberTransferredWebhookEventData `json:"data,required"`
+	Data TeamMemberTransferredWebhookEventData `json:"data" api:"required"`
 	// Unique identifier for this event
-	EventID string `json:"event_id,required" format:"uuid"`
+	EventID string `json:"event_id" api:"required" format:"uuid"`
 	// The type of webhook event
 	//
 	// Any of "team_member.transferred".
-	EventType TeamMemberTransferredWebhookEventEventType `json:"event_type,required"`
+	EventType TeamMemberTransferredWebhookEventEventType `json:"event_type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		CreatedAt   respjson.Field
@@ -400,33 +402,33 @@ func (r *TeamMemberTransferredWebhookEvent) UnmarshalJSON(data []byte) error {
 // Data payload for a team member transfer event.
 type TeamMemberTransferredWebhookEventData struct {
 	// ID of the character (links to /characters)
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Name of the character
-	CharacterName string `json:"character_name,required"`
+	CharacterName string `json:"character_name" api:"required"`
 	// Type of team member
 	//
 	// Any of "player", "coach", "medical_staff", "equipment_manager".
-	MemberType string `json:"member_type,required"`
+	MemberType string `json:"member_type" api:"required"`
 	// ID of the team involved
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// ID of the team member
-	TeamMemberID string `json:"team_member_id,required"`
+	TeamMemberID string `json:"team_member_id" api:"required"`
 	// Name of the team involved
-	TeamName string `json:"team_name,required"`
+	TeamName string `json:"team_name" api:"required"`
 	// Ted's reaction to the transfer
-	TedReaction string `json:"ted_reaction,required"`
+	TedReaction string `json:"ted_reaction" api:"required"`
 	// Whether the member joined or departed
 	//
 	// Any of "joined", "departed".
-	TransferType string `json:"transfer_type,required"`
+	TransferType string `json:"transfer_type" api:"required"`
 	// Previous team ID (for joins from another team)
-	PreviousTeamID string `json:"previous_team_id,nullable"`
+	PreviousTeamID string `json:"previous_team_id" api:"nullable"`
 	// Previous team name (for joins from another team)
-	PreviousTeamName string `json:"previous_team_name,nullable"`
+	PreviousTeamName string `json:"previous_team_name" api:"nullable"`
 	// Transfer fee in GBP (for players)
-	TransferFeeGbp string `json:"transfer_fee_gbp,nullable"`
+	TransferFeeGbp string `json:"transfer_fee_gbp" api:"nullable"`
 	// Years spent with previous team
-	YearsWithPreviousTeam int64 `json:"years_with_previous_team,nullable"`
+	YearsWithPreviousTeam int64 `json:"years_with_previous_team" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		CharacterID           respjson.Field
@@ -614,7 +616,7 @@ func (r *UnwrapWebhookEventUnionData) UnmarshalJSON(data []byte) error {
 
 type WebhookNewParams struct {
 	// The URL to send webhook events to
-	URL string `json:"url,required" format:"uri"`
+	URL string `json:"url" api:"required" format:"uri"`
 	// Optional description for this webhook
 	Description param.Opt[string] `json:"description,omitzero"`
 	// List of event types to subscribe to. If not provided, subscribes to all events.
@@ -636,7 +638,7 @@ type WebhookTriggerEventParams struct {
 	// The type of event to trigger
 	//
 	// Any of "match.completed", "team_member.transferred".
-	EventType WebhookTriggerEventParamsEventType `json:"event_type,omitzero,required"`
+	EventType WebhookTriggerEventParamsEventType `json:"event_type,omitzero" api:"required"`
 	// Optional event payload. If not provided, a sample payload will be generated.
 	Payload WebhookTriggerEventParamsPayloadUnion `json:"payload,omitzero"`
 	paramObj
@@ -687,7 +689,7 @@ func init() {
 // The property Data is required.
 type WebhookTriggerEventParamsPayloadMatchCompleted struct {
 	// Event data
-	Data WebhookTriggerEventParamsPayloadMatchCompletedData `json:"data,omitzero,required"`
+	Data WebhookTriggerEventParamsPayloadMatchCompletedData `json:"data,omitzero" api:"required"`
 	// The type of webhook event
 	//
 	// Any of "match.completed".
@@ -715,27 +717,27 @@ func init() {
 // MatchID, MatchType, Result, TedPostMatchQuote are required.
 type WebhookTriggerEventParamsPayloadMatchCompletedData struct {
 	// Final away team score
-	AwayScore int64 `json:"away_score,required"`
+	AwayScore int64 `json:"away_score" api:"required"`
 	// Away team ID
-	AwayTeamID string `json:"away_team_id,required"`
+	AwayTeamID string `json:"away_team_id" api:"required"`
 	// When the match completed
-	CompletedAt time.Time `json:"completed_at,required" format:"date-time"`
+	CompletedAt time.Time `json:"completed_at" api:"required" format:"date-time"`
 	// Final home team score
-	HomeScore int64 `json:"home_score,required"`
+	HomeScore int64 `json:"home_score" api:"required"`
 	// Home team ID
-	HomeTeamID string `json:"home_team_id,required"`
+	HomeTeamID string `json:"home_team_id" api:"required"`
 	// Unique match identifier
-	MatchID string `json:"match_id,required"`
+	MatchID string `json:"match_id" api:"required"`
 	// Type of match
 	//
 	// Any of "league", "cup", "friendly", "playoff", "final".
-	MatchType string `json:"match_type,omitzero,required"`
+	MatchType string `json:"match_type,omitzero" api:"required"`
 	// Match result from home team perspective
 	//
 	// Any of "home_win", "away_win", "draw".
-	Result string `json:"result,omitzero,required"`
+	Result string `json:"result,omitzero" api:"required"`
 	// Ted's post-match wisdom
-	TedPostMatchQuote string `json:"ted_post_match_quote,required"`
+	TedPostMatchQuote string `json:"ted_post_match_quote" api:"required"`
 	// Ted's lesson from the match
 	LessonLearned param.Opt[string] `json:"lesson_learned,omitzero"`
 	// Player of the match (if awarded)
@@ -765,7 +767,7 @@ func init() {
 // The property Data is required.
 type WebhookTriggerEventParamsPayloadTeamMemberTransferred struct {
 	// Event data
-	Data WebhookTriggerEventParamsPayloadTeamMemberTransferredData `json:"data,omitzero,required"`
+	Data WebhookTriggerEventParamsPayloadTeamMemberTransferredData `json:"data,omitzero" api:"required"`
 	// The type of webhook event
 	//
 	// Any of "team_member.transferred".
@@ -793,25 +795,25 @@ func init() {
 // TeamName, TedReaction, TransferType are required.
 type WebhookTriggerEventParamsPayloadTeamMemberTransferredData struct {
 	// ID of the character (links to /characters)
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Name of the character
-	CharacterName string `json:"character_name,required"`
+	CharacterName string `json:"character_name" api:"required"`
 	// Type of team member
 	//
 	// Any of "player", "coach", "medical_staff", "equipment_manager".
-	MemberType string `json:"member_type,omitzero,required"`
+	MemberType string `json:"member_type,omitzero" api:"required"`
 	// ID of the team involved
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// ID of the team member
-	TeamMemberID string `json:"team_member_id,required"`
+	TeamMemberID string `json:"team_member_id" api:"required"`
 	// Name of the team involved
-	TeamName string `json:"team_name,required"`
+	TeamName string `json:"team_name" api:"required"`
 	// Ted's reaction to the transfer
-	TedReaction string `json:"ted_reaction,required"`
+	TedReaction string `json:"ted_reaction" api:"required"`
 	// Whether the member joined or departed
 	//
 	// Any of "joined", "departed".
-	TransferType string `json:"transfer_type,omitzero,required"`
+	TransferType string `json:"transfer_type,omitzero" api:"required"`
 	// Previous team ID (for joins from another team)
 	PreviousTeamID param.Opt[string] `json:"previous_team_id,omitzero"`
 	// Previous team name (for joins from another team)

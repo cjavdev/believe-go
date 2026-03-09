@@ -20,6 +20,9 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Team members with union types (oneOf) - Players, Coaches, Medical Staff,
+// Equipment Managers
+//
 // TeamMemberService contains methods and other services that help with interacting
 // with the believe API.
 //
@@ -238,18 +241,18 @@ func (r *TeamMemberService) ListStaffAutoPaging(ctx context.Context, query TeamM
 // Full coach model with ID.
 type Coach struct {
 	// Unique identifier for this team membership
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Coaching specialty/role
 	//
 	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach",
 	// "tactical_analyst".
-	Specialty CoachSpecialty `json:"specialty,required"`
+	Specialty CoachSpecialty `json:"specialty" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Coaching certifications and licenses
 	Certifications []string `json:"certifications"`
 	// Discriminator field indicating this is a coach
@@ -257,7 +260,7 @@ type Coach struct {
 	// Any of "coach".
 	MemberType CoachMemberType `json:"member_type"`
 	// Career win rate (0.0 to 1.0)
-	WinRate float64 `json:"win_rate,nullable"`
+	WinRate float64 `json:"win_rate" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID             respjson.Field
@@ -300,13 +303,13 @@ const (
 // Full equipment manager model with ID.
 type EquipmentManager struct {
 	// Unique identifier for this team membership
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Whether this is the head equipment manager
 	IsHeadKitman bool `json:"is_head_kitman"`
 	// Discriminator field indicating this is an equipment manager
@@ -356,20 +359,20 @@ const (
 // Full medical staff model with ID.
 type MedicalStaff struct {
 	// Unique identifier for this team membership
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Medical specialty
 	//
 	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist",
 	// "massage_therapist".
-	Specialty MedicalSpecialty `json:"specialty,required"`
+	Specialty MedicalSpecialty `json:"specialty" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Professional license number
-	LicenseNumber string `json:"license_number,nullable"`
+	LicenseNumber string `json:"license_number" api:"nullable"`
 	// Discriminator field indicating this is medical staff
 	//
 	// Any of "medical_staff".
@@ -407,19 +410,19 @@ const (
 // Full player model with ID.
 type Player struct {
 	// Unique identifier for this team membership
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Jersey/shirt number
-	JerseyNumber int64 `json:"jersey_number,required"`
+	JerseyNumber int64 `json:"jersey_number" api:"required"`
 	// Playing position on the field
 	//
 	// Any of "goalkeeper", "defender", "midfielder", "forward".
-	Position Position `json:"position,required"`
+	Position Position `json:"position" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Total assists for the team
 	Assists int64 `json:"assists"`
 	// Total goals scored for the team
@@ -1041,17 +1044,17 @@ func (r *TeamMemberNewParams) UnmarshalJSON(data []byte) error {
 // required.
 type TeamMemberNewParamsMemberPlayer struct {
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Jersey/shirt number
-	JerseyNumber int64 `json:"jersey_number,required"`
+	JerseyNumber int64 `json:"jersey_number" api:"required"`
 	// Playing position on the field
 	//
 	// Any of "goalkeeper", "defender", "midfielder", "forward".
-	Position Position `json:"position,omitzero,required"`
+	Position Position `json:"position,omitzero" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Total assists for the team
 	Assists param.Opt[int64] `json:"assists,omitzero"`
 	// Total goals scored for the team
@@ -1084,16 +1087,16 @@ func init() {
 // The properties CharacterID, Specialty, TeamID, YearsWithTeam are required.
 type TeamMemberNewParamsMemberCoach struct {
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Coaching specialty/role
 	//
 	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach",
 	// "tactical_analyst".
-	Specialty CoachSpecialty `json:"specialty,omitzero,required"`
+	Specialty CoachSpecialty `json:"specialty,omitzero" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Career win rate (0.0 to 1.0)
 	WinRate param.Opt[float64] `json:"win_rate,omitzero"`
 	// Coaching certifications and licenses
@@ -1124,16 +1127,16 @@ func init() {
 // The properties CharacterID, Specialty, TeamID, YearsWithTeam are required.
 type TeamMemberNewParamsMemberMedicalStaff struct {
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// Medical specialty
 	//
 	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist",
 	// "massage_therapist".
-	Specialty MedicalSpecialty `json:"specialty,omitzero,required"`
+	Specialty MedicalSpecialty `json:"specialty,omitzero" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Professional license number
 	LicenseNumber param.Opt[string] `json:"license_number,omitzero"`
 	// Discriminator field indicating this is medical staff
@@ -1164,11 +1167,11 @@ func init() {
 // The properties CharacterID, TeamID, YearsWithTeam are required.
 type TeamMemberNewParamsMemberEquipmentManager struct {
 	// ID of the character (references /characters/{id})
-	CharacterID string `json:"character_id,required"`
+	CharacterID string `json:"character_id" api:"required"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,required"`
+	TeamID string `json:"team_id" api:"required"`
 	// Number of years with the current team
-	YearsWithTeam int64 `json:"years_with_team,required"`
+	YearsWithTeam int64 `json:"years_with_team" api:"required"`
 	// Whether this is the head equipment manager
 	IsHeadKitman param.Opt[bool] `json:"is_head_kitman,omitzero"`
 	// Discriminator field indicating this is an equipment manager

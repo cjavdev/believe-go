@@ -20,6 +20,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Operations related to football teams
+//
 // TeamService contains methods and other services that help with interacting with
 // the believe API.
 //
@@ -28,7 +30,8 @@ import (
 // the [NewTeamService] method instead.
 type TeamService struct {
 	Options []option.RequestOption
-	Logo    TeamLogoService
+	// Operations related to football teams
+	Logo TeamLogoService
 }
 
 // NewTeamService generates a new service that applies the given options to each
@@ -150,9 +153,9 @@ func (r *TeamService) ListLogos(ctx context.Context, teamID string, opts ...opti
 // Geographic coordinates for a location.
 type GeoLocation struct {
 	// Latitude in degrees
-	Latitude float64 `json:"latitude,required"`
+	Latitude float64 `json:"latitude" api:"required"`
 	// Longitude in degrees
-	Longitude float64 `json:"longitude,required"`
+	Longitude float64 `json:"longitude" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Latitude    respjson.Field
@@ -182,9 +185,9 @@ func (r GeoLocation) ToParam() GeoLocationParam {
 // The properties Latitude, Longitude are required.
 type GeoLocationParam struct {
 	// Latitude in degrees
-	Latitude float64 `json:"latitude,required"`
+	Latitude float64 `json:"latitude" api:"required"`
 	// Longitude in degrees
-	Longitude float64 `json:"longitude,required"`
+	Longitude float64 `json:"longitude" api:"required"`
 	paramObj
 }
 
@@ -213,44 +216,44 @@ const (
 // Full team model with ID.
 type Team struct {
 	// Unique identifier
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Team culture/morale score (0-100)
-	CultureScore int64 `json:"culture_score,required"`
+	CultureScore int64 `json:"culture_score" api:"required"`
 	// Year the club was founded
-	FoundedYear int64 `json:"founded_year,required"`
+	FoundedYear int64 `json:"founded_year" api:"required"`
 	// Current league
 	//
 	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga",
 	// "Serie A", "Bundesliga", "Ligue 1".
-	League League `json:"league,required"`
+	League League `json:"league" api:"required"`
 	// Team name
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Home stadium name
-	Stadium string `json:"stadium,required"`
+	Stadium string `json:"stadium" api:"required"`
 	// Team's core values
-	Values TeamValues `json:"values,required"`
+	Values TeamValues `json:"values" api:"required"`
 	// Annual budget in GBP
-	AnnualBudgetGbp string `json:"annual_budget_gbp,nullable"`
+	AnnualBudgetGbp string `json:"annual_budget_gbp" api:"nullable"`
 	// Average match attendance
-	AverageAttendance float64 `json:"average_attendance,nullable"`
+	AverageAttendance float64 `json:"average_attendance" api:"nullable"`
 	// Team contact email
-	ContactEmail string `json:"contact_email,nullable" format:"email"`
+	ContactEmail string `json:"contact_email" api:"nullable" format:"email"`
 	// Whether the team is currently active
 	IsActive bool `json:"is_active"`
 	// Team nickname
-	Nickname string `json:"nickname,nullable"`
+	Nickname string `json:"nickname" api:"nullable"`
 	// Primary team color (hex)
-	PrimaryColor string `json:"primary_color,nullable"`
+	PrimaryColor string `json:"primary_color" api:"nullable"`
 	// List of rival team IDs
 	RivalTeams []string `json:"rival_teams"`
 	// Secondary team color (hex)
-	SecondaryColor string `json:"secondary_color,nullable"`
+	SecondaryColor string `json:"secondary_color" api:"nullable"`
 	// Geographic coordinates for a location.
-	StadiumLocation GeoLocation `json:"stadium_location,nullable"`
+	StadiumLocation GeoLocation `json:"stadium_location" api:"nullable"`
 	// Official team website
-	Website string `json:"website,nullable" format:"uri"`
+	Website string `json:"website" api:"nullable" format:"uri"`
 	// Season win percentage
-	WinPercentage float64 `json:"win_percentage,nullable"`
+	WinPercentage float64 `json:"win_percentage" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID                respjson.Field
@@ -285,11 +288,11 @@ func (r *Team) UnmarshalJSON(data []byte) error {
 // Core values that define a team's culture.
 type TeamValues struct {
 	// The team's primary guiding value
-	PrimaryValue string `json:"primary_value,required"`
+	PrimaryValue string `json:"primary_value" api:"required"`
 	// Supporting values
-	SecondaryValues []string `json:"secondary_values,required"`
+	SecondaryValues []string `json:"secondary_values" api:"required"`
 	// Team's motivational motto
-	TeamMotto string `json:"team_motto,required"`
+	TeamMotto string `json:"team_motto" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		PrimaryValue    respjson.Field
@@ -320,11 +323,11 @@ func (r TeamValues) ToParam() TeamValuesParam {
 // The properties PrimaryValue, SecondaryValues, TeamMotto are required.
 type TeamValuesParam struct {
 	// The team's primary guiding value
-	PrimaryValue string `json:"primary_value,required"`
+	PrimaryValue string `json:"primary_value" api:"required"`
 	// Supporting values
-	SecondaryValues []string `json:"secondary_values,omitzero,required"`
+	SecondaryValues []string `json:"secondary_values,omitzero" api:"required"`
 	// Team's motivational motto
-	TeamMotto string `json:"team_motto,required"`
+	TeamMotto string `json:"team_motto" api:"required"`
 	paramObj
 }
 
@@ -340,20 +343,20 @@ type TeamGetCultureResponse map[string]any
 
 type TeamNewParams struct {
 	// Team culture/morale score (0-100)
-	CultureScore int64 `json:"culture_score,required"`
+	CultureScore int64 `json:"culture_score" api:"required"`
 	// Year the club was founded
-	FoundedYear int64 `json:"founded_year,required"`
+	FoundedYear int64 `json:"founded_year" api:"required"`
 	// Current league
 	//
 	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga",
 	// "Serie A", "Bundesliga", "Ligue 1".
-	League League `json:"league,omitzero,required"`
+	League League `json:"league,omitzero" api:"required"`
 	// Team name
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Home stadium name
-	Stadium string `json:"stadium,required"`
+	Stadium string `json:"stadium" api:"required"`
 	// Team's core values
-	Values TeamValuesParam `json:"values,omitzero,required"`
+	Values TeamValuesParam `json:"values,omitzero" api:"required"`
 	// Average match attendance
 	AverageAttendance param.Opt[float64] `json:"average_attendance,omitzero"`
 	// Team contact email

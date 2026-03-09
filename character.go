@@ -21,6 +21,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Operations related to Ted Lasso characters
+//
 // CharacterService contains methods and other services that help with interacting
 // with the believe API.
 //
@@ -123,36 +125,36 @@ func (r *CharacterService) GetQuotes(ctx context.Context, characterID string, op
 // Full character model with ID.
 type Character struct {
 	// Unique identifier
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Character background and history
-	Background string `json:"background,required"`
+	Background string `json:"background" api:"required"`
 	// Emotional intelligence stats
-	EmotionalStats EmotionalStats `json:"emotional_stats,required"`
+	EmotionalStats EmotionalStats `json:"emotional_stats" api:"required"`
 	// Character's full name
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Key personality traits
-	PersonalityTraits []string `json:"personality_traits,required"`
+	PersonalityTraits []string `json:"personality_traits" api:"required"`
 	// Character's role
 	//
 	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family",
 	// "friend", "fan", "other".
-	Role CharacterRole `json:"role,required"`
+	Role CharacterRole `json:"role" api:"required"`
 	// Character's date of birth
-	DateOfBirth time.Time `json:"date_of_birth,nullable" format:"date"`
+	DateOfBirth time.Time `json:"date_of_birth" api:"nullable" format:"date"`
 	// Character's email address
-	Email string `json:"email,nullable" format:"email"`
+	Email string `json:"email" api:"nullable" format:"email"`
 	// Character development across seasons
 	GrowthArcs []GrowthArc `json:"growth_arcs"`
 	// Height in meters
-	HeightMeters float64 `json:"height_meters,nullable"`
+	HeightMeters float64 `json:"height_meters" api:"nullable"`
 	// URL to character's profile image
-	ProfileImageURL string `json:"profile_image_url,nullable" format:"uri"`
+	ProfileImageURL string `json:"profile_image_url" api:"nullable" format:"uri"`
 	// Annual salary in GBP
-	SalaryGbp string `json:"salary_gbp,nullable"`
+	SalaryGbp string `json:"salary_gbp" api:"nullable"`
 	// Memorable quotes from this character
 	SignatureQuotes []string `json:"signature_quotes"`
 	// ID of the team they belong to
-	TeamID string `json:"team_id,nullable"`
+	TeamID string `json:"team_id" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID                respjson.Field
@@ -199,15 +201,15 @@ const (
 // Emotional intelligence statistics for a character.
 type EmotionalStats struct {
 	// Level of curiosity over judgment (0-100)
-	Curiosity int64 `json:"curiosity,required"`
+	Curiosity int64 `json:"curiosity" api:"required"`
 	// Capacity for empathy (0-100)
-	Empathy int64 `json:"empathy,required"`
+	Empathy int64 `json:"empathy" api:"required"`
 	// Level of optimism (0-100)
-	Optimism int64 `json:"optimism,required"`
+	Optimism int64 `json:"optimism" api:"required"`
 	// Bounce-back ability (0-100)
-	Resilience int64 `json:"resilience,required"`
+	Resilience int64 `json:"resilience" api:"required"`
 	// Willingness to be vulnerable (0-100)
-	Vulnerability int64 `json:"vulnerability,required"`
+	Vulnerability int64 `json:"vulnerability" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Curiosity     respjson.Field
@@ -241,15 +243,15 @@ func (r EmotionalStats) ToParam() EmotionalStatsParam {
 // required.
 type EmotionalStatsParam struct {
 	// Level of curiosity over judgment (0-100)
-	Curiosity int64 `json:"curiosity,required"`
+	Curiosity int64 `json:"curiosity" api:"required"`
 	// Capacity for empathy (0-100)
-	Empathy int64 `json:"empathy,required"`
+	Empathy int64 `json:"empathy" api:"required"`
 	// Level of optimism (0-100)
-	Optimism int64 `json:"optimism,required"`
+	Optimism int64 `json:"optimism" api:"required"`
 	// Bounce-back ability (0-100)
-	Resilience int64 `json:"resilience,required"`
+	Resilience int64 `json:"resilience" api:"required"`
 	// Willingness to be vulnerable (0-100)
-	Vulnerability int64 `json:"vulnerability,required"`
+	Vulnerability int64 `json:"vulnerability" api:"required"`
 	paramObj
 }
 
@@ -264,15 +266,15 @@ func (r *EmotionalStatsParam) UnmarshalJSON(data []byte) error {
 // Character development arc.
 type GrowthArc struct {
 	// Key breakthrough moment
-	Breakthrough string `json:"breakthrough,required"`
+	Breakthrough string `json:"breakthrough" api:"required"`
 	// Main challenge faced
-	Challenge string `json:"challenge,required"`
+	Challenge string `json:"challenge" api:"required"`
 	// Where the character ends up
-	EndingPoint string `json:"ending_point,required"`
+	EndingPoint string `json:"ending_point" api:"required"`
 	// Season number
-	Season int64 `json:"season,required"`
+	Season int64 `json:"season" api:"required"`
 	// Where the character starts emotionally
-	StartingPoint string `json:"starting_point,required"`
+	StartingPoint string `json:"starting_point" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Breakthrough  respjson.Field
@@ -306,15 +308,15 @@ func (r GrowthArc) ToParam() GrowthArcParam {
 // required.
 type GrowthArcParam struct {
 	// Key breakthrough moment
-	Breakthrough string `json:"breakthrough,required"`
+	Breakthrough string `json:"breakthrough" api:"required"`
 	// Main challenge faced
-	Challenge string `json:"challenge,required"`
+	Challenge string `json:"challenge" api:"required"`
 	// Where the character ends up
-	EndingPoint string `json:"ending_point,required"`
+	EndingPoint string `json:"ending_point" api:"required"`
 	// Season number
-	Season int64 `json:"season,required"`
+	Season int64 `json:"season" api:"required"`
 	// Where the character starts emotionally
-	StartingPoint string `json:"starting_point,required"`
+	StartingPoint string `json:"starting_point" api:"required"`
 	paramObj
 }
 
@@ -328,18 +330,18 @@ func (r *GrowthArcParam) UnmarshalJSON(data []byte) error {
 
 type CharacterNewParams struct {
 	// Character background and history
-	Background string `json:"background,required"`
+	Background string `json:"background" api:"required"`
 	// Emotional intelligence stats
-	EmotionalStats EmotionalStatsParam `json:"emotional_stats,omitzero,required"`
+	EmotionalStats EmotionalStatsParam `json:"emotional_stats,omitzero" api:"required"`
 	// Character's full name
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Key personality traits
-	PersonalityTraits []string `json:"personality_traits,omitzero,required"`
+	PersonalityTraits []string `json:"personality_traits,omitzero" api:"required"`
 	// Character's role
 	//
 	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family",
 	// "friend", "fan", "other".
-	Role CharacterRole `json:"role,omitzero,required"`
+	Role CharacterRole `json:"role,omitzero" api:"required"`
 	// Character's date of birth
 	DateOfBirth param.Opt[time.Time] `json:"date_of_birth,omitzero" format:"date"`
 	// Character's email address

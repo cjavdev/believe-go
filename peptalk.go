@@ -16,6 +16,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Server-Sent Events (SSE) streaming endpoints
+//
 // PepTalkService contains methods and other services that help with interacting
 // with the believe API.
 //
@@ -48,9 +50,9 @@ func (r *PepTalkService) Get(ctx context.Context, query PepTalkGetParams, opts .
 // A complete pep talk response.
 type PepTalkGetResponse struct {
 	// Individual chunks of the pep talk
-	Chunks []PepTalkGetResponseChunk `json:"chunks,required"`
+	Chunks []PepTalkGetResponseChunk `json:"chunks" api:"required"`
 	// The full pep talk text
-	Text string `json:"text,required"`
+	Text string `json:"text" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Chunks      respjson.Field
@@ -69,14 +71,14 @@ func (r *PepTalkGetResponse) UnmarshalJSON(data []byte) error {
 // A chunk of a streaming pep talk from Ted.
 type PepTalkGetResponseChunk struct {
 	// Chunk sequence number
-	ChunkID int64 `json:"chunk_id,required"`
+	ChunkID int64 `json:"chunk_id" api:"required"`
 	// Is this the final chunk
-	IsFinal bool `json:"is_final,required"`
+	IsFinal bool `json:"is_final" api:"required"`
 	// The text of this chunk
-	Text string `json:"text,required"`
+	Text string `json:"text" api:"required"`
 	// The emotional purpose of this chunk (e.g., greeting, acknowledgment, wisdom,
 	// affirmation, encouragement)
-	EmotionalBeat string `json:"emotional_beat,nullable"`
+	EmotionalBeat string `json:"emotional_beat" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ChunkID       respjson.Field

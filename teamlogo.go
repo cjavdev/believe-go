@@ -21,6 +21,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Operations related to football teams
+//
 // TeamLogoService contains methods and other services that help with interacting
 // with the believe API.
 //
@@ -87,12 +89,12 @@ func (r *TeamLogoService) Upload(ctx context.Context, teamID string, body TeamLo
 
 // Response model for file uploads.
 type FileUpload struct {
-	ChecksumSha256 string    `json:"checksum_sha256,required"`
-	ContentType    string    `json:"content_type,required"`
-	FileID         string    `json:"file_id,required" format:"uuid"`
-	Filename       string    `json:"filename,required"`
-	SizeBytes      int64     `json:"size_bytes,required"`
-	UploadedAt     time.Time `json:"uploaded_at,required" format:"date-time"`
+	ChecksumSha256 string    `json:"checksum_sha256" api:"required"`
+	ContentType    string    `json:"content_type" api:"required"`
+	FileID         string    `json:"file_id" api:"required" format:"uuid"`
+	Filename       string    `json:"filename" api:"required"`
+	SizeBytes      int64     `json:"size_bytes" api:"required"`
+	UploadedAt     time.Time `json:"uploaded_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ChecksumSha256 respjson.Field
@@ -115,18 +117,18 @@ func (r *FileUpload) UnmarshalJSON(data []byte) error {
 type TeamLogoDownloadResponse = any
 
 type TeamLogoDeleteParams struct {
-	TeamID string `path:"team_id,required" json:"-"`
+	TeamID string `path:"team_id" api:"required" json:"-"`
 	paramObj
 }
 
 type TeamLogoDownloadParams struct {
-	TeamID string `path:"team_id,required" json:"-"`
+	TeamID string `path:"team_id" api:"required" json:"-"`
 	paramObj
 }
 
 type TeamLogoUploadParams struct {
 	// Logo image file
-	File io.Reader `json:"file,omitzero,required" format:"binary"`
+	File io.Reader `json:"file,omitzero" api:"required" format:"binary"`
 	paramObj
 }
 

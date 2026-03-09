@@ -19,6 +19,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Interactive endpoints for motivation and guidance
+//
 // BiscuitService contains methods and other services that help with interacting
 // with the believe API.
 //
@@ -86,19 +88,20 @@ func (r *BiscuitService) GetFresh(ctx context.Context, opts ...option.RequestOpt
 // A biscuit from Ted.
 type Biscuit struct {
 	// Biscuit identifier
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Message that comes with the biscuit
-	Message string `json:"message,required"`
+	Message string `json:"message" api:"required"`
 	// What this biscuit pairs well with
-	PairsWellWith string `json:"pairs_well_with,required"`
+	PairsWellWith string `json:"pairs_well_with" api:"required"`
 	// A handwritten note from Ted
-	TedNote string `json:"ted_note,required"`
+	TedNote string `json:"ted_note" api:"required"`
 	// Type of biscuit
 	//
-	// Any of "classic", "shortbread", "chocolate_chip", "oatmeal_raisin".
-	Type BiscuitType `json:"type,required"`
+	// Any of "classic", "shortbread", "chocolate_chip", "oatmeal_raisin",
+	// "snickerdoodle", "lemon_drizzle".
+	Type BiscuitType `json:"type" api:"required"`
 	// How warm and fresh (1-10)
-	WarmthLevel int64 `json:"warmth_level,required"`
+	WarmthLevel int64 `json:"warmth_level" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID            respjson.Field
@@ -126,6 +129,8 @@ const (
 	BiscuitTypeShortbread    BiscuitType = "shortbread"
 	BiscuitTypeChocolateChip BiscuitType = "chocolate_chip"
 	BiscuitTypeOatmealRaisin BiscuitType = "oatmeal_raisin"
+	BiscuitTypeSnickerdoodle BiscuitType = "snickerdoodle"
+	BiscuitTypeLemonDrizzle  BiscuitType = "lemon_drizzle"
 )
 
 type BiscuitListParams struct {

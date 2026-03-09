@@ -14,6 +14,8 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
+// Interactive endpoints for motivation and guidance
+//
 // ReframeService contains methods and other services that help with interacting
 // with the believe API.
 //
@@ -44,15 +46,15 @@ func (r *ReframeService) TransformNegativeThoughts(ctx context.Context, body Ref
 // Reframed perspective response.
 type ReframeTransformNegativeThoughtsResponse struct {
 	// A daily affirmation to practice
-	DailyAffirmation string `json:"daily_affirmation,required"`
+	DailyAffirmation string `json:"daily_affirmation" api:"required"`
 	// The original negative thought
-	OriginalThought string `json:"original_thought,required"`
+	OriginalThought string `json:"original_thought" api:"required"`
 	// The thought reframed positively
-	ReframedThought string `json:"reframed_thought,required"`
+	ReframedThought string `json:"reframed_thought" api:"required"`
 	// Ted's take on this thought
-	TedPerspective string `json:"ted_perspective,required"`
+	TedPerspective string `json:"ted_perspective" api:"required"`
 	// Dr. Sharon's therapeutic insight
-	DrSharonInsight string `json:"dr_sharon_insight,nullable"`
+	DrSharonInsight string `json:"dr_sharon_insight" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		DailyAffirmation respjson.Field
@@ -73,7 +75,7 @@ func (r *ReframeTransformNegativeThoughtsResponse) UnmarshalJSON(data []byte) er
 
 type ReframeTransformNegativeThoughtsParams struct {
 	// The negative thought to reframe
-	NegativeThought string `json:"negative_thought,required"`
+	NegativeThought string `json:"negative_thought" api:"required"`
 	// Is this a recurring thought?
 	Recurring param.Opt[bool] `json:"recurring,omitzero"`
 	paramObj

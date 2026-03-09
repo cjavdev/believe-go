@@ -14,7 +14,12 @@ import (
 // the [NewClientService] method instead.
 type ClientService struct {
 	Options []option.RequestOption
-	Ws      ClientWService
+	// WebSocket endpoints for real-time bidirectional communication - Live match
+	// simulation
+	Ws ClientWService
+	// Ticket sales with 300 records for practicing pagination, filtering, and
+	// financial data
+	TicketSales ClientTicketSaleService
 }
 
 // NewClientService generates a new service that applies the given options to each
@@ -24,5 +29,6 @@ func NewClientService(opts ...option.RequestOption) (r ClientService) {
 	r = ClientService{}
 	r.Options = opts
 	r.Ws = NewClientWService(opts...)
+	r.TicketSales = NewClientTicketSaleService(opts...)
 	return
 }

@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewCoachingService] method instead.
 type CoachingService struct {
-	Options    []option.RequestOption
+	Options []option.RequestOption
+	// Interactive endpoints for motivation and guidance
 	Principles CoachingPrincipleService
 }
 
