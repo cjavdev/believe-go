@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.0 (2026-03-09)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/cjavdev/believe-go/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** add ticket_sales resource, biscuit and quote enum values ([72b535c](https://github.com/cjavdev/believe-go/commit/72b535c082d92a7faec689227e3b74f639b38299))
+* **api:** manual updates ([5247e50](https://github.com/cjavdev/believe-go/commit/5247e5080be37fc9b325c0a579b4e33763bf03e0))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([11bf735](https://github.com/cjavdev/believe-go/commit/11bf735fecef3b12217cea0830bd6c9f02066a7f))
+* **internal:** codegen related update ([02cc85c](https://github.com/cjavdev/believe-go/commit/02cc85c70e82915e699a8dcedd65e40ed521ef59))
+* **internal:** codegen related update ([c3a893e](https://github.com/cjavdev/believe-go/commit/c3a893e1e8624a7091dccf7385b19fe9bf05d9b2))
+* **internal:** move custom custom `json` tags to `api` ([070d28f](https://github.com/cjavdev/believe-go/commit/070d28fcecc8c928f97b437bdc7b565e01105c4e))
+* update placeholder string ([599f298](https://github.com/cjavdev/believe-go/commit/599f298c5c03456c3c869c85ba02dc5b3d1fbae8))
+
 ## 0.2.0 (2026-02-22)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/cjavdev/believe-go/compare/v0.1.0...v0.2.0)
