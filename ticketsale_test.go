@@ -13,7 +13,7 @@ import (
 	"github.com/cjavdev/believe-go/option"
 )
 
-func TestClientTicketSaleNewWithOptionalParams(t *testing.T) {
+func TestTicketSaleNewWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,12 +26,12 @@ func TestClientTicketSaleNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Client.TicketSales.New(context.TODO(), believe.ClientTicketSaleNewParams{
+	_, err := client.TicketSales.New(context.TODO(), believe.TicketSaleNewParams{
 		BuyerName:      "Mae Green",
 		Currency:       "GBP",
 		Discount:       "9.00",
 		MatchID:        "match-001",
-		PurchaseMethod: believe.ClientTicketSaleNewParamsPurchaseMethodOnline,
+		PurchaseMethod: believe.PurchaseMethodOnline,
 		Quantity:       2,
 		Subtotal:       "90.00",
 		Tax:            "16.20",
@@ -49,7 +49,7 @@ func TestClientTicketSaleNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestClientTicketSaleGet(t *testing.T) {
+func TestTicketSaleGet(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -62,7 +62,7 @@ func TestClientTicketSaleGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Client.TicketSales.Get(context.TODO(), "ticket_sale_id")
+	_, err := client.TicketSales.Get(context.TODO(), "ticket_sale_id")
 	if err != nil {
 		var apierr *believe.Error
 		if errors.As(err, &apierr) {
@@ -72,7 +72,7 @@ func TestClientTicketSaleGet(t *testing.T) {
 	}
 }
 
-func TestClientTicketSaleUpdateWithOptionalParams(t *testing.T) {
+func TestTicketSaleUpdateWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -85,17 +85,17 @@ func TestClientTicketSaleUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Client.TicketSales.Update(
+	_, err := client.TicketSales.Update(
 		context.TODO(),
 		"ticket_sale_id",
-		believe.ClientTicketSaleUpdateParams{
+		believe.TicketSaleUpdateParams{
 			BuyerEmail:     believe.String("dev@stainless.com"),
 			BuyerName:      believe.String("buyer_name"),
 			CouponCode:     believe.String("coupon_code"),
 			Currency:       believe.String("currency"),
 			Discount:       believe.String("discount"),
 			MatchID:        believe.String("match_id"),
-			PurchaseMethod: believe.ClientTicketSaleUpdateParamsPurchaseMethodOnline,
+			PurchaseMethod: believe.PurchaseMethodOnline,
 			Quantity:       believe.Int(1),
 			Subtotal:       believe.String("subtotal"),
 			Tax:            believe.String("tax"),
@@ -112,7 +112,7 @@ func TestClientTicketSaleUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestClientTicketSaleListWithOptionalParams(t *testing.T) {
+func TestTicketSaleListWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -125,12 +125,12 @@ func TestClientTicketSaleListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Client.TicketSales.List(context.TODO(), believe.ClientTicketSaleListParams{
+	_, err := client.TicketSales.List(context.TODO(), believe.TicketSaleListParams{
 		CouponCode:     believe.String("coupon_code"),
 		Currency:       believe.String("currency"),
 		Limit:          believe.Int(10),
 		MatchID:        believe.String("match_id"),
-		PurchaseMethod: believe.ClientTicketSaleListParamsPurchaseMethodOnline,
+		PurchaseMethod: believe.PurchaseMethodOnline,
 		Skip:           believe.Int(0),
 	})
 	if err != nil {
@@ -142,7 +142,7 @@ func TestClientTicketSaleListWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestClientTicketSaleDelete(t *testing.T) {
+func TestTicketSaleDelete(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -155,7 +155,7 @@ func TestClientTicketSaleDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Client.TicketSales.Delete(context.TODO(), "ticket_sale_id")
+	err := client.TicketSales.Delete(context.TODO(), "ticket_sale_id")
 	if err != nil {
 		var apierr *believe.Error
 		if errors.As(err, &apierr) {

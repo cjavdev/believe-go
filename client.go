@@ -46,9 +46,12 @@ type Client struct {
 	TeamMembers TeamMemberService
 	// Register webhook endpoints and trigger events for testing
 	Webhooks WebhookService
-	Health   HealthService
-	Version  VersionService
-	Client   ClientService
+	// Ticket sales with 300 records for practicing pagination, filtering, and
+	// financial data
+	TicketSales TicketSaleService
+	Health      HealthService
+	Version     VersionService
+	Client      ClientService
 }
 
 // DefaultClientOptions read from the environment (BELIEVE_API_KEY,
@@ -88,6 +91,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Stream = NewStreamService(opts...)
 	r.TeamMembers = NewTeamMemberService(opts...)
 	r.Webhooks = NewWebhookService(opts...)
+	r.TicketSales = NewTicketSaleService(opts...)
 	r.Health = NewHealthService(opts...)
 	r.Version = NewVersionService(opts...)
 	r.Client = NewClientService(opts...)
