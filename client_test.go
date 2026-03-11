@@ -38,7 +38,7 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.Characters.List(context.Background(), believe.CharacterListParams{})
+	_, _ = client.Characters.List(context.Background(), believe.CharacterListParams{})
 	if userAgent != fmt.Sprintf("Believe/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
 	}
