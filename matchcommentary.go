@@ -41,11 +41,11 @@ func (r *MatchCommentaryService) Stream(ctx context.Context, matchID string, opt
 	opts = slices.Concat(r.Options, opts)
 	if matchID == "" {
 		err = errors.New("missing required match_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("matches/%s/commentary/stream", url.PathEscape(matchID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type MatchCommentaryStreamResponse = any

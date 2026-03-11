@@ -46,7 +46,7 @@ func (r *TicketSaleService) New(ctx context.Context, body TicketSaleNewParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "ticket-sales"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve detailed information about a specific ticket sale.
@@ -54,11 +54,11 @@ func (r *TicketSaleService) Get(ctx context.Context, ticketSaleID string, opts .
 	opts = slices.Concat(r.Options, opts)
 	if ticketSaleID == "" {
 		err = errors.New("missing required ticket_sale_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("ticket-sales/%s", url.PathEscape(ticketSaleID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Update specific fields of an existing ticket sale.
@@ -66,11 +66,11 @@ func (r *TicketSaleService) Update(ctx context.Context, ticketSaleID string, bod
 	opts = slices.Concat(r.Options, opts)
 	if ticketSaleID == "" {
 		err = errors.New("missing required ticket_sale_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("ticket-sales/%s", url.PathEscape(ticketSaleID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of all ticket sales with optional filtering. With 300
@@ -104,11 +104,11 @@ func (r *TicketSaleService) Delete(ctx context.Context, ticketSaleID string, opt
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if ticketSaleID == "" {
 		err = errors.New("missing required ticket_sale_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("ticket-sales/%s", url.PathEscape(ticketSaleID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // How the ticket was purchased.

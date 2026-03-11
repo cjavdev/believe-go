@@ -49,7 +49,7 @@ func (r *TeamService) New(ctx context.Context, body TeamNewParams, opts ...optio
 	opts = slices.Concat(r.Options, opts)
 	path := "teams"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve detailed information about a specific team.
@@ -57,11 +57,11 @@ func (r *TeamService) Get(ctx context.Context, teamID string, opts ...option.Req
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("teams/%s", url.PathEscape(teamID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Update specific fields of an existing team.
@@ -69,11 +69,11 @@ func (r *TeamService) Update(ctx context.Context, teamID string, body TeamUpdate
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("teams/%s", url.PathEscape(teamID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of all teams with optional filtering by league or culture
@@ -107,11 +107,11 @@ func (r *TeamService) Delete(ctx context.Context, teamID string, opts ...option.
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("teams/%s", url.PathEscape(teamID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get detailed culture and values information for a team.
@@ -119,11 +119,11 @@ func (r *TeamService) GetCulture(ctx context.Context, teamID string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("teams/%s/culture", url.PathEscape(teamID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get all rival teams for a specific team.
@@ -131,11 +131,11 @@ func (r *TeamService) GetRivals(ctx context.Context, teamID string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("teams/%s/rivals", url.PathEscape(teamID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // List all uploaded logos for a team.
@@ -143,11 +143,11 @@ func (r *TeamService) ListLogos(ctx context.Context, teamID string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("teams/%s/logos", url.PathEscape(teamID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Geographic coordinates for a location.

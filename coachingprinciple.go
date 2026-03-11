@@ -45,11 +45,11 @@ func (r *CoachingPrincipleService) Get(ctx context.Context, principleID string, 
 	opts = slices.Concat(r.Options, opts)
 	if principleID == "" {
 		err = errors.New("missing required principle_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("coaching/principles/%s", url.PathEscape(principleID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of Ted Lasso's core coaching principles and philosophy.
@@ -80,7 +80,7 @@ func (r *CoachingPrincipleService) GetRandom(ctx context.Context, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	path := "coaching/principles/random"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // A Ted Lasso coaching principle.

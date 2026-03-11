@@ -48,7 +48,7 @@ func (r *MatchService) New(ctx context.Context, body MatchNewParams, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	path := "matches"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve detailed information about a specific match.
@@ -56,11 +56,11 @@ func (r *MatchService) Get(ctx context.Context, matchID string, opts ...option.R
 	opts = slices.Concat(r.Options, opts)
 	if matchID == "" {
 		err = errors.New("missing required match_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("matches/%s", url.PathEscape(matchID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Update specific fields of an existing match (e.g., update score).
@@ -68,11 +68,11 @@ func (r *MatchService) Update(ctx context.Context, matchID string, body MatchUpd
 	opts = slices.Concat(r.Options, opts)
 	if matchID == "" {
 		err = errors.New("missing required match_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("matches/%s", url.PathEscape(matchID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of all matches with optional filtering.
@@ -104,11 +104,11 @@ func (r *MatchService) Delete(ctx context.Context, matchID string, opts ...optio
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if matchID == "" {
 		err = errors.New("missing required match_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("matches/%s", url.PathEscape(matchID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get the life lesson learned from a specific match.
@@ -116,11 +116,11 @@ func (r *MatchService) GetLesson(ctx context.Context, matchID string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if matchID == "" {
 		err = errors.New("missing required match_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("matches/%s/lesson", url.PathEscape(matchID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get all turning points from a specific match.
@@ -128,11 +128,11 @@ func (r *MatchService) GetTurningPoints(ctx context.Context, matchID string, opt
 	opts = slices.Concat(r.Options, opts)
 	if matchID == "" {
 		err = errors.New("missing required match_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("matches/%s/turning-points", url.PathEscape(matchID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // WebSocket endpoint for real-time live match simulation.
@@ -175,7 +175,7 @@ func (r *MatchService) StreamLive(ctx context.Context, query MatchStreamLivePara
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "matches/live"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, nil, opts...)
-	return
+	return err
 }
 
 // Full match model with ID.

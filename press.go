@@ -40,7 +40,7 @@ func (r *PressService) Simulate(ctx context.Context, body PressSimulateParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "press"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Ted's press conference response.
