@@ -46,7 +46,7 @@ func (r *EpisodeService) New(ctx context.Context, body EpisodeNewParams, opts ..
 	opts = slices.Concat(r.Options, opts)
 	path := "episodes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve detailed information about a specific episode.
@@ -54,11 +54,11 @@ func (r *EpisodeService) Get(ctx context.Context, episodeID string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if episodeID == "" {
 		err = errors.New("missing required episode_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("episodes/%s", url.PathEscape(episodeID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Update specific fields of an existing episode.
@@ -66,11 +66,11 @@ func (r *EpisodeService) Update(ctx context.Context, episodeID string, body Epis
 	opts = slices.Concat(r.Options, opts)
 	if episodeID == "" {
 		err = errors.New("missing required episode_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("episodes/%s", url.PathEscape(episodeID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of all Ted Lasso episodes with optional filtering by
@@ -104,11 +104,11 @@ func (r *EpisodeService) Delete(ctx context.Context, episodeID string, opts ...o
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if episodeID == "" {
 		err = errors.New("missing required episode_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("episodes/%s", url.PathEscape(episodeID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get Ted's wisdom and memorable moments from a specific episode.
@@ -116,11 +116,11 @@ func (r *EpisodeService) GetWisdom(ctx context.Context, episodeID string, opts .
 	opts = slices.Concat(r.Options, opts)
 	if episodeID == "" {
 		err = errors.New("missing required episode_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("episodes/%s/wisdom", url.PathEscape(episodeID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Full episode model with ID.

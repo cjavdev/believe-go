@@ -48,15 +48,15 @@ func (r *TeamLogoService) Delete(ctx context.Context, fileID string, body TeamLo
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if body.TeamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return err
 	}
 	if fileID == "" {
 		err = errors.New("missing required file_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("teams/%s/logo/%s", url.PathEscape(body.TeamID), fileID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Download a team's logo by file ID.
@@ -64,15 +64,15 @@ func (r *TeamLogoService) Download(ctx context.Context, fileID string, query Tea
 	opts = slices.Concat(r.Options, opts)
 	if query.TeamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	if fileID == "" {
 		err = errors.New("missing required file_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("teams/%s/logo/%s", url.PathEscape(query.TeamID), fileID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Upload a logo image for a team. Accepts image files (jpg, png, gif, webp).
@@ -80,11 +80,11 @@ func (r *TeamLogoService) Upload(ctx context.Context, teamID string, body TeamLo
 	opts = slices.Concat(r.Options, opts)
 	if teamID == "" {
 		err = errors.New("missing required team_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("teams/%s/logo", url.PathEscape(teamID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Response model for file uploads.

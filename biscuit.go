@@ -45,11 +45,11 @@ func (r *BiscuitService) Get(ctx context.Context, biscuitID string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if biscuitID == "" {
 		err = errors.New("missing required biscuit_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("biscuits/%s", url.PathEscape(biscuitID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of Ted's famous homemade biscuits! Each comes with a
@@ -82,7 +82,7 @@ func (r *BiscuitService) GetFresh(ctx context.Context, opts ...option.RequestOpt
 	opts = slices.Concat(r.Options, opts)
 	path := "biscuits/fresh"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // A biscuit from Ted.

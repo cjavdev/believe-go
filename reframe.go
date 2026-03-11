@@ -40,7 +40,7 @@ func (r *ReframeService) TransformNegativeThoughts(ctx context.Context, body Ref
 	opts = slices.Concat(r.Options, opts)
 	path := "reframe"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Reframed perspective response.

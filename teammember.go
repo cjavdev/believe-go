@@ -78,7 +78,7 @@ func (r *TeamMemberService) New(ctx context.Context, body TeamMemberNewParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "team-members"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve detailed information about a specific team member.
@@ -98,11 +98,11 @@ func (r *TeamMemberService) Get(ctx context.Context, memberID string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if memberID == "" {
 		err = errors.New("missing required member_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("team-members/%s", url.PathEscape(memberID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Update specific fields of an existing team member. Fields vary by member type.
@@ -110,11 +110,11 @@ func (r *TeamMemberService) Update(ctx context.Context, memberID string, body Te
 	opts = slices.Concat(r.Options, opts)
 	if memberID == "" {
 		err = errors.New("missing required member_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("team-members/%s", url.PathEscape(memberID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of all team members.
@@ -156,11 +156,11 @@ func (r *TeamMemberService) Delete(ctx context.Context, memberID string, opts ..
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if memberID == "" {
 		err = errors.New("missing required member_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("team-members/%s", url.PathEscape(memberID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get only coaches (filtered subset of team members).

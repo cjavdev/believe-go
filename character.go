@@ -47,7 +47,7 @@ func (r *CharacterService) New(ctx context.Context, body CharacterNewParams, opt
 	opts = slices.Concat(r.Options, opts)
 	path := "characters"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve detailed information about a specific character.
@@ -55,11 +55,11 @@ func (r *CharacterService) Get(ctx context.Context, characterID string, opts ...
 	opts = slices.Concat(r.Options, opts)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("characters/%s", url.PathEscape(characterID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Update specific fields of an existing character.
@@ -67,11 +67,11 @@ func (r *CharacterService) Update(ctx context.Context, characterID string, body 
 	opts = slices.Concat(r.Options, opts)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("characters/%s", url.PathEscape(characterID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of Ted Lasso characters.
@@ -103,11 +103,11 @@ func (r *CharacterService) Delete(ctx context.Context, characterID string, opts 
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("characters/%s", url.PathEscape(characterID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get all signature quotes from a specific character.
@@ -115,11 +115,11 @@ func (r *CharacterService) GetQuotes(ctx context.Context, characterID string, op
 	opts = slices.Concat(r.Options, opts)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("characters/%s/quotes", url.PathEscape(characterID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Full character model with ID.

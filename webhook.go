@@ -65,7 +65,7 @@ func (r *WebhookService) New(ctx context.Context, body WebhookNewParams, opts ..
 	opts = slices.Concat(r.Options, opts)
 	path := "webhooks"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get details of a specific webhook endpoint.
@@ -73,11 +73,11 @@ func (r *WebhookService) Get(ctx context.Context, webhookID string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if webhookID == "" {
 		err = errors.New("missing required webhook_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("webhooks/%s", url.PathEscape(webhookID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a list of all registered webhook endpoints.
@@ -85,7 +85,7 @@ func (r *WebhookService) List(ctx context.Context, opts ...option.RequestOption)
 	opts = slices.Concat(r.Options, opts)
 	path := "webhooks"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Unregister a webhook endpoint. It will no longer receive events.
@@ -93,11 +93,11 @@ func (r *WebhookService) Delete(ctx context.Context, webhookID string, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	if webhookID == "" {
 		err = errors.New("missing required webhook_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("webhooks/%s", url.PathEscape(webhookID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Trigger a webhook event and deliver it to all subscribed endpoints.
@@ -135,7 +135,7 @@ func (r *WebhookService) TriggerEvent(ctx context.Context, body WebhookTriggerEv
 	opts = slices.Concat(r.Options, opts)
 	path := "webhooks/trigger"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 func (r *WebhookService) Unwrap(payload []byte, opts ...option.RequestOption) (*UnwrapWebhookEventUnion, error) {
