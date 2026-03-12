@@ -37,7 +37,7 @@ func (r *StreamService) TestConnection(ctx context.Context, opts ...option.Reque
 	opts = slices.Concat(r.Options, opts)
 	path := "stream/test"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type StreamTestConnectionResponse = any

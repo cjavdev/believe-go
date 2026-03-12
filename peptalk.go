@@ -44,7 +44,7 @@ func (r *PepTalkService) Get(ctx context.Context, query PepTalkGetParams, opts .
 	opts = slices.Concat(r.Options, opts)
 	path := "pep-talk"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // A complete pep talk response.

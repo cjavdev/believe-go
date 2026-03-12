@@ -40,7 +40,7 @@ func (r *BelieveService) Submit(ctx context.Context, body BelieveSubmitParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "believe"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Response from the Believe Engine.

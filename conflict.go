@@ -40,7 +40,7 @@ func (r *ConflictService) Resolve(ctx context.Context, body ConflictResolveParam
 	opts = slices.Concat(r.Options, opts)
 	path := "conflicts/resolve"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Conflict resolution response.

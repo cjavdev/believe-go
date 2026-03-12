@@ -52,5 +52,5 @@ func (r *ClientWService) Test(ctx context.Context, opts ...option.RequestOption)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "ws/test"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, nil, opts...)
-	return
+	return err
 }

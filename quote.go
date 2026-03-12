@@ -45,7 +45,7 @@ func (r *QuoteService) New(ctx context.Context, body QuoteNewParams, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	path := "quotes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve a specific quote by its ID.
@@ -53,11 +53,11 @@ func (r *QuoteService) Get(ctx context.Context, quoteID string, opts ...option.R
 	opts = slices.Concat(r.Options, opts)
 	if quoteID == "" {
 		err = errors.New("missing required quote_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("quotes/%s", url.PathEscape(quoteID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Update specific fields of an existing quote.
@@ -65,11 +65,11 @@ func (r *QuoteService) Update(ctx context.Context, quoteID string, body QuoteUpd
 	opts = slices.Concat(r.Options, opts)
 	if quoteID == "" {
 		err = errors.New("missing required quote_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("quotes/%s", url.PathEscape(quoteID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of all memorable Ted Lasso quotes with optional filtering.
@@ -101,11 +101,11 @@ func (r *QuoteService) Delete(ctx context.Context, quoteID string, opts ...optio
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if quoteID == "" {
 		err = errors.New("missing required quote_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("quotes/%s", url.PathEscape(quoteID))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get a random Ted Lasso quote, optionally filtered.
@@ -113,7 +113,7 @@ func (r *QuoteService) GetRandom(ctx context.Context, query QuoteGetRandomParams
 	opts = slices.Concat(r.Options, opts)
 	path := "quotes/random"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a paginated list of quotes from a specific character.
@@ -123,7 +123,7 @@ func (r *QuoteService) ListByCharacter(ctx context.Context, characterID string, 
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("quotes/characters/%s", url.PathEscape(characterID))
 	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)

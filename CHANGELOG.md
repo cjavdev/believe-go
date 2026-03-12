@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.1 (2026-03-11)
+
+Full Changelog: [v0.4.0...v0.4.1](https://github.com/cjavdev/believe-go/compare/v0.4.0...v0.4.1)
+
+### Chores
+
+* **internal:** minor cleanup ([6afcfe5](https://github.com/cjavdev/believe-go/commit/6afcfe59cc7f85a7769b742602ec5041f760c79f))
+* **internal:** use explicit returns ([f76ddf6](https://github.com/cjavdev/believe-go/commit/f76ddf61ca9a678d0094cb052dc8ebecdc9ddf5b))
+* **internal:** use explicit returns in more places ([9a4d8ed](https://github.com/cjavdev/believe-go/commit/9a4d8ed67edc9e8a2bf5639dabc06e2a00aad28c))
+
 ## 0.4.0 (2026-03-09)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/cjavdev/believe-go/compare/v0.3.0...v0.4.0)
