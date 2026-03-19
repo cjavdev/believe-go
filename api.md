@@ -1,3 +1,13 @@
+# believe
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#GetWelcomeResponse">GetWelcomeResponse</a>
+
+Methods:
+
+- <code title="get /">client.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#BelieveService.GetWelcome">GetWelcome</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#GetWelcomeResponse">GetWelcomeResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
 # Characters
 
 Params Types:
@@ -278,3 +288,22 @@ Methods:
 - <code title="get /webhooks">client.Webhooks.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (\*[]<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#RegisteredWebhook">RegisteredWebhook</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="delete /webhooks/{webhook_id}">client.Webhooks.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, webhookID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookDeleteResponse">WebhookDeleteResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="post /webhooks/trigger">client.Webhooks.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookService.TriggerEvent">TriggerEvent</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookTriggerEventParams">WebhookTriggerEventParams</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#WebhookTriggerEventResponse">WebhookTriggerEventResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# TicketSales
+
+Params Types:
+
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#PurchaseMethod">PurchaseMethod</a>
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#PurchaseMethod">PurchaseMethod</a>
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSale">TicketSale</a>
+
+Methods:
+
+- <code title="post /ticket-sales">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleNewParams">TicketSaleNewParams</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSale">TicketSale</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /ticket-sales/{ticket_sale_id}">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, ticketSaleID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSale">TicketSale</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="patch /ticket-sales/{ticket_sale_id}">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.Update">Update</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, ticketSaleID <a href="https://pkg.go.dev/builtin#string">string</a>, body <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleUpdateParams">TicketSaleUpdateParams</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSale">TicketSale</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /ticket-sales">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleListParams">TicketSaleListParams</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go/packages/pagination">pagination</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go/packages/pagination#SkipLimitPage">SkipLimitPage</a>[<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSale">TicketSale</a>], <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="delete /ticket-sales/{ticket_sale_id}">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, ticketSaleID <a href="https://pkg.go.dev/builtin#string">string</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
