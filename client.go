@@ -44,6 +44,8 @@ type Client struct {
 	// Team members with union types (oneOf) - Players, Coaches, Medical Staff,
 	// Equipment Managers
 	TeamMembers TeamMemberService
+	// Register webhook endpoints and trigger events for testing
+	Webhooks WebhookService
 }
 
 // DefaultClientOptions read from the environment (BELIEVE_API_KEY,
@@ -82,6 +84,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.PepTalk = NewPepTalkService(opts...)
 	r.Stream = NewStreamService(opts...)
 	r.TeamMembers = NewTeamMemberService(opts...)
+	r.Webhooks = NewWebhookService(opts...)
 
 	return
 }
