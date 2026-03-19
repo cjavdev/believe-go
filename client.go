@@ -46,6 +46,9 @@ type Client struct {
 	TeamMembers TeamMemberService
 	// Register webhook endpoints and trigger events for testing
 	Webhooks WebhookService
+	// Ticket sales with 300 records for practicing pagination, filtering, and
+	// financial data
+	TicketSales TicketSaleService
 }
 
 // DefaultClientOptions read from the environment (BELIEVE_API_KEY,
@@ -85,6 +88,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Stream = NewStreamService(opts...)
 	r.TeamMembers = NewTeamMemberService(opts...)
 	r.Webhooks = NewWebhookService(opts...)
+	r.TicketSales = NewTicketSaleService(opts...)
 
 	return
 }
@@ -156,4 +160,12 @@ func (r *Client) Patch(ctx context.Context, path string, params any, res any, op
 // response.
 func (r *Client) Delete(ctx context.Context, path string, params any, res any, opts ...option.RequestOption) error {
 	return r.Execute(ctx, http.MethodDelete, path, params, res, opts...)
+}
+
+// Get a warm welcome and overview of available endpoints.
+func (r *Client) GetWelcome(ctx context.Context, opts ...option.RequestOption) (res *GetWelcomeResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := ""
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return res, err
 }
