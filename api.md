@@ -307,3 +307,31 @@ Methods:
 - <code title="patch /ticket-sales/{ticket_sale_id}">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.Update">Update</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, ticketSaleID <a href="https://pkg.go.dev/builtin#string">string</a>, body <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleUpdateParams">TicketSaleUpdateParams</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSale">TicketSale</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /ticket-sales">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleListParams">TicketSaleListParams</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go/packages/pagination">pagination</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go/packages/pagination#SkipLimitPage">SkipLimitPage</a>[<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSale">TicketSale</a>], <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="delete /ticket-sales/{ticket_sale_id}">client.TicketSales.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#TicketSaleService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, ticketSaleID <a href="https://pkg.go.dev/builtin#string">string</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
+
+# Health
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#HealthCheckResponse">HealthCheckResponse</a>
+
+Methods:
+
+- <code title="get /health">client.Health.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#HealthService.Check">Check</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#HealthCheckResponse">HealthCheckResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# Version
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#VersionGetResponse">VersionGetResponse</a>
+
+Methods:
+
+- <code title="get /version">client.Version.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#VersionService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (\*<a href="https://pkg.go.dev/github.com/cjavdev/believe-go">believe</a>.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#VersionGetResponse">VersionGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# Client
+
+## Ws
+
+Methods:
+
+- <code title="get /ws/test">client.Client.Ws.<a href="https://pkg.go.dev/github.com/cjavdev/believe-go#ClientWService.Test">Test</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
