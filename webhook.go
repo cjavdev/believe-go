@@ -464,17 +464,14 @@ const (
 // UnwrapWebhookEventUnion contains all possible properties and values from
 // [MatchCompletedWebhookEvent], [TeamMemberTransferredWebhookEvent].
 //
-// Use the [UnwrapWebhookEventUnion.AsAny] method to switch on the variant.
-//
 // Use the methods beginning with 'As' to cast the union to one of its variants.
 type UnwrapWebhookEventUnion struct {
 	CreatedAt time.Time `json:"created_at"`
 	// This field is a union of [MatchCompletedWebhookEventData],
 	// [TeamMemberTransferredWebhookEventData]
-	Data    UnwrapWebhookEventUnionData `json:"data"`
-	EventID string                      `json:"event_id"`
-	// Any of "match.completed", "team_member.transferred".
-	EventType string `json:"event_type"`
+	Data      UnwrapWebhookEventUnionData `json:"data"`
+	EventID   string                      `json:"event_id"`
+	EventType string                      `json:"event_type"`
 	JSON      struct {
 		CreatedAt respjson.Field
 		Data      respjson.Field
@@ -484,40 +481,12 @@ type UnwrapWebhookEventUnion struct {
 	} `json:"-"`
 }
 
-// anyUnwrapWebhookEvent is implemented by each variant of
-// [UnwrapWebhookEventUnion] to add type safety for the return type of
-// [UnwrapWebhookEventUnion.AsAny]
-type anyUnwrapWebhookEvent interface {
-	implUnwrapWebhookEventUnion()
-}
-
-func (MatchCompletedWebhookEvent) implUnwrapWebhookEventUnion()        {}
-func (TeamMemberTransferredWebhookEvent) implUnwrapWebhookEventUnion() {}
-
-// Use the following switch statement to find the correct variant
-//
-//	switch variant := UnwrapWebhookEventUnion.AsAny().(type) {
-//	case believe.MatchCompletedWebhookEvent:
-//	case believe.TeamMemberTransferredWebhookEvent:
-//	default:
-//	  fmt.Errorf("no variant present")
-//	}
-func (u UnwrapWebhookEventUnion) AsAny() anyUnwrapWebhookEvent {
-	switch u.EventType {
-	case "match.completed":
-		return u.AsMatchCompleted()
-	case "team_member.transferred":
-		return u.AsTeamMemberTransferred()
-	}
-	return nil
-}
-
-func (u UnwrapWebhookEventUnion) AsMatchCompleted() (v MatchCompletedWebhookEvent) {
+func (u UnwrapWebhookEventUnion) AsMatchCompletedWebhookEvent() (v MatchCompletedWebhookEvent) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
-func (u UnwrapWebhookEventUnion) AsTeamMemberTransferred() (v TeamMemberTransferredWebhookEvent) {
+func (u UnwrapWebhookEventUnion) AsTeamMemberTransferredWebhookEvent() (v TeamMemberTransferredWebhookEvent) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
