@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.5.0 (2026-04-03)
+
+Full Changelog: [v0.4.1...v0.5.0](https://github.com/cjavdev/believe-go/compare/v0.4.1...v0.5.0)
+
+### Features
+
+* **api:** manual updates ([4b7e20c](https://github.com/cjavdev/believe-go/commit/4b7e20c14dd25b2f751f429f3406c37bd192b05f))
+* **api:** manual updates ([c7ccba3](https://github.com/cjavdev/believe-go/commit/c7ccba355da62011a76a72d71a3e86f91b3e9f2c))
+* **api:** manual updates ([1b1c526](https://github.com/cjavdev/believe-go/commit/1b1c526edd44dbaef63837b7f90807ad320d92cf))
+* **api:** manual updates ([c6f9e12](https://github.com/cjavdev/believe-go/commit/c6f9e1207b9bcbdf845a9c3f2787468e07a7019e))
+* **api:** manual updates ([e526457](https://github.com/cjavdev/believe-go/commit/e5264574aa1d42bf9c58a9b0cdcea2bd941b9a59))
+* **api:** manual updates ([96b2a89](https://github.com/cjavdev/believe-go/commit/96b2a89aa426c2682d4a341965daacf6922e45a6))
+* **api:** manual updates ([91684f5](https://github.com/cjavdev/believe-go/commit/91684f5dc596848ab37d0cec8eedd94db526f2c3))
+* **internal:** support comma format in multipart form encoding ([76fea67](https://github.com/cjavdev/believe-go/commit/76fea6784ae4d187e22a5464eb9e46238abdd7f8))
+
+
+### Bug Fixes
+
+* prevent duplicate ? in query params ([65ccd7a](https://github.com/cjavdev/believe-go/commit/65ccd7a01ad8f96ab7bfe5567bc491e74cdc0ae2))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([05fd4a2](https://github.com/cjavdev/believe-go/commit/05fd4a297b998beb28f35e99a47589e8aad15d4d))
+* **ci:** support opting out of skipping builds on metadata-only commits ([c36298e](https://github.com/cjavdev/believe-go/commit/c36298e1729c6b950f96f2d8e46a3809332224fd))
+* **client:** fix multipart serialisation of Default() fields ([3017096](https://github.com/cjavdev/believe-go/commit/3017096b553be88c95129e6faee08038dd369051))
+* **internal:** support default value struct tag ([8f34a9b](https://github.com/cjavdev/believe-go/commit/8f34a9b8466d8297eaff1ff5b484c83590f3c081))
+* **internal:** tweak CI branches ([3b20d73](https://github.com/cjavdev/believe-go/commit/3b20d738574b12fa9e8911f3d1974f57cdf81f01))
+* **internal:** update gitignore ([3e64d22](https://github.com/cjavdev/believe-go/commit/3e64d2201bda5fd1e9f9f663998813382b2bee4a))
+* remove unnecessary error check for url parsing ([3993f12](https://github.com/cjavdev/believe-go/commit/3993f12e0120b488a0a3551f3cadc2f75d6acee5))
+* update docs for api:"required" ([4ee6f19](https://github.com/cjavdev/believe-go/commit/4ee6f191dbe20818892e463b21c81d9aa8242675))
+
 ## 0.4.1 (2026-03-11)
 
 Full Changelog: [v0.4.0...v0.4.1](https://github.com/cjavdev/believe-go/compare/v0.4.0...v0.4.1)
