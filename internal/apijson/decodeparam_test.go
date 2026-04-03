@@ -1,10 +1,10 @@
 package apijson_test
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/cjavdev/believe-go/internal/apijson"
 	"github.com/cjavdev/believe-go/packages/param"
+	"encoding/json"
+	"fmt"
 	"reflect"
 	"testing"
 )

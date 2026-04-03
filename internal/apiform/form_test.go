@@ -1,8 +1,8 @@
 package apiform
 
 import (
-	"bytes"
 	"github.com/cjavdev/believe-go/packages/param"
+	"bytes"
 	"io"
 	"mime/multipart"
 	"strings"

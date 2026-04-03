@@ -3,7 +3,7 @@
 package believe
 
 import (
-	"github.com/cjavdev/believe-go/option"
+  "github.com/cjavdev/believe-go/option"
 )
 
 // CoachingService contains methods and other services that help with interacting
@@ -13,17 +13,17 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewCoachingService] method instead.
 type CoachingService struct {
-	Options []option.RequestOption
-	// Interactive endpoints for motivation and guidance
-	Principles CoachingPrincipleService
+Options []option.RequestOption
+// Interactive endpoints for motivation and guidance
+Principles CoachingPrincipleService
 }
 
 // NewCoachingService generates a new service that applies the given options to
 // each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
 func NewCoachingService(opts ...option.RequestOption) (r CoachingService) {
-	r = CoachingService{}
-	r.Options = opts
-	r.Principles = NewCoachingPrincipleService(opts...)
-	return
+  r = CoachingService{}
+  r.Options = opts
+  r.Principles = NewCoachingPrincipleService(opts...)
+  return
 }

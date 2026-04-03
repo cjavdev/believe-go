@@ -3,9 +3,9 @@
 package option
 
 import (
-	"log"
-	"net/http"
-	"net/http/httputil"
+  "log"
+  "net/http"
+  "net/http/httputil"
 )
 
 // WithDebugLog logs the HTTP request and response content.
@@ -15,24 +15,24 @@ import (
 // It should not be used in production code. The behavior and interface
 // of WithDebugLog is not guaranteed to be stable.
 func WithDebugLog(logger *log.Logger) RequestOption {
-	return WithMiddleware(func(req *http.Request, nxt MiddlewareNext) (*http.Response, error) {
-		if logger == nil {
-			logger = log.Default()
-		}
+  return WithMiddleware(func(req *http.Request, nxt MiddlewareNext) (*http.Response, error) {
+    if logger == nil {
+      logger = log.Default()
+    }
 
-		if reqBytes, err := httputil.DumpRequest(req, true); err == nil {
-			logger.Printf("Request Content:\n%s\n", reqBytes)
-		}
+    if reqBytes, err := httputil.DumpRequest(req, true); err == nil {
+      logger.Printf("Request Content:\n%s\n", reqBytes)
+    }
 
-		resp, err := nxt(req)
-		if err != nil {
-			return resp, err
-		}
+    resp, err := nxt(req)
+    if err != nil {
+      return resp, err
+    }
 
-		if respBytes, err := httputil.DumpResponse(resp, true); err == nil {
-			logger.Printf("Response Content:\n%s\n", respBytes)
-		}
+    if respBytes, err := httputil.DumpResponse(resp, true); err == nil {
+      logger.Printf("Response Content:\n%s\n", respBytes)
+    }
 
-		return resp, err
-	})
+    return resp, err
+  })
 }

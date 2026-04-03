@@ -3,15 +3,15 @@
 package believe
 
 import (
-	"context"
-	"net/http"
-	"slices"
+  "context"
+  "net/http"
+  "slices"
 
-	"github.com/cjavdev/believe-go/internal/apijson"
-	"github.com/cjavdev/believe-go/internal/requestconfig"
-	"github.com/cjavdev/believe-go/option"
-	"github.com/cjavdev/believe-go/packages/param"
-	"github.com/cjavdev/believe-go/packages/respjson"
+  "github.com/cjavdev/believe-go/internal/apijson"
+  "github.com/cjavdev/believe-go/internal/requestconfig"
+  "github.com/cjavdev/believe-go/option"
+  "github.com/cjavdev/believe-go/packages/param"
+  "github.com/cjavdev/believe-go/packages/respjson"
 )
 
 // Interactive endpoints for motivation and guidance
@@ -23,90 +23,90 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewConflictService] method instead.
 type ConflictService struct {
-	Options []option.RequestOption
+Options []option.RequestOption
 }
 
 // NewConflictService generates a new service that applies the given options to
 // each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
 func NewConflictService(opts ...option.RequestOption) (r ConflictService) {
-	r = ConflictService{}
-	r.Options = opts
-	return
+  r = ConflictService{}
+  r.Options = opts
+  return
 }
 
 // Get Ted Lasso-style advice for resolving conflicts.
 func (r *ConflictService) Resolve(ctx context.Context, body ConflictResolveParams, opts ...option.RequestOption) (res *ConflictResolveResponse, err error) {
-	opts = slices.Concat(r.Options, opts)
-	path := "conflicts/resolve"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return res, err
+  opts = slices.Concat(r.Options, opts)
+  path := "conflicts/resolve"
+  err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+  return res, err
 }
 
 // Conflict resolution response.
 type ConflictResolveResponse struct {
-	// A folksy metaphor to remember
-	BarbecueSauceWisdom string `json:"barbecue_sauce_wisdom" api:"required"`
-	// Understanding the root cause
-	Diagnosis string `json:"diagnosis" api:"required"`
-	// Advice from the Diamond Dogs support group
-	DiamondDogsAdvice string `json:"diamond_dogs_advice" api:"required"`
-	// What resolution could look like
-	PotentialOutcome string `json:"potential_outcome" api:"required"`
-	// Concrete steps to resolve the conflict
-	StepsToResolution []string `json:"steps_to_resolution" api:"required"`
-	// How Ted would handle this
-	TedApproach string `json:"ted_approach" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		BarbecueSauceWisdom respjson.Field
-		Diagnosis           respjson.Field
-		DiamondDogsAdvice   respjson.Field
-		PotentialOutcome    respjson.Field
-		StepsToResolution   respjson.Field
-		TedApproach         respjson.Field
-		ExtraFields         map[string]respjson.Field
-		raw                 string
-	} `json:"-"`
+// A folksy metaphor to remember
+BarbecueSauceWisdom string `json:"barbecue_sauce_wisdom" api:"required"`
+// Understanding the root cause
+Diagnosis string `json:"diagnosis" api:"required"`
+// Advice from the Diamond Dogs support group
+DiamondDogsAdvice string `json:"diamond_dogs_advice" api:"required"`
+// What resolution could look like
+PotentialOutcome string `json:"potential_outcome" api:"required"`
+// Concrete steps to resolve the conflict
+StepsToResolution []string `json:"steps_to_resolution" api:"required"`
+// How Ted would handle this
+TedApproach string `json:"ted_approach" api:"required"`
+// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+JSON struct {
+              BarbecueSauceWisdom respjson.Field
+              Diagnosis respjson.Field
+              DiamondDogsAdvice respjson.Field
+              PotentialOutcome respjson.Field
+              StepsToResolution respjson.Field
+              TedApproach respjson.Field
+              ExtraFields map[string]respjson.Field
+              raw string
+            } `json:"-"`
 }
 
 // Returns the unmodified JSON received from the API
-func (r ConflictResolveResponse) RawJSON() string { return r.JSON.raw }
-func (r *ConflictResolveResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
+func (r ConflictResolveResponse) RawJSON() (string) { return r.JSON.raw }
+func (r *ConflictResolveResponse) UnmarshalJSON(data []byte) (error) {
+  return apijson.UnmarshalRoot(data, r)
 }
 
 type ConflictResolveParams struct {
-	// Type of conflict
-	//
-	// Any of "interpersonal", "team_dynamics", "leadership", "ego",
-	// "miscommunication", "competition".
-	ConflictType ConflictResolveParamsConflictType `json:"conflict_type,omitzero" api:"required"`
-	// Describe the conflict
-	Description string `json:"description" api:"required"`
-	// Who is involved in the conflict
-	PartiesInvolved []string `json:"parties_involved,omitzero" api:"required"`
-	// What you've already tried
-	AttemptsMade []string `json:"attempts_made,omitzero"`
-	paramObj
+// Type of conflict
+//
+// Any of "interpersonal", "team_dynamics", "leadership", "ego",
+// "miscommunication", "competition".
+ConflictType ConflictResolveParamsConflictType `json:"conflict_type,omitzero" api:"required"`
+// Describe the conflict
+Description string `json:"description" api:"required"`
+// Who is involved in the conflict
+PartiesInvolved []string `json:"parties_involved,omitzero" api:"required"`
+// What you've already tried
+AttemptsMade []string `json:"attempts_made,omitzero"`
+paramObj
 }
 
 func (r ConflictResolveParams) MarshalJSON() (data []byte, err error) {
-	type shadow ConflictResolveParams
-	return param.MarshalObject(r, (*shadow)(&r))
+  type shadow ConflictResolveParams
+  return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *ConflictResolveParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
+func (r *ConflictResolveParams) UnmarshalJSON(data []byte) (error) {
+  return apijson.UnmarshalRoot(data, r)
 }
 
 // Type of conflict
 type ConflictResolveParamsConflictType string
 
 const (
-	ConflictResolveParamsConflictTypeInterpersonal    ConflictResolveParamsConflictType = "interpersonal"
-	ConflictResolveParamsConflictTypeTeamDynamics     ConflictResolveParamsConflictType = "team_dynamics"
-	ConflictResolveParamsConflictTypeLeadership       ConflictResolveParamsConflictType = "leadership"
-	ConflictResolveParamsConflictTypeEgo              ConflictResolveParamsConflictType = "ego"
-	ConflictResolveParamsConflictTypeMiscommunication ConflictResolveParamsConflictType = "miscommunication"
-	ConflictResolveParamsConflictTypeCompetition      ConflictResolveParamsConflictType = "competition"
-)
+    ConflictResolveParamsConflictTypeInterpersonal ConflictResolveParamsConflictType = "interpersonal"
+    ConflictResolveParamsConflictTypeTeamDynamics ConflictResolveParamsConflictType = "team_dynamics"
+    ConflictResolveParamsConflictTypeLeadership ConflictResolveParamsConflictType = "leadership"
+    ConflictResolveParamsConflictTypeEgo ConflictResolveParamsConflictType = "ego"
+    ConflictResolveParamsConflictTypeMiscommunication ConflictResolveParamsConflictType = "miscommunication"
+    ConflictResolveParamsConflictTypeCompetition ConflictResolveParamsConflictType = "competition"
+  )

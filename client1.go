@@ -3,7 +3,7 @@
 package believe
 
 import (
-	"github.com/cjavdev/believe-go/option"
+  "github.com/cjavdev/believe-go/option"
 )
 
 // ClientService contains methods and other services that help with interacting
@@ -13,18 +13,18 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewClientService] method instead.
 type ClientService struct {
-	Options []option.RequestOption
-	// WebSocket endpoints for real-time bidirectional communication - Live match
-	// simulation
-	Ws ClientWService
+Options []option.RequestOption
+// WebSocket endpoints for real-time bidirectional communication - Live match
+// simulation
+Ws ClientWService
 }
 
 // NewClientService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
 func NewClientService(opts ...option.RequestOption) (r ClientService) {
-	r = ClientService{}
-	r.Options = opts
-	r.Ws = NewClientWService(opts...)
-	return
+  r = ClientService{}
+  r.Options = opts
+  r.Ws = NewClientWService(opts...)
+  return
 }

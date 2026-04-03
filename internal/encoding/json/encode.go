@@ -14,13 +14,13 @@
 package json
 
 import (
+	"github.com/cjavdev/believe-go/internal/encoding/json/sentinel"
+	"github.com/cjavdev/believe-go/internal/encoding/json/shims"
 	"bytes"
 	"cmp"
 	"encoding"
 	"encoding/base64"
 	"fmt"
-	"github.com/cjavdev/believe-go/internal/encoding/json/sentinel"
-	"github.com/cjavdev/believe-go/internal/encoding/json/shims"
 	"math"
 	"reflect"
 	"slices"

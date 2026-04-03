@@ -3,12 +3,12 @@
 package believe
 
 import (
-	"context"
-	"net/http"
-	"slices"
+  "context"
+  "net/http"
+  "slices"
 
-	"github.com/cjavdev/believe-go/internal/requestconfig"
-	"github.com/cjavdev/believe-go/option"
+  "github.com/cjavdev/believe-go/internal/requestconfig"
+  "github.com/cjavdev/believe-go/option"
 )
 
 // WebSocket endpoints for real-time bidirectional communication - Live match
@@ -21,16 +21,16 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewClientWService] method instead.
 type ClientWService struct {
-	Options []option.RequestOption
+Options []option.RequestOption
 }
 
 // NewClientWService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
 func NewClientWService(opts ...option.RequestOption) (r ClientWService) {
-	r = ClientWService{}
-	r.Options = opts
-	return
+  r = ClientWService{}
+  r.Options = opts
+  return
 }
 
 // Simple WebSocket test endpoint for connectivity testing.
@@ -48,9 +48,9 @@ func NewClientWService(opts ...option.RequestOption) (r ClientWService) {
 // ws.send("Hello!"); // Server responds with echo
 // ```
 func (r *ClientWService) Test(ctx context.Context, opts ...option.RequestOption) (err error) {
-	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
-	path := "ws/test"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, nil, opts...)
-	return err
+  opts = slices.Concat(r.Options, opts)
+  opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+  path := "ws/test"
+  err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, nil, opts...)
+  return err
 }

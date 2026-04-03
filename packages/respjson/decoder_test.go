@@ -1,10 +1,10 @@
 package respjson_test
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/cjavdev/believe-go/internal/apijson"
 	rj "github.com/cjavdev/believe-go/packages/respjson"
+	"encoding/json"
+	"fmt"
 	"reflect"
 	"testing"
 )

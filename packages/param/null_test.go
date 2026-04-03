@@ -1,8 +1,8 @@
 package param_test
 
 import (
-	"encoding/json"
 	"github.com/cjavdev/believe-go/packages/param"
+	"encoding/json"
 	"testing"
 )
 

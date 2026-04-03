@@ -3,15 +3,15 @@
 package believe
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"net/http"
-	"net/url"
-	"slices"
+  "context"
+  "errors"
+  "fmt"
+  "net/http"
+  "net/url"
+  "slices"
 
-	"github.com/cjavdev/believe-go/internal/requestconfig"
-	"github.com/cjavdev/believe-go/option"
+  "github.com/cjavdev/believe-go/internal/requestconfig"
+  "github.com/cjavdev/believe-go/option"
 )
 
 // Server-Sent Events (SSE) streaming endpoints
@@ -23,29 +23,29 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewMatchCommentaryService] method instead.
 type MatchCommentaryService struct {
-	Options []option.RequestOption
+Options []option.RequestOption
 }
 
 // NewMatchCommentaryService generates a new service that applies the given options
 // to each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
 func NewMatchCommentaryService(opts ...option.RequestOption) (r MatchCommentaryService) {
-	r = MatchCommentaryService{}
-	r.Options = opts
-	return
+  r = MatchCommentaryService{}
+  r.Options = opts
+  return
 }
 
 // Stream live match commentary for a specific match. Uses Server-Sent Events (SSE)
 // to stream commentary events in real-time.
 func (r *MatchCommentaryService) Stream(ctx context.Context, matchID string, opts ...option.RequestOption) (res *MatchCommentaryStreamResponse, err error) {
-	opts = slices.Concat(r.Options, opts)
-	if matchID == "" {
-		err = errors.New("missing required match_id parameter")
-		return nil, err
-	}
-	path := fmt.Sprintf("matches/%s/commentary/stream", url.PathEscape(matchID))
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return res, err
+  opts = slices.Concat(r.Options, opts)
+  if matchID == "" {
+    err = errors.New("missing required match_id parameter")
+    return nil, err
+  }
+  path := fmt.Sprintf("matches/%s/commentary/stream", url.PathEscape(matchID))
+  err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+  return res, err
 }
 
 type MatchCommentaryStreamResponse = any
