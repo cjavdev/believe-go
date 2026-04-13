@@ -20,6 +20,8 @@ Use the Believe MCP Server to enable AI assistants to interact with this API, al
 
 > Note: You may need to set environment variables in your MCP client.
 
+
+
 ## Installation
 
 <!-- x-release-please-start-version -->
@@ -37,7 +39,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/cjavdev/believe-go@v0.5.0'
+go get -u 'github.com/cjavdev/believe-go@v0.0.1'
 ```
 
 <!-- x-release-please-end -->
@@ -89,7 +91,7 @@ tag <code>\`json:"...,omitzero"\`</code>. Its zero value is considered omitted.
 
 The `param.IsOmitted(any)` function can confirm the presence of any `omitzero` field.
 
-```go
+~~~go
 p := believe.ExampleParams{
 	ID:   "id_xxx",              // required property
 	Name: believe.String("..."), // optional property
@@ -102,18 +104,18 @@ p := believe.ExampleParams{
 
 	Origin: believe.Origin{}, // the zero value of [Origin] is considered omitted
 }
-```
+~~~
 
 To send `null` instead of a `param.Opt[T]`, use `param.Null[T]()`.
 To send `null` instead of a struct `T`, use `param.NullStruct[T]()`.
 
-```go
+~~~go
 p.Name = param.Null[string]()       // 'null' instead of string
 p.Point = param.NullStruct[Point]() // 'null' instead of struct
 
 param.IsNull(p.Name)  // true
 param.IsNull(p.Point) // true
-```
+~~~
 
 Request structs contain a `.SetExtraFields(map[string]any)` method which can send non-conforming
 fields in the request body. Extra fields overwrite any struct fields with a matching
@@ -121,7 +123,7 @@ key. For security reasons, only use `SetExtraFields` with trusted data.
 
 To send a custom value instead of a struct, use `param.Override[T](value)`.
 
-```go
+~~~go
 // In cases where the API specifies a given type,
 // but you want to send something else, use [SetExtraFields]:
 p.SetExtraFields(map[string]any{
@@ -130,7 +132,7 @@ p.SetExtraFields(map[string]any{
 
 // Send a number instead of an object
 custom := param.Override[believe.FooParams](12)
-```
+~~~
 
 ### Request unions
 
@@ -232,7 +234,7 @@ To convert it to a variant use the `.AsFooVariant()` method or the `.AsAny()` me
 If a response value union contains primitive values, primitive fields will be alongside
 the properties but prefixed with `Of` and feature the tag `json:"...,inline"`.
 
-```go
+~~~go
 type AnimalUnion struct {
 	// From variants [Dog], [Cat]
 	Owner Person `json:"owner"`
@@ -260,7 +262,7 @@ case Cat:
 default:
 	panic("unexpected type")
 }
-```
+~~~
 
 ### RequestOptions
 
@@ -416,6 +418,7 @@ client.Characters.List(
 	option.WithMaxRetries(5),
 )
 ```
+
 
 ### Accessing raw response data (e.g. response headers)
 
