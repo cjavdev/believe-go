@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 (2026-04-18)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/cjavdev/believe-go/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** manual updates ([b1d0348](https://github.com/cjavdev/believe-go/commit/b1d0348967b9b7e578ad471c6f8e00d28fbbfaf1))
+
 ## 0.5.0 (2026-04-03)
 
 Full Changelog: [v0.4.1...v0.5.0](https://github.com/cjavdev/believe-go/compare/v0.4.1...v0.5.0)
