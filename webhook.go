@@ -138,15 +138,6 @@ func (r *WebhookService) TriggerEvent(ctx context.Context, body WebhookTriggerEv
 	return res, err
 }
 
-func (r *WebhookService) Unwrap(payload []byte, opts ...option.RequestOption) (*UnwrapWebhookEventUnion, error) {
-	res := &UnwrapWebhookEventUnion{}
-	err := res.UnmarshalJSON(payload)
-	if err != nil {
-		return res, err
-	}
-	return res, nil
-}
-
 // A registered webhook endpoint.
 type RegisteredWebhook struct {
 	// Unique webhook identifier
