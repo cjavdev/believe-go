@@ -43,7 +43,7 @@ func NewCharacterService(opts ...option.RequestOption) (r CharacterService) {
 }
 
 // Add a new character to the Ted Lasso universe.
-func (r *CharacterService) New(ctx context.Context, body CharacterNewParams, opts ...option.RequestOption) (res *Characterz, err error) {
+func (r *CharacterService) New(ctx context.Context, body CharacterNewParams, opts ...option.RequestOption) (res *Character, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "characters"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -51,7 +51,7 @@ func (r *CharacterService) New(ctx context.Context, body CharacterNewParams, opt
 }
 
 // Retrieve detailed information about a specific character.
-func (r *CharacterService) Get(ctx context.Context, characterID string, opts ...option.RequestOption) (res *Characterz, err error) {
+func (r *CharacterService) Get(ctx context.Context, characterID string, opts ...option.RequestOption) (res *Character, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
@@ -63,7 +63,7 @@ func (r *CharacterService) Get(ctx context.Context, characterID string, opts ...
 }
 
 // Update specific fields of an existing character.
-func (r *CharacterService) Update(ctx context.Context, characterID string, body CharacterUpdateParams, opts ...option.RequestOption) (res *Characterz, err error) {
+func (r *CharacterService) Update(ctx context.Context, characterID string, body CharacterUpdateParams, opts ...option.RequestOption) (res *Character, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if characterID == "" {
 		err = errors.New("missing required character_id parameter")
@@ -75,7 +75,7 @@ func (r *CharacterService) Update(ctx context.Context, characterID string, body 
 }
 
 // Get a paginated list of Ted Lasso characters.
-func (r *CharacterService) List(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Characterz], err error) {
+func (r *CharacterService) List(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Character], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
@@ -93,7 +93,7 @@ func (r *CharacterService) List(ctx context.Context, query CharacterListParams, 
 }
 
 // Get a paginated list of Ted Lasso characters.
-func (r *CharacterService) ListAutoPaging(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Characterz] {
+func (r *CharacterService) ListAutoPaging(ctx context.Context, query CharacterListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Character] {
 	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
 
@@ -122,24 +122,8 @@ func (r *CharacterService) GetQuotes(ctx context.Context, characterID string, op
 	return res, err
 }
 
-// Roles characters can have.
-type CharacterRole string
-
-const (
-	CharacterRoleCoach      CharacterRole = "coach"
-	CharacterRolePlayer     CharacterRole = "player"
-	CharacterRoleOwner      CharacterRole = "owner"
-	CharacterRoleManager    CharacterRole = "manager"
-	CharacterRoleStaff      CharacterRole = "staff"
-	CharacterRoleJournalist CharacterRole = "journalist"
-	CharacterRoleFamily     CharacterRole = "family"
-	CharacterRoleFriend     CharacterRole = "friend"
-	CharacterRoleFan        CharacterRole = "fan"
-	CharacterRoleOther      CharacterRole = "other"
-)
-
 // Full character model with ID.
-type Characterz struct {
+type Character struct {
 	// Unique identifier
 	ID string `json:"id" api:"required"`
 	// Character background and history
@@ -193,10 +177,26 @@ type Characterz struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r Characterz) RawJSON() string { return r.JSON.raw }
-func (r *Characterz) UnmarshalJSON(data []byte) error {
+func (r Character) RawJSON() string { return r.JSON.raw }
+func (r *Character) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Roles characters can have.
+type CharacterRole string
+
+const (
+	CharacterRoleCoach      CharacterRole = "coach"
+	CharacterRolePlayer     CharacterRole = "player"
+	CharacterRoleOwner      CharacterRole = "owner"
+	CharacterRoleManager    CharacterRole = "manager"
+	CharacterRoleStaff      CharacterRole = "staff"
+	CharacterRoleJournalist CharacterRole = "journalist"
+	CharacterRoleFamily     CharacterRole = "family"
+	CharacterRoleFriend     CharacterRole = "friend"
+	CharacterRoleFan        CharacterRole = "fan"
+	CharacterRoleOther      CharacterRole = "other"
+)
 
 // Emotional intelligence statistics for a character.
 type EmotionalStats struct {
