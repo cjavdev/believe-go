@@ -37,7 +37,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/cjavdev/believe-go@v0.7.0'
+go get -u 'github.com/cjavdev/believe-go@v0.8.0'
 ```
 
 <!-- x-release-please-end -->
@@ -297,8 +297,8 @@ You can use `.ListAutoPaging()` methods to iterate through items across all page
 iter := client.Characters.ListAutoPaging(context.TODO(), believe.CharacterListParams{})
 // Automatically fetches more pages as needed.
 for iter.Next() {
-	characterz := iter.Current()
-	fmt.Printf("%+v\n", characterz)
+	character := iter.Current()
+	fmt.Printf("%+v\n", character)
 }
 if err := iter.Err(); err != nil {
 	panic(err.Error())
