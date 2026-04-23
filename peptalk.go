@@ -18,28 +18,21 @@ import (
 
 // Server-Sent Events (SSE) streaming endpoints
 //
-// PepTalkService contains methods and other services that help with interacting
-// with the believe API.
+// PepTalkService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewPepTalkService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewPepTalkService] method instead.
 type PepTalkService struct {
 	Options []option.RequestOption
 }
 
-// NewPepTalkService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewPepTalkService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewPepTalkService(opts ...option.RequestOption) (r PepTalkService) {
 	r = PepTalkService{}
 	r.Options = opts
 	return
 }
 
-// Get a motivational pep talk from Ted Lasso himself. By default returns the
-// complete pep talk. Add `?stream=true` to get Server-Sent Events (SSE) streaming
-// the pep talk chunk by chunk.
+// Get a motivational pep talk from Ted Lasso himself. By default returns the complete pep talk. Add `?stream=true` to get Server-Sent Events (SSE) streaming the pep talk chunk by chunk.
 func (r *PepTalkService) Get(ctx context.Context, query PepTalkGetParams, opts ...option.RequestOption) (res *PepTalkGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "pep-talk"
@@ -76,8 +69,7 @@ type PepTalkGetResponseChunk struct {
 	IsFinal bool `json:"is_final" api:"required"`
 	// The text of this chunk
 	Text string `json:"text" api:"required"`
-	// The emotional purpose of this chunk (e.g., greeting, acknowledgment, wisdom,
-	// affirmation, encouragement)
+	// The emotional purpose of this chunk (e.g., greeting, acknowledgment, wisdom, affirmation, encouragement)
 	EmotionalBeat string `json:"emotional_beat" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {

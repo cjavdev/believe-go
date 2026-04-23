@@ -13,19 +13,14 @@ import (
 
 // Server-Sent Events (SSE) streaming endpoints
 //
-// StreamService contains methods and other services that help with interacting
-// with the believe API.
+// StreamService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewStreamService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewStreamService] method instead.
 type StreamService struct {
 	Options []option.RequestOption
 }
 
-// NewStreamService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewStreamService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewStreamService(opts ...option.RequestOption) (r StreamService) {
 	r = StreamService{}
 	r.Options = opts

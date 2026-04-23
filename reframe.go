@@ -16,19 +16,14 @@ import (
 
 // Interactive endpoints for motivation and guidance
 //
-// ReframeService contains methods and other services that help with interacting
-// with the believe API.
+// ReframeService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewReframeService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewReframeService] method instead.
 type ReframeService struct {
 	Options []option.RequestOption
 }
 
-// NewReframeService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewReframeService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewReframeService(opts ...option.RequestOption) (r ReframeService) {
 	r = ReframeService{}
 	r.Options = opts

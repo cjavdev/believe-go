@@ -23,19 +23,14 @@ import (
 
 // Operations related to Ted Lasso characters
 //
-// CharacterService contains methods and other services that help with interacting
-// with the believe API.
+// CharacterService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewCharacterService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewCharacterService] method instead.
 type CharacterService struct {
 	Options []option.RequestOption
 }
 
-// NewCharacterService generates a new service that applies the given options to
-// each request. These options are applied after the parent client's options (if
-// there is one), and before any request-specific options.
+// NewCharacterService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewCharacterService(opts ...option.RequestOption) (r CharacterService) {
 	r = CharacterService{}
 	r.Options = opts
@@ -136,8 +131,7 @@ type Character struct {
 	PersonalityTraits []string `json:"personality_traits" api:"required"`
 	// Character's role
 	//
-	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family",
-	// "friend", "fan", "other".
+	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family", "friend", "fan", "other".
 	Role CharacterRole `json:"role" api:"required"`
 	// Character's date of birth
 	DateOfBirth time.Time `json:"date_of_birth" api:"nullable" format:"date"`
@@ -230,17 +224,16 @@ func (r *EmotionalStats) UnmarshalJSON(data []byte) error {
 
 // ToParam converts this EmotionalStats to a EmotionalStatsParam.
 //
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// EmotionalStatsParam.Overrides()
+// Warning: the fields of the param type will not be present.
+// ToParam should only be used at the last possible moment before sending a request.
+// Test for this with EmotionalStatsParam.Overrides()
 func (r EmotionalStats) ToParam() EmotionalStatsParam {
 	return param.Override[EmotionalStatsParam](json.RawMessage(r.RawJSON()))
 }
 
 // Emotional intelligence statistics for a character.
 //
-// The properties Curiosity, Empathy, Optimism, Resilience, Vulnerability are
-// required.
+// The properties Curiosity, Empathy, Optimism, Resilience, Vulnerability are required.
 type EmotionalStatsParam struct {
 	// Level of curiosity over judgment (0-100)
 	Curiosity int64 `json:"curiosity" api:"required"`
@@ -295,17 +288,16 @@ func (r *GrowthArc) UnmarshalJSON(data []byte) error {
 
 // ToParam converts this GrowthArc to a GrowthArcParam.
 //
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// GrowthArcParam.Overrides()
+// Warning: the fields of the param type will not be present.
+// ToParam should only be used at the last possible moment before sending a request.
+// Test for this with GrowthArcParam.Overrides()
 func (r GrowthArc) ToParam() GrowthArcParam {
 	return param.Override[GrowthArcParam](json.RawMessage(r.RawJSON()))
 }
 
 // Character development arc.
 //
-// The properties Breakthrough, Challenge, EndingPoint, Season, StartingPoint are
-// required.
+// The properties Breakthrough, Challenge, EndingPoint, Season, StartingPoint are required.
 type GrowthArcParam struct {
 	// Key breakthrough moment
 	Breakthrough string `json:"breakthrough" api:"required"`
@@ -339,8 +331,7 @@ type CharacterNewParams struct {
 	PersonalityTraits []string `json:"personality_traits,omitzero" api:"required"`
 	// Character's role
 	//
-	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family",
-	// "friend", "fan", "other".
+	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family", "friend", "fan", "other".
 	Role CharacterRole `json:"role,omitzero" api:"required"`
 	// Character's date of birth
 	DateOfBirth param.Opt[time.Time] `json:"date_of_birth,omitzero" format:"date"`
@@ -401,8 +392,7 @@ type CharacterUpdateParams struct {
 	EmotionalStats EmotionalStatsParam `json:"emotional_stats,omitzero"`
 	// Roles characters can have.
 	//
-	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family",
-	// "friend", "fan", "other".
+	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family", "friend", "fan", "other".
 	Role CharacterRole `json:"role,omitzero"`
 	paramObj
 }
@@ -442,8 +432,7 @@ type CharacterListParams struct {
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
 	// Filter by role
 	//
-	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family",
-	// "friend", "fan", "other".
+	// Any of "coach", "player", "owner", "manager", "staff", "journalist", "family", "friend", "fan", "other".
 	Role CharacterRole `query:"role,omitzero" json:"-"`
 	paramObj
 }
