@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1 (2026-04-23)
+
+Full Changelog: [v0.8.0...v0.8.1](https://github.com/cjavdev/believe-go/compare/v0.8.0...v0.8.1)
+
+### Chores
+
+* **internal:** more robust bootstrap script ([f7dabef](https://github.com/cjavdev/believe-go/commit/f7dabef61b9072c8dc9de0a30b86dfe6e92bb46f))
+
 ## 0.8.0 (2026-04-22)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/cjavdev/believe-go/compare/v0.7.0...v0.8.0)
