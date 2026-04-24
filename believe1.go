@@ -16,19 +16,14 @@ import (
 
 // Interactive endpoints for motivation and guidance
 //
-// BelieveService contains methods and other services that help with interacting
-// with the believe API.
+// BelieveService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewBelieveService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewBelieveService] method instead.
 type BelieveService struct {
 	Options []option.RequestOption
 }
 
-// NewBelieveService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewBelieveService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewBelieveService(opts ...option.RequestOption) (r BelieveService) {
 	r = BelieveService{}
 	r.Options = opts
@@ -78,8 +73,7 @@ type BelieveSubmitParams struct {
 	Situation string `json:"situation" api:"required"`
 	// Type of situation
 	//
-	// Any of "work_challenge", "personal_setback", "team_conflict", "self_doubt",
-	// "big_decision", "failure", "new_beginning", "relationship".
+	// Any of "work_challenge", "personal_setback", "team_conflict", "self_doubt", "big_decision", "failure", "new_beginning", "relationship".
 	SituationType BelieveSubmitParamsSituationType `json:"situation_type,omitzero" api:"required"`
 	// Additional context
 	Context param.Opt[string] `json:"context,omitzero"`

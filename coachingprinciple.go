@@ -21,19 +21,14 @@ import (
 
 // Interactive endpoints for motivation and guidance
 //
-// CoachingPrincipleService contains methods and other services that help with
-// interacting with the believe API.
+// CoachingPrincipleService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewCoachingPrincipleService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewCoachingPrincipleService] method instead.
 type CoachingPrincipleService struct {
 	Options []option.RequestOption
 }
 
-// NewCoachingPrincipleService generates a new service that applies the given
-// options to each request. These options are applied after the parent client's
-// options (if there is one), and before any request-specific options.
+// NewCoachingPrincipleService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewCoachingPrincipleService(opts ...option.RequestOption) (r CoachingPrincipleService) {
 	r = CoachingPrincipleService{}
 	r.Options = opts
@@ -124,8 +119,7 @@ type CoachingPrincipleListParams struct {
 	paramObj
 }
 
-// URLQuery serializes [CoachingPrincipleListParams]'s query parameters as
-// `url.Values`.
+// URLQuery serializes [CoachingPrincipleListParams]'s query parameters as `url.Values`.
 func (r CoachingPrincipleListParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,

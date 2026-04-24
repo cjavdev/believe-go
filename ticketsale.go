@@ -19,22 +19,16 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
-// Ticket sales with 300 records for practicing pagination, filtering, and
-// financial data
+// Ticket sales with 300 records for practicing pagination, filtering, and financial data
 //
-// TicketSaleService contains methods and other services that help with interacting
-// with the believe API.
+// TicketSaleService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewTicketSaleService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewTicketSaleService] method instead.
 type TicketSaleService struct {
 	Options []option.RequestOption
 }
 
-// NewTicketSaleService generates a new service that applies the given options to
-// each request. These options are applied after the parent client's options (if
-// there is one), and before any request-specific options.
+// NewTicketSaleService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewTicketSaleService(opts ...option.RequestOption) (r TicketSaleService) {
 	r = TicketSaleService{}
 	r.Options = opts
@@ -73,8 +67,7 @@ func (r *TicketSaleService) Update(ctx context.Context, ticketSaleID string, bod
 	return res, err
 }
 
-// Get a paginated list of all ticket sales with optional filtering. With 300
-// records, this endpoint is ideal for practicing pagination.
+// Get a paginated list of all ticket sales with optional filtering. With 300 records, this endpoint is ideal for practicing pagination.
 func (r *TicketSaleService) List(ctx context.Context, query TicketSaleListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[TicketSale], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -92,8 +85,7 @@ func (r *TicketSaleService) List(ctx context.Context, query TicketSaleListParams
 	return res, nil
 }
 
-// Get a paginated list of all ticket sales with optional filtering. With 300
-// records, this endpoint is ideal for practicing pagination.
+// Get a paginated list of all ticket sales with optional filtering. With 300 records, this endpoint is ideal for practicing pagination.
 func (r *TicketSaleService) ListAutoPaging(ctx context.Context, query TicketSaleListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[TicketSale] {
 	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
@@ -139,7 +131,7 @@ type TicketSale struct {
 	PurchaseMethod PurchaseMethod `json:"purchase_method" api:"required"`
 	// Number of tickets purchased
 	Quantity int64 `json:"quantity" api:"required"`
-	// Subtotal before discount and tax (unit_price \* quantity)
+	// Subtotal before discount and tax (unit_price * quantity)
 	Subtotal string `json:"subtotal" api:"required"`
 	// Tax amount (20% UK VAT on discounted subtotal)
 	Tax string `json:"tax" api:"required"`
@@ -192,7 +184,7 @@ type TicketSaleNewParams struct {
 	PurchaseMethod PurchaseMethod `json:"purchase_method,omitzero" api:"required"`
 	// Number of tickets purchased
 	Quantity int64 `json:"quantity" api:"required"`
-	// Subtotal before discount and tax (unit_price \* quantity)
+	// Subtotal before discount and tax (unit_price * quantity)
 	Subtotal string `json:"subtotal" api:"required"`
 	// Tax amount (20% UK VAT on discounted subtotal)
 	Tax string `json:"tax" api:"required"`

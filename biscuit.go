@@ -21,19 +21,14 @@ import (
 
 // Interactive endpoints for motivation and guidance
 //
-// BiscuitService contains methods and other services that help with interacting
-// with the believe API.
+// BiscuitService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewBiscuitService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewBiscuitService] method instead.
 type BiscuitService struct {
 	Options []option.RequestOption
 }
 
-// NewBiscuitService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewBiscuitService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewBiscuitService(opts ...option.RequestOption) (r BiscuitService) {
 	r = BiscuitService{}
 	r.Options = opts
@@ -52,8 +47,7 @@ func (r *BiscuitService) Get(ctx context.Context, biscuitID string, opts ...opti
 	return res, err
 }
 
-// Get a paginated list of Ted's famous homemade biscuits! Each comes with a
-// heartwarming message.
+// Get a paginated list of Ted's famous homemade biscuits! Each comes with a heartwarming message.
 func (r *BiscuitService) List(ctx context.Context, query BiscuitListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Biscuit], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -71,8 +65,7 @@ func (r *BiscuitService) List(ctx context.Context, query BiscuitListParams, opts
 	return res, nil
 }
 
-// Get a paginated list of Ted's famous homemade biscuits! Each comes with a
-// heartwarming message.
+// Get a paginated list of Ted's famous homemade biscuits! Each comes with a heartwarming message.
 func (r *BiscuitService) ListAutoPaging(ctx context.Context, query BiscuitListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Biscuit] {
 	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
@@ -97,8 +90,7 @@ type Biscuit struct {
 	TedNote string `json:"ted_note" api:"required"`
 	// Type of biscuit
 	//
-	// Any of "classic", "shortbread", "chocolate_chip", "oatmeal_raisin",
-	// "snickerdoodle", "lemon_drizzle".
+	// Any of "classic", "shortbread", "chocolate_chip", "oatmeal_raisin", "snickerdoodle", "lemon_drizzle".
 	Type BiscuitType `json:"type" api:"required"`
 	// How warm and fresh (1-10)
 	WarmthLevel int64 `json:"warmth_level" api:"required"`

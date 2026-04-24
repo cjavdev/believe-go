@@ -21,19 +21,14 @@ import (
 
 // Memorable quotes from the show
 //
-// QuoteService contains methods and other services that help with interacting with
-// the believe API.
+// QuoteService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewQuoteService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewQuoteService] method instead.
 type QuoteService struct {
 	Options []option.RequestOption
 }
 
-// NewQuoteService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewQuoteService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewQuoteService(opts ...option.RequestOption) (r QuoteService) {
 	r = QuoteService{}
 	r.Options = opts
@@ -207,20 +202,13 @@ type Quote struct {
 	Context string `json:"context" api:"required"`
 	// Type of moment when the quote was said
 	//
-	// Any of "halftime_speech", "press_conference", "locker_room", "training",
-	// "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual",
-	// "confrontation".
+	// Any of "halftime_speech", "press_conference", "locker_room", "training", "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual", "confrontation".
 	MomentType QuoteMoment `json:"moment_type" api:"required"`
 	// The quote text
 	Text string `json:"text" api:"required"`
 	// Primary theme of the quote
 	//
-	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
-	// "vulnerability", "growth", "humor", "wisdom", "leadership", "love",
-	// "forgiveness", "philosophy", "romance", "cultural-pride",
-	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
-	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
+	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience", "vulnerability", "growth", "humor", "wisdom", "leadership", "love", "forgiveness", "philosophy", "romance", "cultural-pride", "cultural-differences", "antagonism", "celebration", "identity", "isolation", "power", "sacrifice", "standards", "confidence", "conflict", "honesty", "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `json:"theme" api:"required"`
 	// Episode where the quote appears
 	EpisodeID string `json:"episode_id" api:"nullable"`
@@ -320,20 +308,13 @@ type QuoteNewParams struct {
 	Context string `json:"context" api:"required"`
 	// Type of moment when the quote was said
 	//
-	// Any of "halftime_speech", "press_conference", "locker_room", "training",
-	// "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual",
-	// "confrontation".
+	// Any of "halftime_speech", "press_conference", "locker_room", "training", "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual", "confrontation".
 	MomentType QuoteMoment `json:"moment_type,omitzero" api:"required"`
 	// The quote text
 	Text string `json:"text" api:"required"`
 	// Primary theme of the quote
 	//
-	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
-	// "vulnerability", "growth", "humor", "wisdom", "leadership", "love",
-	// "forgiveness", "philosophy", "romance", "cultural-pride",
-	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
-	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
+	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience", "vulnerability", "growth", "humor", "wisdom", "leadership", "love", "forgiveness", "philosophy", "romance", "cultural-pride", "cultural-differences", "antagonism", "celebration", "identity", "isolation", "power", "sacrifice", "standards", "confidence", "conflict", "honesty", "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `json:"theme,omitzero" api:"required"`
 	// Episode where the quote appears
 	EpisodeID param.Opt[string] `json:"episode_id,omitzero"`
@@ -370,18 +351,11 @@ type QuoteUpdateParams struct {
 	SecondaryThemes []QuoteTheme       `json:"secondary_themes,omitzero"`
 	// Types of moments when quotes occur.
 	//
-	// Any of "halftime_speech", "press_conference", "locker_room", "training",
-	// "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual",
-	// "confrontation".
+	// Any of "halftime_speech", "press_conference", "locker_room", "training", "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual", "confrontation".
 	MomentType QuoteMoment `json:"moment_type,omitzero"`
 	// Themes that quotes can be categorized under.
 	//
-	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
-	// "vulnerability", "growth", "humor", "wisdom", "leadership", "love",
-	// "forgiveness", "philosophy", "romance", "cultural-pride",
-	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
-	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
+	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience", "vulnerability", "growth", "humor", "wisdom", "leadership", "love", "forgiveness", "philosophy", "romance", "cultural-pride", "cultural-differences", "antagonism", "celebration", "identity", "isolation", "power", "sacrifice", "standards", "confidence", "conflict", "honesty", "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `json:"theme,omitzero"`
 	paramObj
 }
@@ -407,18 +381,11 @@ type QuoteListParams struct {
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
 	// Filter by moment type
 	//
-	// Any of "halftime_speech", "press_conference", "locker_room", "training",
-	// "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual",
-	// "confrontation".
+	// Any of "halftime_speech", "press_conference", "locker_room", "training", "biscuits_with_boss", "pub", "one_on_one", "celebration", "crisis", "casual", "confrontation".
 	MomentType QuoteMoment `query:"moment_type,omitzero" json:"-"`
 	// Filter by theme
 	//
-	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
-	// "vulnerability", "growth", "humor", "wisdom", "leadership", "love",
-	// "forgiveness", "philosophy", "romance", "cultural-pride",
-	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
-	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
+	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience", "vulnerability", "growth", "humor", "wisdom", "leadership", "love", "forgiveness", "philosophy", "romance", "cultural-pride", "cultural-differences", "antagonism", "celebration", "identity", "isolation", "power", "sacrifice", "standards", "confidence", "conflict", "honesty", "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `query:"theme,omitzero" json:"-"`
 	paramObj
 }
@@ -438,12 +405,7 @@ type QuoteGetRandomParams struct {
 	Inspirational param.Opt[bool] `query:"inspirational,omitzero" json:"-"`
 	// Filter by theme
 	//
-	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience",
-	// "vulnerability", "growth", "humor", "wisdom", "leadership", "love",
-	// "forgiveness", "philosophy", "romance", "cultural-pride",
-	// "cultural-differences", "antagonism", "celebration", "identity", "isolation",
-	// "power", "sacrifice", "standards", "confidence", "conflict", "honesty",
-	// "integrity", "intimidation", "ambition", "narcissism", "maturity".
+	// Any of "belief", "teamwork", "curiosity", "kindness", "resilience", "vulnerability", "growth", "humor", "wisdom", "leadership", "love", "forgiveness", "philosophy", "romance", "cultural-pride", "cultural-differences", "antagonism", "celebration", "identity", "isolation", "power", "sacrifice", "standards", "confidence", "conflict", "honesty", "integrity", "intimidation", "ambition", "narcissism", "maturity".
 	Theme QuoteTheme `query:"theme,omitzero" json:"-"`
 	paramObj
 }
@@ -464,8 +426,7 @@ type QuoteListByCharacterParams struct {
 	paramObj
 }
 
-// URLQuery serializes [QuoteListByCharacterParams]'s query parameters as
-// `url.Values`.
+// URLQuery serializes [QuoteListByCharacterParams]'s query parameters as `url.Values`.
 func (r QuoteListByCharacterParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,

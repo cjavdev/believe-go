@@ -21,21 +21,16 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
-// MatchService contains methods and other services that help with interacting with
-// the believe API.
+// MatchService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewMatchService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewMatchService] method instead.
 type MatchService struct {
 	Options []option.RequestOption
 	// Server-Sent Events (SSE) streaming endpoints
 	Commentary MatchCommentaryService
 }
 
-// NewMatchService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewMatchService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewMatchService(opts ...option.RequestOption) (r MatchService) {
 	r = MatchService{}
 	r.Options = opts
@@ -137,24 +132,23 @@ func (r *MatchService) GetTurningPoints(ctx context.Context, matchID string, opt
 
 // WebSocket endpoint for real-time live match simulation.
 //
-// Connect to receive a stream of match events as they happen in a simulated
-// football match.
+// Connect to receive a stream of match events as they happen in a simulated football match.
 //
 // ## Connection
 //
-// Connect via WebSocket with optional query parameters to customize the
-// simulation.
+// Connect via WebSocket with optional query parameters to customize the simulation.
 //
 // ## Example WebSocket URL
 //
 // ```
-// ws://localhost:8000/matches/live?home_team=AFC%20Richmond&away_team=Manchester%20City&speed=2.0&excitement_level=7
+// ws://localhost:8000/matches/live
 // ```
+//
+// Append query parameters from the list above to customize the simulation.
 //
 // ## Server Messages
 //
 // The server sends JSON messages with these types:
-//
 // - `match_start` - When the match begins
 // - `match_event` - For each match event (goals, fouls, cards, etc.)
 // - `match_end` - When the match concludes
@@ -164,7 +158,6 @@ func (r *MatchService) GetTurningPoints(ctx context.Context, matchID string, opt
 // ## Client Messages
 //
 // Send JSON to control the simulation:
-//
 // - `{"action": "ping"}` - Keep-alive, server responds with `{"type": "pong"}`
 // - `{"action": "pause"}` - Pause the simulation
 // - `{"action": "resume"}` - Resume a paused simulation
@@ -295,9 +288,9 @@ func (r *TurningPoint) UnmarshalJSON(data []byte) error {
 
 // ToParam converts this TurningPoint to a TurningPointParam.
 //
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// TurningPointParam.Overrides()
+// Warning: the fields of the param type will not be present.
+// ToParam should only be used at the last possible moment before sending a request.
+// Test for this with TurningPointParam.Overrides()
 func (r TurningPoint) ToParam() TurningPointParam {
 	return param.Override[TurningPointParam](json.RawMessage(r.RawJSON()))
 }

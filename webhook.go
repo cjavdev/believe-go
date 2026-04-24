@@ -21,19 +21,14 @@ import (
 
 // Register webhook endpoints and trigger events for testing
 //
-// WebhookService contains methods and other services that help with interacting
-// with the believe API.
+// WebhookService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewWebhookService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewWebhookService] method instead.
 type WebhookService struct {
 	Options []option.RequestOption
 }
 
-// NewWebhookService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewWebhookService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewWebhookService(opts ...option.RequestOption) (r WebhookService) {
 	r = WebhookService{}
 	r.Options = opts
@@ -45,7 +40,6 @@ func NewWebhookService(opts ...option.RequestOption) (r WebhookService) {
 // ## Event Types
 //
 // Available event types to subscribe to:
-//
 // - `match.completed` - Fired when a football match ends
 // - `team_member.transferred` - Fired when a player/coach joins or leaves a team
 //
@@ -54,13 +48,11 @@ func NewWebhookService(opts ...option.RequestOption) (r WebhookService) {
 // ## Webhook Signatures
 //
 // All webhook deliveries include Standard Webhooks signature headers:
-//
 // - `webhook-id` - Unique message identifier
 // - `webhook-timestamp` - Unix timestamp of when the webhook was sent
 // - `webhook-signature` - HMAC-SHA256 signature in format `v1,{base64_signature}`
 //
-// Store the returned `secret` securely - you'll need it to verify webhook
-// signatures.
+// Store the returned `secret` securely - you'll need it to verify webhook signatures.
 func (r *WebhookService) New(ctx context.Context, body WebhookNewParams, opts ...option.RequestOption) (res *WebhookNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "webhooks"
@@ -103,7 +95,6 @@ func (r *WebhookService) Delete(ctx context.Context, webhookID string, opts ...o
 // Trigger a webhook event and deliver it to all subscribed endpoints.
 //
 // This endpoint is useful for testing your webhook integration. It will:
-//
 // 1. Generate an event with the specified type and payload
 // 2. Find all webhooks subscribed to that event type
 // 3. Send a POST request to each webhook URL with signature headers
@@ -116,13 +107,11 @@ func (r *WebhookService) Delete(ctx context.Context, webhookID string, opts ...o
 // ## Webhook Signature Headers
 //
 // Each webhook delivery includes:
-//
 // - `webhook-id` - Unique event identifier (e.g., `evt_abc123...`)
 // - `webhook-timestamp` - Unix timestamp
 // - `webhook-signature` - HMAC-SHA256 signature (`v1,{base64}`)
 //
 // To verify signatures, compute:
-//
 // ```
 // signature = HMAC-SHA256(
 //
@@ -360,8 +349,7 @@ const (
 	MatchCompletedWebhookEventEventTypeMatchCompleted MatchCompletedWebhookEventEventType = "match.completed"
 )
 
-// Webhook event sent when a team member (player, coach, staff) transfers between
-// teams.
+// Webhook event sent when a team member (player, coach, staff) transfers between teams.
 type TeamMemberTransferredWebhookEvent struct {
 	// When the event was created
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
@@ -452,14 +440,12 @@ const (
 	TeamMemberTransferredWebhookEventEventTypeTeamMemberTransferred TeamMemberTransferredWebhookEventEventType = "team_member.transferred"
 )
 
-// UnwrapWebhookEventUnion contains all possible properties and values from
-// [MatchCompletedWebhookEvent], [TeamMemberTransferredWebhookEvent].
+// UnwrapWebhookEventUnion contains all possible properties and values from [MatchCompletedWebhookEvent], [TeamMemberTransferredWebhookEvent].
 //
 // Use the methods beginning with 'As' to cast the union to one of its variants.
 type UnwrapWebhookEventUnion struct {
 	CreatedAt time.Time `json:"created_at"`
-	// This field is a union of [MatchCompletedWebhookEventData],
-	// [TeamMemberTransferredWebhookEventData]
+	// This field is a union of [MatchCompletedWebhookEventData], [TeamMemberTransferredWebhookEventData]
 	Data      UnwrapWebhookEventUnionData `json:"data"`
 	EventID   string                      `json:"event_id"`
 	EventType string                      `json:"event_type"`
@@ -489,12 +475,9 @@ func (r *UnwrapWebhookEventUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// UnwrapWebhookEventUnionData is an implicit subunion of
-// [UnwrapWebhookEventUnion]. UnwrapWebhookEventUnionData provides convenient
-// access to the sub-properties of the union.
+// UnwrapWebhookEventUnionData is an implicit subunion of [UnwrapWebhookEventUnion]. UnwrapWebhookEventUnionData provides convenient access to the sub-properties of the union.
 //
-// For type safety it is recommended to directly use a variant of the
-// [UnwrapWebhookEventUnion].
+// For type safety it is recommended to directly use a variant of the [UnwrapWebhookEventUnion].
 type UnwrapWebhookEventUnionData struct {
 	// This field is from variant [MatchCompletedWebhookEventData].
 	AwayScore int64 `json:"away_score"`
@@ -673,8 +656,7 @@ func init() {
 
 // Event data
 //
-// The properties AwayScore, AwayTeamID, CompletedAt, HomeScore, HomeTeamID,
-// MatchID, MatchType, Result, TedPostMatchQuote are required.
+// The properties AwayScore, AwayTeamID, CompletedAt, HomeScore, HomeTeamID, MatchID, MatchType, Result, TedPostMatchQuote are required.
 type WebhookTriggerEventParamsPayloadMatchCompletedData struct {
 	// Final away team score
 	AwayScore int64 `json:"away_score" api:"required"`
@@ -751,8 +733,7 @@ func init() {
 
 // Event data
 //
-// The properties CharacterID, CharacterName, MemberType, TeamID, TeamMemberID,
-// TeamName, TedReaction, TransferType are required.
+// The properties CharacterID, CharacterName, MemberType, TeamID, TeamMemberID, TeamName, TedReaction, TransferType are required.
 type WebhookTriggerEventParamsPayloadTeamMemberTransferredData struct {
 	// ID of the character (links to /characters)
 	CharacterID string `json:"character_id" api:"required"`

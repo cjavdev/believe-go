@@ -196,35 +196,32 @@ func NewRequestConfig(ctx context.Context, method string, u string, body any, ds
 	return &cfg, nil
 }
 
-// This interface is primarily used to describe an [*http.Client], but also
-// supports custom HTTP implementations.
+// This interface is primarily used to describe an [*http.Client], but also supports custom HTTP implementations.
 type HTTPDoer interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
 // RequestConfig represents all the state related to one request.
 //
-// Editing the variables inside RequestConfig directly is unstable api. Prefer
-// composing the RequestOption instead if possible.
+// Editing the variables inside RequestConfig directly is unstable api. Prefer composing the RequestOption instead if possible.
 type RequestConfig struct {
 	MaxRetries     int
 	RequestTimeout time.Duration
 	Context        context.Context
 	Request        *http.Request
 	BaseURL        *url.URL
-	// DefaultBaseURL will be used if BaseURL is not explicitly overridden using
-	// WithBaseURL.
+	// DefaultBaseURL will be used if BaseURL is not explicitly overridden using WithBaseURL.
 	DefaultBaseURL *url.URL
 	CustomHTTPDoer HTTPDoer
 	HTTPClient     *http.Client
 	Middlewares    []middleware
 	APIKey         string
-	// If ResponseBodyInto not nil, then we will attempt to deserialize into
-	// ResponseBodyInto. If Destination is a []byte, then it will return the body as
-	// is.
+	// If ResponseBodyInto  not nil, then we will attempt to deserialize into
+	// ResponseBodyInto. If Destination is a []byte, then it will return the
+	// body as is.
 	ResponseBodyInto any
-	// ResponseInto copies the \*http.Response of the corresponding request into the
-	// given address
+	// ResponseInto copies the *http.Response of the corresponding request
+	// into the given address
 	ResponseInto **http.Response
 	Body         io.Reader
 }

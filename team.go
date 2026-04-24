@@ -22,21 +22,16 @@ import (
 
 // Operations related to football teams
 //
-// TeamService contains methods and other services that help with interacting with
-// the believe API.
+// TeamService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewTeamService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewTeamService] method instead.
 type TeamService struct {
 	Options []option.RequestOption
 	// Operations related to football teams
 	Logo TeamLogoService
 }
 
-// NewTeamService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewTeamService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewTeamService(opts ...option.RequestOption) (r TeamService) {
 	r = TeamService{}
 	r.Options = opts
@@ -76,8 +71,7 @@ func (r *TeamService) Update(ctx context.Context, teamID string, body TeamUpdate
 	return res, err
 }
 
-// Get a paginated list of all teams with optional filtering by league or culture
-// score.
+// Get a paginated list of all teams with optional filtering by league or culture score.
 func (r *TeamService) List(ctx context.Context, query TeamListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Team], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -95,8 +89,7 @@ func (r *TeamService) List(ctx context.Context, query TeamListParams, opts ...op
 	return res, nil
 }
 
-// Get a paginated list of all teams with optional filtering by league or culture
-// score.
+// Get a paginated list of all teams with optional filtering by league or culture score.
 func (r *TeamService) ListAutoPaging(ctx context.Context, query TeamListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Team] {
 	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
@@ -173,9 +166,9 @@ func (r *GeoLocation) UnmarshalJSON(data []byte) error {
 
 // ToParam converts this GeoLocation to a GeoLocationParam.
 //
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// GeoLocationParam.Overrides()
+// Warning: the fields of the param type will not be present.
+// ToParam should only be used at the last possible moment before sending a request.
+// Test for this with GeoLocationParam.Overrides()
 func (r GeoLocation) ToParam() GeoLocationParam {
 	return param.Override[GeoLocationParam](json.RawMessage(r.RawJSON()))
 }
@@ -223,8 +216,7 @@ type Team struct {
 	FoundedYear int64 `json:"founded_year" api:"required"`
 	// Current league
 	//
-	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga",
-	// "Serie A", "Bundesliga", "Ligue 1".
+	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga", "Serie A", "Bundesliga", "Ligue 1".
 	League League `json:"league" api:"required"`
 	// Team name
 	Name string `json:"name" api:"required"`
@@ -311,9 +303,9 @@ func (r *TeamValues) UnmarshalJSON(data []byte) error {
 
 // ToParam converts this TeamValues to a TeamValuesParam.
 //
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// TeamValuesParam.Overrides()
+// Warning: the fields of the param type will not be present.
+// ToParam should only be used at the last possible moment before sending a request.
+// Test for this with TeamValuesParam.Overrides()
 func (r TeamValues) ToParam() TeamValuesParam {
 	return param.Override[TeamValuesParam](json.RawMessage(r.RawJSON()))
 }
@@ -348,8 +340,7 @@ type TeamNewParams struct {
 	FoundedYear int64 `json:"founded_year" api:"required"`
 	// Current league
 	//
-	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga",
-	// "Serie A", "Bundesliga", "Ligue 1".
+	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga", "Serie A", "Bundesliga", "Ligue 1".
 	League League `json:"league,omitzero" api:"required"`
 	// Team name
 	Name string `json:"name" api:"required"`
@@ -423,8 +414,7 @@ type TeamUpdateParams struct {
 	RivalTeams        []string                             `json:"rival_teams,omitzero"`
 	// Football leagues.
 	//
-	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga",
-	// "Serie A", "Bundesliga", "Ligue 1".
+	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga", "Serie A", "Bundesliga", "Ligue 1".
 	League League `json:"league,omitzero"`
 	// Geographic coordinates for a location.
 	StadiumLocation GeoLocationParam `json:"stadium_location,omitzero"`
@@ -466,8 +456,7 @@ type TeamListParams struct {
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
 	// Filter by league
 	//
-	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga",
-	// "Serie A", "Bundesliga", "Ligue 1".
+	// Any of "Premier League", "Championship", "League One", "League Two", "La Liga", "Serie A", "Bundesliga", "Ligue 1".
 	League League `query:"league,omitzero" json:"-"`
 	paramObj
 }

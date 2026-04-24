@@ -22,19 +22,14 @@ import (
 
 // Operations related to TV episodes
 //
-// EpisodeService contains methods and other services that help with interacting
-// with the believe API.
+// EpisodeService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewEpisodeService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewEpisodeService] method instead.
 type EpisodeService struct {
 	Options []option.RequestOption
 }
 
-// NewEpisodeService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewEpisodeService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewEpisodeService(opts ...option.RequestOption) (r EpisodeService) {
 	r = EpisodeService{}
 	r.Options = opts
@@ -73,8 +68,7 @@ func (r *EpisodeService) Update(ctx context.Context, episodeID string, body Epis
 	return res, err
 }
 
-// Get a paginated list of all Ted Lasso episodes with optional filtering by
-// season.
+// Get a paginated list of all Ted Lasso episodes with optional filtering by season.
 func (r *EpisodeService) List(ctx context.Context, query EpisodeListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[Episode], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -92,8 +86,7 @@ func (r *EpisodeService) List(ctx context.Context, query EpisodeListParams, opts
 	return res, nil
 }
 
-// Get a paginated list of all Ted Lasso episodes with optional filtering by
-// season.
+// Get a paginated list of all Ted Lasso episodes with optional filtering by season.
 func (r *EpisodeService) ListAutoPaging(ctx context.Context, query EpisodeListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[Episode] {
 	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }

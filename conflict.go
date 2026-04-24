@@ -16,19 +16,14 @@ import (
 
 // Interactive endpoints for motivation and guidance
 //
-// ConflictService contains methods and other services that help with interacting
-// with the believe API.
+// ConflictService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewConflictService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewConflictService] method instead.
 type ConflictService struct {
 	Options []option.RequestOption
 }
 
-// NewConflictService generates a new service that applies the given options to
-// each request. These options are applied after the parent client's options (if
-// there is one), and before any request-specific options.
+// NewConflictService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewConflictService(opts ...option.RequestOption) (r ConflictService) {
 	r = ConflictService{}
 	r.Options = opts
@@ -79,8 +74,7 @@ func (r *ConflictResolveResponse) UnmarshalJSON(data []byte) error {
 type ConflictResolveParams struct {
 	// Type of conflict
 	//
-	// Any of "interpersonal", "team_dynamics", "leadership", "ego",
-	// "miscommunication", "competition".
+	// Any of "interpersonal", "team_dynamics", "leadership", "ego", "miscommunication", "competition".
 	ConflictType ConflictResolveParamsConflictType `json:"conflict_type,omitzero" api:"required"`
 	// Describe the conflict
 	Description string `json:"description" api:"required"`

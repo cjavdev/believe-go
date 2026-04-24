@@ -10,9 +10,10 @@ type Constant[T any] interface {
 	Default() T
 }
 
-// ValueOf gives the default value of a constant from its type. It's helpful when
-// constructing constants as variants in a one-of. Note that empty structs are
-// marshalled by default. Usage: constant.ValueOf[constant.Foo]()
+// ValueOf gives the default value of a constant from its type. It's helpful when constructing constants as variants in a one-of. Note that empty structs are marshalled by default.
+// Usage:
+//
+//	constant.ValueOf[constant.Foo]()
 func ValueOf[T Constant[T]]() T {
 	var t T
 	return t.Default()
