@@ -297,8 +297,8 @@ You can use `.ListAutoPaging()` methods to iterate through items across all page
 iter := client.Characters.ListAutoPaging(context.TODO(), believe.CharacterListParams{})
 // Automatically fetches more pages as needed.
 for iter.Next() {
-	characterz := iter.Current()
-	fmt.Printf("%+v\n", characterz)
+	character := iter.Current()
+	fmt.Printf("%+v\n", character)
 }
 if err := iter.Err(); err != nil {
 	panic(err.Error())
