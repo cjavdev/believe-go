@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.11.0 (2026-04-28)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/cjavdev/believe-go/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **go:** add default http client with timeout ([4cbb7b8](https://github.com/cjavdev/believe-go/commit/4cbb7b8161ead836bb32914b53751553559c8ace))
+* support setting headers via env ([9aeb554](https://github.com/cjavdev/believe-go/commit/9aeb554268e211b49e63bca3629dea010b988cc3))
+
 ## 0.10.0 (2026-04-27)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/cjavdev/believe-go/compare/v0.9.0...v0.10.0)
