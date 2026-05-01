@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.1 (2026-05-01)
+
+Full Changelog: [v0.11.0...v0.11.1](https://github.com/cjavdev/believe-go/compare/v0.11.0...v0.11.1)
+
+### Chores
+
+* avoid embedding reflect.Type for dead code elimination ([6d8f51e](https://github.com/cjavdev/believe-go/commit/6d8f51e0e1447f211b652085e0a36476f1e4c5e8))
+
 ## 0.11.0 (2026-04-28)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/cjavdev/believe-go/compare/v0.10.0...v0.11.0)
