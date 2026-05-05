@@ -20,16 +20,22 @@ import (
 	"github.com/cjavdev/believe-go/packages/respjson"
 )
 
-// Team members with union types (oneOf) - Players, Coaches, Medical Staff, Equipment Managers
+// Team members with union types (oneOf) - Players, Coaches, Medical Staff,
+// Equipment Managers
 //
-// TeamMemberService contains methods and other services that help with interacting with the believe API.
+// TeamMemberService contains methods and other services that help with interacting
+// with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewTeamMemberService] method instead.
+// Note, unlike clients, this service does not read variables from the environment
+// automatically. You should not instantiate this service directly, and instead use
+// the [NewTeamMemberService] method instead.
 type TeamMemberService struct {
 	Options []option.RequestOption
 }
 
-// NewTeamMemberService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
+// NewTeamMemberService generates a new service that applies the given options to
+// each request. These options are applied after the parent client's options (if
+// there is one), and before any request-specific options.
 func NewTeamMemberService(opts ...option.RequestOption) (r TeamMemberService) {
 	r = TeamMemberService{}
 	r.Options = opts
@@ -38,15 +44,22 @@ func NewTeamMemberService(opts ...option.RequestOption) (r TeamMemberService) {
 
 // Add a new team member to a team.
 //
-// The request body is a **union type (oneOf)** - you must include the `member_type` discriminator field:
-// - `"member_type": "player"` - Creates a player (requires position, jersey_number, etc.)
-// - `"member_type": "coach"` - Creates a coach (requires specialty, etc.)
-// - `"member_type": "medical_staff"` - Creates medical staff (requires medical specialty, etc.)
-// - `"member_type": "equipment_manager"` - Creates equipment manager (requires responsibilities, etc.)
+// The request body is a **union type (oneOf)** - you must include the
+// `member_type` discriminator field:
 //
-// The `character_id` field references an existing character from `/characters/{id}`.
+//   - `"member_type": "player"` - Creates a player (requires position,
+//     jersey_number, etc.)
+//   - `"member_type": "coach"` - Creates a coach (requires specialty, etc.)
+//   - `"member_type": "medical_staff"` - Creates medical staff (requires medical
+//     specialty, etc.)
+//   - `"member_type": "equipment_manager"` - Creates equipment manager (requires
+//     responsibilities, etc.)
+//
+// The `character_id` field references an existing character from
+// `/characters/{id}`.
 //
 // **Example for creating a player:**
+//
 // ```json
 //
 //	{
@@ -70,13 +83,17 @@ func (r *TeamMemberService) New(ctx context.Context, body TeamMemberNewParams, o
 
 // Retrieve detailed information about a specific team member.
 //
-// The response is a **union type (oneOf)** - the actual shape depends on the member's type:
-// - **player**: Includes position, jersey_number, goals_scored, assists, is_captain
-// - **coach**: Includes specialty, certifications, win_rate
-// - **medical_staff**: Includes specialty, qualifications, license_number
-// - **equipment_manager**: Includes responsibilities, is_head_kitman
+// The response is a **union type (oneOf)** - the actual shape depends on the
+// member's type:
 //
-// Use `character_id` to fetch full character details from `/characters/{character_id}`.
+//   - **player**: Includes position, jersey_number, goals_scored, assists,
+//     is_captain
+//   - **coach**: Includes specialty, certifications, win_rate
+//   - **medical_staff**: Includes specialty, qualifications, license_number
+//   - **equipment_manager**: Includes responsibilities, is_head_kitman
+//
+// Use `character_id` to fetch full character details from
+// `/characters/{character_id}`.
 func (r *TeamMemberService) Get(ctx context.Context, memberID string, opts ...option.RequestOption) (res *TeamMemberGetResponseUnion, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if memberID == "" {
@@ -102,9 +119,10 @@ func (r *TeamMemberService) Update(ctx context.Context, memberID string, body Te
 
 // Get a paginated list of all team members.
 //
-// This endpoint demonstrates **union types (oneOf)** in the response.
-// Each team member can be one of: Player, Coach, MedicalStaff, or EquipmentManager.
-// The `member_type` field acts as a discriminator to determine the shape of each object.
+// This endpoint demonstrates **union types (oneOf)** in the response. Each team
+// member can be one of: Player, Coach, MedicalStaff, or EquipmentManager. The
+// `member_type` field acts as a discriminator to determine the shape of each
+// object.
 func (r *TeamMemberService) List(ctx context.Context, query TeamMemberListParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[TeamMemberListResponseUnion], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -124,9 +142,10 @@ func (r *TeamMemberService) List(ctx context.Context, query TeamMemberListParams
 
 // Get a paginated list of all team members.
 //
-// This endpoint demonstrates **union types (oneOf)** in the response.
-// Each team member can be one of: Player, Coach, MedicalStaff, or EquipmentManager.
-// The `member_type` field acts as a discriminator to determine the shape of each object.
+// This endpoint demonstrates **union types (oneOf)** in the response. Each team
+// member can be one of: Player, Coach, MedicalStaff, or EquipmentManager. The
+// `member_type` field acts as a discriminator to determine the shape of each
+// object.
 func (r *TeamMemberService) ListAutoPaging(ctx context.Context, query TeamMemberListParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[TeamMemberListResponseUnion] {
 	return pagination.NewSkipLimitPageAutoPager(r.List(ctx, query, opts...))
 }
@@ -192,7 +211,8 @@ func (r *TeamMemberService) ListPlayersAutoPaging(ctx context.Context, query Tea
 
 // Get all staff members (medical staff and equipment managers).
 //
-// This demonstrates a **narrower union type** - the response is oneOf MedicalStaff or EquipmentManager.
+// This demonstrates a **narrower union type** - the response is oneOf MedicalStaff
+// or EquipmentManager.
 func (r *TeamMemberService) ListStaff(ctx context.Context, query TeamMemberListStaffParams, opts ...option.RequestOption) (res *pagination.SkipLimitPage[TeamMemberListStaffResponseUnion], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -212,7 +232,8 @@ func (r *TeamMemberService) ListStaff(ctx context.Context, query TeamMemberListS
 
 // Get all staff members (medical staff and equipment managers).
 //
-// This demonstrates a **narrower union type** - the response is oneOf MedicalStaff or EquipmentManager.
+// This demonstrates a **narrower union type** - the response is oneOf MedicalStaff
+// or EquipmentManager.
 func (r *TeamMemberService) ListStaffAutoPaging(ctx context.Context, query TeamMemberListStaffParams, opts ...option.RequestOption) *pagination.SkipLimitPageAutoPager[TeamMemberListStaffResponseUnion] {
 	return pagination.NewSkipLimitPageAutoPager(r.ListStaff(ctx, query, opts...))
 }
@@ -225,7 +246,8 @@ type Coach struct {
 	CharacterID string `json:"character_id" api:"required"`
 	// Coaching specialty/role
 	//
-	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach", "tactical_analyst".
+	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach",
+	// "tactical_analyst".
 	Specialty CoachSpecialty `json:"specialty" api:"required"`
 	// ID of the team they belong to
 	TeamID string `json:"team_id" api:"required"`
@@ -342,7 +364,8 @@ type MedicalStaff struct {
 	CharacterID string `json:"character_id" api:"required"`
 	// Medical specialty
 	//
-	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist", "massage_therapist".
+	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist",
+	// "massage_therapist".
 	Specialty MedicalSpecialty `json:"specialty" api:"required"`
 	// ID of the team they belong to
 	TeamID string `json:"team_id" api:"required"`
@@ -450,7 +473,8 @@ const (
 	PositionForward    Position = "forward"
 )
 
-// TeamMemberNewResponseUnion contains all possible properties and values from [Player], [Coach], [MedicalStaff], [EquipmentManager].
+// TeamMemberNewResponseUnion contains all possible properties and values from
+// [Player], [Coach], [MedicalStaff], [EquipmentManager].
 //
 // Use the [TeamMemberNewResponseUnion.AsAny] method to switch on the variant.
 //
@@ -507,7 +531,9 @@ type TeamMemberNewResponseUnion struct {
 	} `json:"-"`
 }
 
-// anyTeamMemberNewResponse is implemented by each variant of [TeamMemberNewResponseUnion] to add type safety for the return type of [TeamMemberNewResponseUnion.AsAny]
+// anyTeamMemberNewResponse is implemented by each variant of
+// [TeamMemberNewResponseUnion] to add type safety for the return type of
+// [TeamMemberNewResponseUnion.AsAny]
 type anyTeamMemberNewResponse interface {
 	implTeamMemberNewResponseUnion()
 }
@@ -568,7 +594,8 @@ func (r *TeamMemberNewResponseUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// TeamMemberGetResponseUnion contains all possible properties and values from [Player], [Coach], [MedicalStaff], [EquipmentManager].
+// TeamMemberGetResponseUnion contains all possible properties and values from
+// [Player], [Coach], [MedicalStaff], [EquipmentManager].
 //
 // Use the [TeamMemberGetResponseUnion.AsAny] method to switch on the variant.
 //
@@ -625,7 +652,9 @@ type TeamMemberGetResponseUnion struct {
 	} `json:"-"`
 }
 
-// anyTeamMemberGetResponse is implemented by each variant of [TeamMemberGetResponseUnion] to add type safety for the return type of [TeamMemberGetResponseUnion.AsAny]
+// anyTeamMemberGetResponse is implemented by each variant of
+// [TeamMemberGetResponseUnion] to add type safety for the return type of
+// [TeamMemberGetResponseUnion.AsAny]
 type anyTeamMemberGetResponse interface {
 	implTeamMemberGetResponseUnion()
 }
@@ -686,7 +715,8 @@ func (r *TeamMemberGetResponseUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// TeamMemberUpdateResponseUnion contains all possible properties and values from [Player], [Coach], [MedicalStaff], [EquipmentManager].
+// TeamMemberUpdateResponseUnion contains all possible properties and values from
+// [Player], [Coach], [MedicalStaff], [EquipmentManager].
 //
 // Use the [TeamMemberUpdateResponseUnion.AsAny] method to switch on the variant.
 //
@@ -743,7 +773,9 @@ type TeamMemberUpdateResponseUnion struct {
 	} `json:"-"`
 }
 
-// anyTeamMemberUpdateResponse is implemented by each variant of [TeamMemberUpdateResponseUnion] to add type safety for the return type of [TeamMemberUpdateResponseUnion.AsAny]
+// anyTeamMemberUpdateResponse is implemented by each variant of
+// [TeamMemberUpdateResponseUnion] to add type safety for the return type of
+// [TeamMemberUpdateResponseUnion.AsAny]
 type anyTeamMemberUpdateResponse interface {
 	implTeamMemberUpdateResponseUnion()
 }
@@ -804,7 +836,8 @@ func (r *TeamMemberUpdateResponseUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// TeamMemberListResponseUnion contains all possible properties and values from [Player], [Coach], [MedicalStaff], [EquipmentManager].
+// TeamMemberListResponseUnion contains all possible properties and values from
+// [Player], [Coach], [MedicalStaff], [EquipmentManager].
 //
 // Use the [TeamMemberListResponseUnion.AsAny] method to switch on the variant.
 //
@@ -861,7 +894,9 @@ type TeamMemberListResponseUnion struct {
 	} `json:"-"`
 }
 
-// anyTeamMemberListResponse is implemented by each variant of [TeamMemberListResponseUnion] to add type safety for the return type of [TeamMemberListResponseUnion.AsAny]
+// anyTeamMemberListResponse is implemented by each variant of
+// [TeamMemberListResponseUnion] to add type safety for the return type of
+// [TeamMemberListResponseUnion.AsAny]
 type anyTeamMemberListResponse interface {
 	implTeamMemberListResponseUnion()
 }
@@ -922,7 +957,8 @@ func (r *TeamMemberListResponseUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// TeamMemberListStaffResponseUnion contains all possible properties and values from [MedicalStaff], [EquipmentManager].
+// TeamMemberListStaffResponseUnion contains all possible properties and values
+// from [MedicalStaff], [EquipmentManager].
 //
 // Use the methods beginning with 'As' to cast the union to one of its variants.
 type TeamMemberListStaffResponseUnion struct {
@@ -979,14 +1015,14 @@ type TeamMemberNewParams struct {
 	// Request body variants
 	//
 
-	// This field is a request body variant, only one variant field can be set.
-	// A football player on the team.
+	// This field is a request body variant, only one variant field can be set. A
+	// football player on the team.
 	OfPlayer *TeamMemberNewParamsMemberPlayer `json:",inline"`
-	// This field is a request body variant, only one variant field can be set.
-	// A coach or coaching staff member.
+	// This field is a request body variant, only one variant field can be set. A coach
+	// or coaching staff member.
 	OfCoach *TeamMemberNewParamsMemberCoach `json:",inline"`
-	// This field is a request body variant, only one variant field can be set.
-	// Medical and wellness staff member.
+	// This field is a request body variant, only one variant field can be set. Medical
+	// and wellness staff member.
 	OfMedicalStaff *TeamMemberNewParamsMemberMedicalStaff `json:",inline"`
 	// This field is a request body variant, only one variant field can be set.
 	// Equipment and kit management staff.
@@ -1004,7 +1040,8 @@ func (r *TeamMemberNewParams) UnmarshalJSON(data []byte) error {
 
 // A football player on the team.
 //
-// The properties CharacterID, JerseyNumber, Position, TeamID, YearsWithTeam are required.
+// The properties CharacterID, JerseyNumber, Position, TeamID, YearsWithTeam are
+// required.
 type TeamMemberNewParamsMemberPlayer struct {
 	// ID of the character (references /characters/{id})
 	CharacterID string `json:"character_id" api:"required"`
@@ -1053,7 +1090,8 @@ type TeamMemberNewParamsMemberCoach struct {
 	CharacterID string `json:"character_id" api:"required"`
 	// Coaching specialty/role
 	//
-	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach", "tactical_analyst".
+	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach",
+	// "tactical_analyst".
 	Specialty CoachSpecialty `json:"specialty,omitzero" api:"required"`
 	// ID of the team they belong to
 	TeamID string `json:"team_id" api:"required"`
@@ -1092,7 +1130,8 @@ type TeamMemberNewParamsMemberMedicalStaff struct {
 	CharacterID string `json:"character_id" api:"required"`
 	// Medical specialty
 	//
-	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist", "massage_therapist".
+	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist",
+	// "massage_therapist".
 	Specialty MedicalSpecialty `json:"specialty,omitzero" api:"required"`
 	// ID of the team they belong to
 	TeamID string `json:"team_id" api:"required"`
@@ -1164,17 +1203,17 @@ type TeamMemberUpdateParams struct {
 	// Request body variants
 	//
 
-	// This field is a request body variant, only one variant field can be set.
-	// Update model for players.
+	// This field is a request body variant, only one variant field can be set. Update
+	// model for players.
 	OfPlayerUpdate *TeamMemberUpdateParamsUpdatesPlayerUpdate `json:",inline"`
-	// This field is a request body variant, only one variant field can be set.
-	// Update model for coaches.
+	// This field is a request body variant, only one variant field can be set. Update
+	// model for coaches.
 	OfCoachUpdate *TeamMemberUpdateParamsUpdatesCoachUpdate `json:",inline"`
-	// This field is a request body variant, only one variant field can be set.
-	// Update model for medical staff.
+	// This field is a request body variant, only one variant field can be set. Update
+	// model for medical staff.
 	OfMedicalStaffUpdate *TeamMemberUpdateParamsUpdatesMedicalStaffUpdate `json:",inline"`
-	// This field is a request body variant, only one variant field can be set.
-	// Update model for equipment managers.
+	// This field is a request body variant, only one variant field can be set. Update
+	// model for equipment managers.
 	OfEquipmentManagerUpdate *TeamMemberUpdateParamsUpdatesEquipmentManagerUpdate `json:",inline"`
 
 	paramObj
@@ -1218,7 +1257,8 @@ type TeamMemberUpdateParamsUpdatesCoachUpdate struct {
 	Certifications []string           `json:"certifications,omitzero"`
 	// Coaching specialties.
 	//
-	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach", "tactical_analyst".
+	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach",
+	// "tactical_analyst".
 	Specialty CoachSpecialty `json:"specialty,omitzero"`
 	paramObj
 }
@@ -1239,7 +1279,8 @@ type TeamMemberUpdateParamsUpdatesMedicalStaffUpdate struct {
 	Qualifications []string          `json:"qualifications,omitzero"`
 	// Medical staff specialties.
 	//
-	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist", "massage_therapist".
+	// Any of "team_doctor", "physiotherapist", "sports_psychologist", "nutritionist",
+	// "massage_therapist".
 	Specialty MedicalSpecialty `json:"specialty,omitzero"`
 	paramObj
 }
@@ -1310,12 +1351,14 @@ type TeamMemberListCoachesParams struct {
 	Skip param.Opt[int64] `query:"skip,omitzero" json:"-"`
 	// Filter by specialty
 	//
-	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach", "tactical_analyst".
+	// Any of "head_coach", "assistant_coach", "goalkeeping_coach", "fitness_coach",
+	// "tactical_analyst".
 	Specialty CoachSpecialty `query:"specialty,omitzero" json:"-"`
 	paramObj
 }
 
-// URLQuery serializes [TeamMemberListCoachesParams]'s query parameters as `url.Values`.
+// URLQuery serializes [TeamMemberListCoachesParams]'s query parameters as
+// `url.Values`.
 func (r TeamMemberListCoachesParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
@@ -1337,7 +1380,8 @@ type TeamMemberListPlayersParams struct {
 	paramObj
 }
 
-// URLQuery serializes [TeamMemberListPlayersParams]'s query parameters as `url.Values`.
+// URLQuery serializes [TeamMemberListPlayersParams]'s query parameters as
+// `url.Values`.
 func (r TeamMemberListPlayersParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
@@ -1355,7 +1399,8 @@ type TeamMemberListStaffParams struct {
 	paramObj
 }
 
-// URLQuery serializes [TeamMemberListStaffParams]'s query parameters as `url.Values`.
+// URLQuery serializes [TeamMemberListStaffParams]'s query parameters as
+// `url.Values`.
 func (r TeamMemberListStaffParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
