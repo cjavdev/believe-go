@@ -1,5 +1,51 @@
 # Changelog
 
+<<<<<<< HEAD
+=======
+## 0.11.1 (2026-05-01)
+
+Full Changelog: [v0.11.0...v0.11.1](https://github.com/cjavdev/believe-go/compare/v0.11.0...v0.11.1)
+
+### Chores
+
+* avoid embedding reflect.Type for dead code elimination ([6d8f51e](https://github.com/cjavdev/believe-go/commit/6d8f51e0e1447f211b652085e0a36476f1e4c5e8))
+
+## 0.11.0 (2026-04-28)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/cjavdev/believe-go/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **go:** add default http client with timeout ([4cbb7b8](https://github.com/cjavdev/believe-go/commit/4cbb7b8161ead836bb32914b53751553559c8ace))
+* support setting headers via env ([9aeb554](https://github.com/cjavdev/believe-go/commit/9aeb554268e211b49e63bca3629dea010b988cc3))
+
+## 0.10.0 (2026-04-27)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/cjavdev/believe-go/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** manual updates ([7608389](https://github.com/cjavdev/believe-go/commit/7608389f6e46fbc1dcd0297e32205ab0463f752a))
+* **api:** manual updates ([5cf7ea8](https://github.com/cjavdev/believe-go/commit/5cf7ea8ecd2b4bee704883f9152ceeec7a4fd789))
+
+## 0.9.0 (2026-04-24)
+
+Full Changelog: [v0.8.1...v0.9.0](https://github.com/cjavdev/believe-go/compare/v0.8.1...v0.9.0)
+
+### Features
+
+* **api:** manual updates ([bbf1dbb](https://github.com/cjavdev/believe-go/commit/bbf1dbb16351bbe862ccd55cc1f6c5c753a80f6a))
+* **api:** manual updates ([c1123d9](https://github.com/cjavdev/believe-go/commit/c1123d9ac11fb795fd56e56c36ac498f9a3d70df))
+
+## 0.8.1 (2026-04-23)
+
+Full Changelog: [v0.8.0...v0.8.1](https://github.com/cjavdev/believe-go/compare/v0.8.0...v0.8.1)
+
+### Chores
+
+* **internal:** more robust bootstrap script ([f7dabef](https://github.com/cjavdev/believe-go/commit/f7dabef61b9072c8dc9de0a30b86dfe6e92bb46f))
+
+>>>>>>> 5749948 (Apply custom code)
 ## 0.8.0 (2026-04-22)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/cjavdev/believe-go/compare/v0.7.0...v0.8.0)
