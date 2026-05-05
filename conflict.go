@@ -51,7 +51,7 @@ type ConflictResolveResponse struct {
 	Diagnosis string `json:"diagnosis" api:"required"`
 	// Advice from the Diamond Dogs support group
 	DiamondDogsAdvice string `json:"diamond_dogs_advice" api:"required"`
-	// What resolution could look like
+	// What resolution could look like if successful
 	PotentialOutcome string `json:"potential_outcome" api:"required"`
 	// Concrete steps to resolve the conflict
 	StepsToResolution []string `json:"steps_to_resolution" api:"required"`
