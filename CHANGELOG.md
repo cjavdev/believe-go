@@ -1,7 +1,5 @@
 # Changelog
 
-<<<<<<< HEAD
-=======
 ## 0.11.1 (2026-05-01)
 
 Full Changelog: [v0.11.0...v0.11.1](https://github.com/cjavdev/believe-go/compare/v0.11.0...v0.11.1)
@@ -45,7 +43,6 @@ Full Changelog: [v0.8.0...v0.8.1](https://github.com/cjavdev/believe-go/compare/
 
 * **internal:** more robust bootstrap script ([f7dabef](https://github.com/cjavdev/believe-go/commit/f7dabef61b9072c8dc9de0a30b86dfe6e92bb46f))
 
->>>>>>> f9c32d3 (Apply custom code)
 ## 0.8.0 (2026-04-22)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/cjavdev/believe-go/compare/v0.7.0...v0.8.0)
