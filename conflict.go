@@ -49,7 +49,7 @@ type ConflictResolveResponse struct {
 	BarbecueSauceWisdom string `json:"barbecue_sauce_wisdom" api:"required"`
 	// Understanding the root cause
 	Diagnosis string `json:"diagnosis" api:"required"`
-	// Advice from the Diamond Dogs support group
+	// Advice from the Diamond Dogs support groups
 	DiamondDogsAdvice string `json:"diamond_dogs_advice" api:"required"`
 	// What resolution could look like if successful
 	PotentialOutcome string `json:"potential_outcome" api:"required"`
