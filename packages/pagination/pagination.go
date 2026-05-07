@@ -41,9 +41,7 @@ func (r *SkipLimitPage[T]) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// GetNextPage returns the next page as defined by this pagination style. When
-// there is no next page, this function will return a 'nil' for the page value, but
-// will not return an error
+// GetNextPage returns the next page as defined by this pagination style. When there is no next page, this function will return a 'nil' for the page value, but will not return an error
 func (r *SkipLimitPage[T]) GetNextPage() (res *SkipLimitPage[T], err error) {
 	if len(r.Data) == 0 {
 		return nil, nil

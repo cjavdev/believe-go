@@ -80,7 +80,7 @@ type decoderField struct {
 }
 
 type decoderEntry struct {
-	typ        reflect.Type
+	reflect.Type
 	dateFormat string
 	root       bool
 }
@@ -108,7 +108,7 @@ func (d *decoderBuilder) unmarshalWithExactness(raw []byte, to any) (exactness, 
 
 func (d *decoderBuilder) typeDecoder(t reflect.Type) decoderFunc {
 	entry := decoderEntry{
-		typ:        t,
+		Type:       t,
 		dateFormat: d.dateFormat,
 		root:       d.root,
 	}

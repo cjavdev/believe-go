@@ -16,19 +16,14 @@ import (
 
 // Interactive endpoints for motivation and guidance
 //
-// PressService contains methods and other services that help with interacting with
-// the believe API.
+// PressService contains methods and other services that help with interacting with the believe API.
 //
-// Note, unlike clients, this service does not read variables from the environment
-// automatically. You should not instantiate this service directly, and instead use
-// the [NewPressService] method instead.
+// Note, unlike clients, this service does not read variables from the environment automatically. You should not instantiate this service directly, and instead use the [NewPressService] method instead.
 type PressService struct {
 	Options []option.RequestOption
 }
 
-// NewPressService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
+// NewPressService generates a new service that applies the given options to each request. These options are applied after the parent client's options (if there is one), and before any request-specific options.
 func NewPressService(opts ...option.RequestOption) (r PressService) {
 	r = PressService{}
 	r.Options = opts
