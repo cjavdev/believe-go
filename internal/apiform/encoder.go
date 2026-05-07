@@ -58,7 +58,7 @@ type encoderField struct {
 }
 
 type encoderEntry struct {
-	typ        reflect.Type
+	reflect.Type
 	dateFormat string
 	arrayFmt   string
 	root       bool
@@ -76,7 +76,7 @@ func (e *encoder) marshal(value any, writer *multipart.Writer) error {
 
 func (e *encoder) typeEncoder(t reflect.Type) encoderFunc {
 	entry := encoderEntry{
-		typ:        t,
+		Type:       t,
 		dateFormat: e.dateFormat,
 		arrayFmt:   e.arrayFmt,
 		root:       e.root,

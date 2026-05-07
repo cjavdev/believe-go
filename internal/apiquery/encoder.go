@@ -29,7 +29,7 @@ type encoderField struct {
 }
 
 type encoderEntry struct {
-	typ        reflect.Type
+	reflect.Type
 	dateFormat string
 	root       bool
 	settings   QuerySettings
@@ -42,7 +42,7 @@ type Pair struct {
 
 func (e *encoder) typeEncoder(t reflect.Type) encoderFunc {
 	entry := encoderEntry{
-		typ:        t,
+		Type:       t,
 		dateFormat: e.dateFormat,
 		root:       e.root,
 		settings:   e.settings,
