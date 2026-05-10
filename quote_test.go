@@ -36,6 +36,7 @@ func TestQuoteNewWithOptionalParams(t *testing.T) {
 		IsFunny:         believe.Bool(false),
 		IsInspirational: believe.Bool(true),
 		PopularityScore: believe.Float(98.5),
+		Season:          believe.Int(1),
 		SecondaryThemes: []believe.QuoteTheme{believe.QuoteThemeLeadership, believe.QuoteThemeTeamwork},
 		TimesShared:     believe.Int(250000),
 	})
@@ -95,6 +96,7 @@ func TestQuoteUpdateWithOptionalParams(t *testing.T) {
 			IsInspirational: believe.Bool(true),
 			MomentType:      believe.QuoteMomentHalftimeSpeech,
 			PopularityScore: believe.Float(0),
+			Season:          believe.Int(1),
 			SecondaryThemes: []believe.QuoteTheme{believe.QuoteThemeBelief},
 			Text:            believe.String("x"),
 			Theme:           believe.QuoteThemeBelief,
