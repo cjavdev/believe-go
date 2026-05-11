@@ -230,6 +230,8 @@ type Quote struct {
 	IsInspirational bool `json:"is_inspirational"`
 	// Popularity/virality score (0-100)
 	PopularityScore float64 `json:"popularity_score" api:"nullable"`
+	// Season number (1-3) when the quote occurred
+	Season int64 `json:"season" api:"nullable"`
 	// Additional themes
 	SecondaryThemes []QuoteTheme `json:"secondary_themes"`
 	// Number of times shared on social media
@@ -246,6 +248,7 @@ type Quote struct {
 		IsFunny         respjson.Field
 		IsInspirational respjson.Field
 		PopularityScore respjson.Field
+		Season          respjson.Field
 		SecondaryThemes respjson.Field
 		TimesShared     respjson.Field
 		ExtraFields     map[string]respjson.Field
@@ -339,6 +342,8 @@ type QuoteNewParams struct {
 	EpisodeID param.Opt[string] `json:"episode_id,omitzero"`
 	// Popularity/virality score (0-100)
 	PopularityScore param.Opt[float64] `json:"popularity_score,omitzero"`
+	// Season number (1-3) when the quote occurred
+	Season param.Opt[int64] `json:"season,omitzero"`
 	// Number of times shared on social media
 	TimesShared param.Opt[int64] `json:"times_shared,omitzero"`
 	// Whether this quote is humorous
@@ -365,6 +370,7 @@ type QuoteUpdateParams struct {
 	IsFunny         param.Opt[bool]    `json:"is_funny,omitzero"`
 	IsInspirational param.Opt[bool]    `json:"is_inspirational,omitzero"`
 	PopularityScore param.Opt[float64] `json:"popularity_score,omitzero"`
+	Season          param.Opt[int64]   `json:"season,omitzero"`
 	Text            param.Opt[string]  `json:"text,omitzero"`
 	TimesShared     param.Opt[int64]   `json:"times_shared,omitzero"`
 	SecondaryThemes []QuoteTheme       `json:"secondary_themes,omitzero"`
