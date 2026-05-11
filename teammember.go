@@ -415,7 +415,7 @@ type Player struct {
 	CharacterID string `json:"character_id" api:"required"`
 	// Jersey/shirt number
 	JerseyNumber int64 `json:"jersey_number" api:"required"`
-	// Playing position on the field
+	// Players position on the field
 	//
 	// Any of "goalkeeper", "defender", "midfielder", "forward".
 	Position Position `json:"position" api:"required"`
@@ -1047,7 +1047,7 @@ type TeamMemberNewParamsMemberPlayer struct {
 	CharacterID string `json:"character_id" api:"required"`
 	// Jersey/shirt number
 	JerseyNumber int64 `json:"jersey_number" api:"required"`
-	// Playing position on the field
+	// Players position on the field
 	//
 	// Any of "goalkeeper", "defender", "midfielder", "forward".
 	Position Position `json:"position,omitzero" api:"required"`
